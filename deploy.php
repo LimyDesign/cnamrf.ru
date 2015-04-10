@@ -50,7 +50,7 @@ function run() {
 			}
 		}
 	} else {
-		throw new Exception("This does not appear to be a valid requests from Github.\n", 2);
+		throw new Exception("This does not appear to be a valid requests from Github. Webhook from IP: " . $_SERVER['REMOTE_ADDR'], 2);
 	}
 }
 

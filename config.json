@@ -7,6 +7,6 @@
 		"repo": "LimyDesign/cnamrf.ru",
 		"branch": "master",
 		"action": "something has been changed on the server",
-		"run": "/home/cnamrf.ru/www/deploy.sh"
+		"run": "git pull"
 		}]
 }

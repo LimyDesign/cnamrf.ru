@@ -117,6 +117,11 @@
 
 				$.scrollzer(ids, { pad: 200, lastHack: true });
 
+		// Contact form
+		$('#contact').submit(function(e) {
+			e.preventDefault();
+		});
+
 	});
 
 })(jQuery);

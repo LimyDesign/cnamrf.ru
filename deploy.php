@@ -51,7 +51,7 @@ function run() {
 					$body .= '</ul><p>What follows is the output of the script:</p><pre>'.$output.'</pre><p>Cheers, <br/>Github Webhook Endpoint</p>';
 					mail($config['email']['to'], $endpoint['action'], $body, $headers);
 				}
-				return true;
+				return $output;
 			}
 		}
 	} else {
@@ -99,9 +99,8 @@ function ipv4Breakout ($ip_address, $ip_nmask) {
 try {
 	if (!isset($_POST['payload'])) {
 		echo "Works fine.";
-		// echo '<form method="POST"><textarea name="payload"></textarea><input type="submit"></form>';
 	} else {
-		run();
+		echo run();
 	}
 } catch ( Exception $e ) {
 	$msg = $e->getMessage();

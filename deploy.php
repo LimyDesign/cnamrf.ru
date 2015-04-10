@@ -37,7 +37,8 @@ function run() {
 				// execute update script, and record its output
 				ob_start();
 				passthru($endpoint['run']);
-				$output = ob_end_contents();
+				$output = ob_get_contents();
+				ob_end_clean();
 
 				// prepare and send the notification email
 				if (isset($config['email']))

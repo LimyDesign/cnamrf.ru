@@ -46,7 +46,7 @@ function run() {
 					// send mail to someone, and the github user who pushed the commit
 					$body = '<p>The Github user <a href="https://github.com/' . $payload->pusher->name . '">@' . $payload->pusher->name . '</a> has pushed to ' . $payload->repository->url . ' and consquently, ' . $endpoint['action'] . '</p><p>Here\'s a brief list of what has been changed:</p><ul>';
 					foreach ($payload->commits as $commit) {
-						$body .= '<li>'.$commit->message.'<br/><small style="color:#999">added: <b>'.count($commit->added).'</b> &nbsp; modified: <b>'.count($commit->modified).'</b> &nbsp; removed: <b>'.count($commit->removed).'</b> &nbsp; <a href="'.$commit->url.'">read more</a><small></li>';
+						$body .= '<li>'.$commit->message.'<br/><small style="color:#999">added: <b>'.count($commit->added).'</b> &nbsp; modified: <b>'.count($commit->modified).'</b> &nbsp; removed: <b>'.count($commit->removed).'</b> &nbsp; <a href="'.$commit->url.'">read more</a></small></li>';
 					}
 					$body .= '</ul><p>What follows is the output of the script:</p><pre>'.$output.'</pre><p>Cheers, <br/>Github Webhook Endpoint</p>';
 					mail($config['email']['to'], $endpoint['action'], $body, $headers);

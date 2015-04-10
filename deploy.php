@@ -98,6 +98,7 @@ function ipv4Breakout ($ip_address, $ip_nmask) {
 try {
 	if (!isset($_POST['payload'])) {
 		echo "Works fine.";
+		echo '<form method="POST"><textarea name="payload"></textarea><input type="submit"></form>';
 	} else {
 		run();
 	}

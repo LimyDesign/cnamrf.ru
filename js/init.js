@@ -118,8 +118,10 @@
 				$.scrollzer(ids, { pad: 200, lastHack: true });
 
 		// Contact form
-		$('#contact').submit(function(e) {
+		$('form#contact').submit(function(e) {
 			e.preventDefault();
+			$(this).slideUp(400);
+			$('#success').slideDown('400');
 		});
 
 	});

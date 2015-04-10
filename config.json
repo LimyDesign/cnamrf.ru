@@ -1,0 +1,12 @@
+{
+	"email": {
+		"from": "github-hook@cnamrf.ru",
+		"to": "me@arsen.pw"
+	},
+	"endpoints": [{
+		"repo": "LimyDesign/cnamrf.ru",
+		"branch": "master",
+		"action": "something has been changed on the server",
+		"run": "/home/cnamrf.ru/www/deploy.sh"
+		}]
+}

@@ -19,13 +19,13 @@
 		<div class="container">
 			<form action="" class="form-signin">
 				<h2 class="form-signin-heading">Авторизация в системе CNAM РФ</h2>
-				<p>Войти/зарегистрироваться через:</p>
-				<a href="#." class="btn btn-lg btn-facebook btn-block">Facebook</a>
-				<a href="#." class="btn btn-lg btn-vkontakte btn-block">Вконтакте</a>
-				<a href="#." class="btn btn-lg btn-google-plus btn-block">Google+</a>
-				<a href="#." class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
-				<a href="#." class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
-				<a href="#." class="btn btn-lg btn-yandex btn-block">Яндекс</a>
+				<p class="lead">Войти/зарегистрироваться через:</p>
+				<a href="{{ provider.facebook }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
+				<a href="{{ provider.vkontakte }}" class="btn btn-lg btn-vkontakte btn-block">Вконтакте</a>
+				<a href="{{ provider.google-plus }}" class="btn btn-lg btn-google-plus btn-block">Google+</a>
+				<a href="{{ provider.odnoklassniki }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
+				<a href="{{ provider.mailru }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
+				<a href="{{ provider.yandex }}" class="btn btn-lg btn-yandex btn-block">Яндекс</a>
 			</form>
 		</div>
 	</body>

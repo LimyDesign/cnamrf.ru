@@ -13,11 +13,16 @@ $twig = new Twig_Environment($loader, array(
 
 if ($_SESSION['auth'] == 'true') 
 {
-	// $cabinet->dashboard();
 }
 else
 {
-	echo $twig->render('auth.html', array('name' => 'Монголоид'));
-	// $cabinet->auth();
+	$provider = array(
+		'facebook' => '',
+		'vkontakte'=>'',
+		'google-plus'=>'',
+		'odnoklassniki'=>'',
+		'mailru'=>'',
+		'yandex'=>'');
+	echo $twig->render('auth.html', array('provider' => $prodiver));
 }
 ?>

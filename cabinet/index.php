@@ -27,8 +27,8 @@ else
 
 function login_query ($provider) {
 	if ($provider == 'facebook') {
-		return rawurlencode('client_id=' . $client_id[$provider] . 
-			'&scope=email&redirect_uri=http://' . $_SERVER['SERVER_NAME'] .
+		return 'client_id=' . $client_id[$provider] . 
+			'&scope=email&redirect_uri='. rawurlencode('http://' . $_SERVER['SERVER_NAME']) .
 			'response_type=code');
 	}
 }

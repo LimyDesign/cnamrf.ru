@@ -2,7 +2,7 @@
 
 namespace ld\cnamrf;
 
-class cabinet
+class cabinet extends Twig
 {
 	public function auth() {
 		echo "FUUU!";

@@ -20,6 +20,10 @@ spl_autoload_register(function ($class) {
 });
 
 $cabinet = new ld\cnamrf\cabinet;
+$loader = new Twig_Loader_Filesystem(__DIR__.'/tempaltes');
+$twig = new Twig_Environment($loader, array(
+	'cache' => __DIR__.'/cache',
+));
 
 if ($_SESSION['auth'] == 'true') 
 {
@@ -27,6 +31,7 @@ if ($_SESSION['auth'] == 'true')
 }
 else
 {
-	$cabinet->auth();
+	echo $twig->render('auth.html', array('name' => 'Монголоид'));
+	// $cabinet->auth();
 }
 ?>

@@ -16,13 +16,12 @@ if ($_SESSION['auth'] == 'true')
 }
 else
 {
-	$provider = array(
-		'facebook' => '#facebook',
-		'vkontakte'=>'#vkontakte',
-		'google-plus'=>'#google-plus',
-		'odnoklassniki'=>'#odnoklassniki',
-		'mailru'=>'#mailru',
-		'yandex'=>'#yandex');
-	echo $twig->render('auth.html', array('provider' => $prodiver));
+	echo $twig->render('auth.html', array(
+		'fb_link' => '#facebook',
+		'vk_link' => '#vkontakte',
+		'gp_link' => '#google-plus',
+		'ok_link' => '#odnoklassniki',
+		'mr_link' => '#mailru',
+		'ya_link' => '#yandex'));
 }
 ?>

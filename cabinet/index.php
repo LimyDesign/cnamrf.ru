@@ -1,6 +1,7 @@
 <?php
 session_start();
-use LD\cnamrf\Cabinet;
+use LD\cnamrf\Cabinet as Cabinet;
+$cabinet = new Cabinet;
 
 if ($_SESSION['auth'] == 'true') 
 {

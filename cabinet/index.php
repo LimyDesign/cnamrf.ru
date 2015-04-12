@@ -29,7 +29,7 @@ function login_query ($provider) {
 	if ($provider == 'facebook') {
 		return rawurlencode('client_id=' . $client_id[$provider] . 
 			'&scope=email&redirect_uri=http://' . $_SERVER['SERVER_NAME'] .
-			'response_type=code')
+			'response_type=code');
 	}
 }
 ?>

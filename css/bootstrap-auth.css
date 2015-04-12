@@ -42,3 +42,6 @@ body {
   background: #3b5998;
   color: #fff;
 }
+.form-signin .btn-facebook:hover {
+  background: #21396b;
+}

@@ -1,25 +1,10 @@
 <?php
+// стартуем сесиию, нахуй!
 session_start();
 
 // автозагрузчик классов
-// spl_autoload_register(function ($class) {
-// 	$prefix = 'ld\\cnamrf\\';
-// 	$basedir = __DIR__ . '/src/';
-// 	$len = strlen($prefix);
+require_once __DIR__.'/src/vendor/autoload.php';
 
-// 	if (strncmp($prefix, $class, $len) !== 0) {
-// 		return;
-// 	}
-
-// 	$relative_class = substr($class, $len);
-// 	$file = $basedir . str_replace('\\', '/', $relative_class) . '.php';
-
-// 	if (file_exists($file)) {
-// 		require $file;
-// 	}
-// });
-
-// $cabinet = new ld\cnamrf\cabinet;
 $loader = new Twig_Loader_Filesystem(__DIR__.'/tempaltes');
 $twig = new Twig_Environment($loader, array(
 	'cache' => __DIR__.'/cache',
@@ -27,7 +12,7 @@ $twig = new Twig_Environment($loader, array(
 
 if ($_SESSION['auth'] == 'true') 
 {
-	$cabinet->dashboard();
+	// $cabinet->dashboard();
 }
 else
 {

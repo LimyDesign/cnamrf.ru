@@ -28,7 +28,7 @@ else
 function login_query ($provider) {
 	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider);
 	if ($provider == 'facebook') {
-		return 'client_id='.$client_id[$provider].'&scope=email&redirect_uri='.$redirect_uri.'response_type=code';
+		return 'client_id='.$client_id[$provider].'&scope=email&redirect_uri='.$redirect_uri.'&response_type=code';
 	}
 }
 ?>

@@ -45,3 +45,38 @@ body {
 .form-signin .btn-facebook:hover {
   background: #21396b;
 }
+.form-signin .btn-vkontakte {
+  background: #597da3;
+  color: #fff;
+}
+.form-signin .btn-vkontakte:hover {
+  background: #476482;
+}
+.form-signin .btn-odnoklassniki {
+  background: #eb722e;
+  color: #fff;
+}
+.form-signin .btn-odnoklassniki:hover {
+  background: #b84819;
+}
+.form-signin .btn-google-plus {
+  background: #cc3732;
+  color: #fff;
+}
+.form-signin .btn-google-plus:hover {
+  background: #a32c28;
+}
+.form-signin .btn-mailru {
+  background: #168de2;
+  color: #fff;
+}
+.form-signin .btn-mailru:hover {
+  background: #1170b4;
+}
+.form-signin .btn-yandex {
+  background: #fdcc01;
+  color: #000;
+}
+.form-signin .btn-yandex:hover {
+  background: #caa301;
+}

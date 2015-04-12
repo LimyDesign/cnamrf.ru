@@ -17,12 +17,12 @@ if ($_SESSION['auth'] == 'true')
 else
 {
 	$provider = array(
-		'facebook' => '',
-		'vkontakte'=>'',
-		'google-plus'=>'',
-		'odnoklassniki'=>'',
-		'mailru'=>'',
-		'yandex'=>'');
+		'facebook' => '#facebook',
+		'vkontakte'=>'#vkontakte',
+		'google-plus'=>'#google-plus',
+		'odnoklassniki'=>'#odnoklassniki',
+		'mailru'=>'#mailru',
+		'yandex'=>'#yandex');
 	echo $twig->render('auth.html', array('provider' => $prodiver));
 }
 ?>

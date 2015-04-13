@@ -139,7 +139,7 @@ ol.progtrckr li.progtrckr-done:before {
 	font-family: "FontAwesome";
     content: "\f058";
     color: #9acd32;
-    /*background-color: #9acd32;*/
+    background-color: #fff;
     font-size: 1.5em;
     bottom: -1.6em;
 }

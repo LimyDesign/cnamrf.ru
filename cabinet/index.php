@@ -115,7 +115,7 @@ function auth_db ($id, $email, $provider) {
 
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) od die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = 'SELECT * FROM users WHERE '.$pr.' = '.$id;
 		$result = pg_query($query);
 		if (pg_num_rows($result) != 1) 

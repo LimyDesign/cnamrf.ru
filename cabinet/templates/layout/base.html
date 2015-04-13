@@ -40,10 +40,18 @@
 			<div class="row">
 				<div class="col-sm-3 col-md-2 sidebar">
 					<ul class="nav nav-sidebar">
-						<li class="active"><a href="/cabinet/dashboard/">Общие данные</a></li>
-						<li><a href="/cabinet/tariff/">Тарифный план</a></li>
-						<li><a href="/cabinet/balans/">Пополнение баланса</a></li>
-						<li><a href="/cabinet/profile/">Управление аккаунтом</a></li>
+						<li{% if dashboard_active %} class="active"{% endif %}>
+							<a href="/cabinet/dashboard/">Общие данные</a>
+						</li>
+						<li{% if tariff_active %} class="active"{% endif %}>
+							<a href="/cabinet/tariff/">Тарифный план</a>
+						</li>
+						<li{% if balans_active %} class="active"{% endif %}>
+							<a href="/cabinet/balans/">Пополнение баланса</a>
+						</li>
+						<li{% if profile_active %} class="active"{% endif %}>
+							<a href="/cabinet/profile/">Управление аккаунтом</a>
+						</li>
 					</ul>
 					<ul class="nav nav-sidebar">
 						<li><a href="/cabinet/key/">Ключ доступа</a></li>

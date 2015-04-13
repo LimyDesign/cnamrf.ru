@@ -28,8 +28,9 @@ switch ($cmd[0]) {
 		break;
 }
 
-if ($_SESSION['auth'] == 'true') 
+if ($_SESSION['auth'] === true) 
 {
+	echo $_SESSION['userid'];
 }
 else
 {
@@ -78,18 +79,57 @@ function auth ($provider) {
 			'code' => $_GET['code'],
 			'redirect_uri' => $redirect_uri
 		));
-		echo "<pre>";
-		echo var_dump($data);
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
 		parse_str($response = curl_exec($curl));
-		echo $response;
-		echo var_dump($access_token);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/me?access_token='.$access_token);
-		$response = curl_exec($curl);
-		echo var_dump($response);
-		echo "</pre>";
+		$res = json_decode(curl_exec($curl));
+		auth_db($res->id, $res->email, $provider);
+	}
+}
+
+function auth_db ($id, $email, $provider) {
+	global $conf;
+
+	switch ($provider) {
+		case 'facebook':
+			$pr = 'fb';
+			break;
+		case 'vkontakte':
+			$pr = 'vk';
+			break;
+		case 'google-plus':
+			$pr = 'gp';
+			break;
+		case 'odnoklassniki':
+			$pr = 'ok';
+			break;
+		case 'mailru':
+			$pr = 'mr';
+			break;
+		case 'yandex':
+			$pr = 'ya';
+			break;
+	}
+
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) od die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = 'SELECT * FROM users WHERE '.$pr.' = '.$id;
+		$result = pg_query($query);
+		if (pg_num_rows($result) != 1) 
+		{
+			$query = "INSERT INTO users (email, {$pr}) VALUES ('{$email}', '{$id}') RETURNING id";
+			$result = pg_query($query);
+			$userid = pg_fetch_result($result, 0, 0);
+		}
+		else
+		{
+			$userid = pg_fetch_result($result, 0, 'id');
+		}
+		$_SESSION['userid'] = $userid;
+		$_SESSION['auth'] = true;
 	}
 }
 ?>

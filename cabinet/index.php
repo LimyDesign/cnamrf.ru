@@ -18,6 +18,7 @@ if ($_SESSION['auth'] == 'true')
 }
 else
 {
+	var_dump($conf);
 	echo $twig->render('auth.html', array(
 		'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
 		'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
@@ -42,9 +43,9 @@ function login_query ($provider) {
 	} elseif ($provider == 'odnoklassniki') {
 		return 'client_id='.$conf->provider->odnoklassniki->CLIENT_ID.'&scope=GET_EMAIL&response_type=code&redirect_uri='.$redirect_uri.'&state='.$state;
 	} elseif ($provider == 'mailru') {
-		return 'client_id'.$conf->provider->mailru->CLIENT_ID.'&response_type=code&redirect_uri='.$redirect_uri;
+		return 'client_id='.$conf->provider->mailru->CLIENT_ID.'&response_type=code&redirect_uri='.$redirect_uri;
 	} elseif ($provider == 'yandex') {
-		return 'client_id'.$conf->provider->yandex->CLIENT_ID.'&response_type=code&state='.$state;
+		return 'client_id='.$conf->provider->yandex->CLIENT_ID.'&response_type=code&state='.$state;
 	}
 }
 ?>

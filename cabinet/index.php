@@ -170,7 +170,8 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_URL, 'http://www.appsmail.ru/platform/api?'.$data);
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
-		echo "<pre>"; var_dump($res); echo "</pre>";
+		auth_db($res->uid, $res->email, $provider);
+		// echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

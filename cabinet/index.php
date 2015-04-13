@@ -102,7 +102,19 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_URL, 'https://oauth.vk.com/access_token?'.$data);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->user_id, $res->email, $provider);
-		// echo "<pre>"; var_dump($res); echo "</pre>";
+	} elseif ($provider == 'google-plus') {
+		$data =  http_build_query(array(
+			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'client_secret' => $conf['provider'][$provider]['CLIENT_SECRET'],
+			'code' => $_GET['code'],
+			'redirect_uri' => $redirect_uri,
+			'grant_type' => 'authorization_code'
+		));
+		curl_setopt($curl, CURLOPT_URL, 'https://accounts.google.com/o/oauth2/token');
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		$res = json_decode(curl_exec($curl));
+		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

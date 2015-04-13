@@ -69,6 +69,7 @@ function login_query ($provider) {
 }
 
 function auth ($provider) {
+	echo var_dump($_GET['code']);
 	if ($provider == 'facebook') {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);

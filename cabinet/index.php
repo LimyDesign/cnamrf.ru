@@ -52,7 +52,7 @@ if ($_SESSION['auth'] === true)
 			echo $twig->render('profile.html');
 			break;
 		default:
-			echo $twig->render('dashboard.html');
+			echo $twig->render('dashboard.html', array('active' => ''));
 			break;
 	}
 }

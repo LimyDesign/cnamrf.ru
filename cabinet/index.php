@@ -118,6 +118,18 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->id, $res->email, $provider);
+	} elseif ($provider == 'odnoklassniki') {
+		$data = http_build_query(array(
+			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'client_secret' => $conf['provider'][$provider]['SECRET_KEY'],
+			'code' => $_GET['code'],
+			'redirect_uri' => $redirect_uri,
+			'grant_type' => 'authorization_code'
+		));
+		curl_setopt($curl, CURLOPT_URL, 'https://api.odnoklassniki.ru/oauth/token.do');
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		$res = json_decode(curl_exec($curl));
 		// echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }

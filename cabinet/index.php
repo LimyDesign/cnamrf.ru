@@ -146,7 +146,31 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->uid, $res->email, $provider);
-		// echo "<pre>"; var_dump($res); echo "</pre>";
+	} elseif ($provider == 'mailru') {
+		$data = http_build_query(array(
+			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'client_secret' => $conf['provider'][$provider]['SECRET_KEY'],
+			'code' => $_GET['code'],
+			'redirect_uri' => $redirect_uri,
+			'grant_type' => 'authorization_code'
+		));
+		curl_setopt($curl, CURLOPT_URL, 'https://connect.mail.ru/oauth/token');
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		$res = json_decode(curl_exec($curl));
+		$sig = 'app_id='.$conf['provider'][$provider]['CLIENT_ID'].'method=users.getInfosecure=1session_key='.$res->access_token.$conf['provider'][$provider]['SECRET_KEY'];
+		$md5_sig = md5($sig);
+		$data = http_build_query(array(
+			'app_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'method' => 'users.getInfo',
+			'secure' => 1,
+			'session_key' => $res->access_token,
+			'sig' => $md5_sig
+		));
+		curl_setopt($curl, CURLOPT_URL, 'http://www.appsmail.ru/platform/api?'.$data);
+		curl_setopt($curl, CURLOPT_POST, false);
+		$res = json_decode(curl_exec($curl));
+		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

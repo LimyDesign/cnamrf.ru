@@ -58,7 +58,9 @@ function login_query ($provider) {
 	}
 	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
 	if ($_SESSION['state']) 
+	{
 		$state = $_SESSION['state'];
+	}
 	else
 	{
 		$state = sha1($_SERVER['HTTP_USER_AGENT'].time());

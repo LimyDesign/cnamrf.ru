@@ -36,8 +36,7 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	echo $_SESSION['userid'];
-	echo "<a href=/cabinet/logout>Logout</a>";
+	echo $twig->render('dashboard.html');
 }
 else
 {

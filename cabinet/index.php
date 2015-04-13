@@ -26,6 +26,9 @@ switch ($cmd[0]) {
 	case 'auth':
 		auth($cmd[1]);
 		break;
+	case 'dashboard':
+		check_auth();
+		break;
 }
 
 if ($_SESSION['auth'] === true) 
@@ -130,6 +133,12 @@ function auth_db ($id, $email, $provider) {
 		}
 		$_SESSION['userid'] = $userid;
 		$_SESSION['auth'] = true;
+		header("Location: /cabinet/dashboard/");
 	}
+}
+
+function check_auth() {
+	if ($_SESSION['auth'] !== true || $_SESSION['userid'] == 0)
+		header("Location: /cabinet/");
 }
 ?>

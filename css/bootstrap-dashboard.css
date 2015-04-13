@@ -118,7 +118,7 @@ ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
 
 ol.progtrckr li.progtrckr-done {
     color: black;
-    border-bottom: 4px solid yellowgreen;
+    border-bottom: 4px solid #9ACD32;
 }
 ol.progtrckr li.progtrckr-todo {
     color: silver; 
@@ -137,8 +137,8 @@ ol.progtrckr li:before {
 }
 ol.progtrckr li.progtrckr-done:before {
     content: "\2713";
-    color: white;
-    background-color: yellowgreen;
+    color: #fff;
+    background-color: #9ACD32;
     height: 1.2em;
     width: 1.2em;
     line-height: 1.2em;
@@ -147,8 +147,8 @@ ol.progtrckr li.progtrckr-done:before {
 }
 ol.progtrckr li.progtrckr-todo:before {
     content: "\039F";
-    color: silver;
-    background-color: white;
+    color: #708090;
+    background-color: #fff;
     font-size: 1.5em;
     bottom: -1.6em;
 }

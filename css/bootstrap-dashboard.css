@@ -97,7 +97,7 @@ body,input,textarea,select
 ol.progtrckr {
     margin: 0;
     padding: 0;
-    list-style-type none;
+    list-style-type: none;
 }
 
 ol.progtrckr li {
@@ -114,6 +114,15 @@ ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
 ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
 ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
 ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 4px solid yellowgreen;
+}
+ol.progtrckr li.progtrckr-todo {
+    color: silver; 
+    border-bottom: 4px solid silver;
+}
 
 ol.progtrckr li:after {
     content: "\00a0\00a0";

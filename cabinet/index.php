@@ -101,7 +101,8 @@ function auth ($provider) {
 		));
 		curl_setopt($curl, CURLOPT_URL, 'https://oauth.vk.com/access_token?'.$data);
 		$res = json_decode(curl_exec($curl));
-		echo "<pre>"; var_dump($res); echo "</pre>";
+		auth_db($res->user_id, $res->email, $provider);
+		// echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

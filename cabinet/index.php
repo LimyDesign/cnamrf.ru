@@ -49,7 +49,7 @@ function login_query ($provider) {
 	foreach ($conf['provider'] as $key => $value) {
 		$client_id[$key] = $value['CLIENT_ID'];
 	}
-	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider);
+	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
 	$state = sha1($_SERVER['HTTP_USER_AGENT'].time());
 
 	if ($provider == 'facebook') {
@@ -70,8 +70,7 @@ function login_query ($provider) {
 
 function auth ($provider) {
 	global $conf;
-	echo var_dump($provider);
-	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider);
+	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
 	if ($provider == 'facebook') {
 		$data = 'client_id='.$conf['provider'][$provider]['CLIENT_ID'].'&client_secret='.$conf['provider'][$provider]['CLIENT_SECRET'].'&code='.$_GET['code'].'&redirect_uri='.$redirect_uri;
 		$curl = curl_init();

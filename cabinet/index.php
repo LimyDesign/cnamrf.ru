@@ -13,11 +13,21 @@ $twig = new Twig_Environment($loader, array(
 
 $conf = json_decode(file_get_contents(__DIR__.'/config.json'), true);
 
+$requestURI = explode('/',$_SERVER['REQUEST_URI']);
+$scriptName = explode('/',$_SERVER['SCRIPT_NAME']);
+for ($i=0;$i<sizeof($scriptName);$i++)
+{
+	if ($requestURI[$i] == $scriptName[$i])
+		unset($requestURI[$i]);
+}
+$cmd = array_values($requestURI);
+
 if ($_SESSION['auth'] == 'true') 
 {
 }
 else
 {
+	echo "<pre>"; var_dump($cmd); echo "</pre>";
 	echo $twig->render('auth.html', array(
 		'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
 		'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),

@@ -57,7 +57,13 @@ function login_query ($provider) {
 		$client_id[$key] = $value['CLIENT_ID'];
 	}
 	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
-	$state = sha1($_SERVER['HTTP_USER_AGENT'].time());
+	if ($_SESSION['state']) 
+		$state = $_SESSION['state'];
+	else
+	{
+		$state = sha1($_SERVER['HTTP_USER_AGENT'].time());
+		$_SESSION['state'] = $state;
+	}
 
 	if ($provider == 'facebook') {
 		return 'client_id='.$client_id[$provider].'&scope=email&redirect_uri='.$redirect_uri.'&response_type=code';
@@ -171,6 +177,21 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->uid, $res->email, $provider);
+	} elseif ($provider == 'yandex') {
+		$data = http_build_query(array(
+			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'client_secret' => $conf['provider'][$provider]['CLIENT_SECRET'],
+			'code' => $_GET['code'],
+			'grant_type' => 'authorization_code'
+		));
+		curl_setopt($curl, CURLOPT_URL, 'https://oauth.yandex.ru/token');
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		$res = json_decode(curl_exec($curl));
+		curl_setopt($curl, CURLOPT_URL, 'http://login.yandex.ru/info?'.$res->access_token);
+		curl_setopt($curl, CURLOPT_POST, false);
+		$res = json_decode(curl_exec($curl));
+		auth_db($res->id, $res->default_email, $provider);
 		// echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }

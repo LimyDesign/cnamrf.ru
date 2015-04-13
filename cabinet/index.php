@@ -43,15 +43,16 @@ if ($_SESSION['auth'] === true)
 {
 	switch ($cmd[0]) {
 		case 'tariff':
-			echo $twig->render('tariff.html', array(
-				'tariff_active' => true
-			));
+			echo $twig->render('tariff.html');
 			break;
-		
+		case 'balans':
+			echo $twig->render('balans.html');
+			break;
+		case 'profile':
+			echo $twig->render('profile.html');
+			break;
 		default:
-			echo $twig->render('dashboard.html', array(
-				'dashboard_active' => true
-			));
+			echo $twig->render('dashboard.html');
 			break;
 	}
 }

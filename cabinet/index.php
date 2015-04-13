@@ -77,7 +77,7 @@ function auth ($provider) {
 			'client_secret' => $conf['provider'][$provider]['CLIENT_SECRET'],
 			'code' => $_GET['code'],
 			'redirect_uri' => $redirect_uri
-		),'','&',PHP_QUERY_RFC3986);
+		),'','&','PHP_QUERY_RFC3986');
 		echo "<pre>";
 		echo var_dump($data);
 		$curl = curl_init();

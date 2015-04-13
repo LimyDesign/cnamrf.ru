@@ -69,13 +69,15 @@ function login_query ($provider) {
 }
 
 function auth ($provider) {
-	echo var_dump($_GET['code']);
+	global $conf;
+	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider);
 	if ($provider == 'facebook') {
+		$data = 'client_id='.$conf['provider'][$provider]['CLIENT_ID'].'&client_secret='.$conf['provider'][$provider]['CLIENT_SECRET'].'&code='.$_GET['code'].'&redirect_uri='.$redirect_uri;
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($curl);
-		var_dump($response);
+		echo var_dump($response);
 	}
 }
 ?>

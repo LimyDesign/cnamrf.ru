@@ -2,9 +2,16 @@
  * Базовая структура панели управления
  */
 
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400,700,300&subset=latin,cyrillic);
+
 /* Смещаем весь контент вниз на 50 пикселей из-за панели навигации вверху */
 body {
 	padding-top: 50px;
+}
+
+body,input,textarea,select
+{
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 /**

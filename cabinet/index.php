@@ -130,6 +130,21 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		$res = json_decode(curl_exec($curl));
+		$con_param = 'application_key='.$conf['provider'][$provider]['PUBLIC_KEY'].'fields=uid,emailmethod=users.getCurrentUser';
+		$ac_ask = $res->access_token.$conf['provider'][$provider]['SECRET_KEY'];
+		$md5_ac_ask = md5($ac_ask);
+		$sig = $con_param . $md5_ac_ask;
+		$md5_sig = md5($sig);
+		$data = http_build_query(array(
+			'application_key' => $conf['provider'][$provider]['PUBLIC_KEY'],
+			'method' => 'users.getCurrentUser',
+			'access_token' => $res->access_token,
+			'fields' => 'uid,email',
+			'sig' => $md5_sig
+		));
+		curl_setopt($curl, CURLOPT_URL, 'http://api.ok.ru/fb.do?'.$data);
+		curl_setopt($curl, CURLOPT_POST, false);
+		$res = json_decode(curl_exec($curl));
 		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }

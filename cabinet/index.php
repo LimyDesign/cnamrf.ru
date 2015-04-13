@@ -78,6 +78,8 @@ function auth ($provider) {
 			'code' => $_GET['code'],
 			'redirect_uri' => $redirect_uri
 		),'','&',PHP_QUERY_RFC3986);
+		echo "<pre>";
+		echo var_dump($data);
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
@@ -87,6 +89,7 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/me?access_token='.$access_token);
 		$response = curl_exec($curl);
 		echo var_dump($response);
+		echo "</pre>";
 	}
 }
 ?>

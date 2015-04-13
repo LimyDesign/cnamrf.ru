@@ -12,9 +12,8 @@ body {
 body,input,textarea,select
 {
 	font-family: 'Roboto Condensed', sans-serif;
-	font-size: 19pt;
+	font-size: 14pt;
 	font-weight: 300;
-	line-height: 1.75em;
 }
 
 /**

@@ -114,6 +114,9 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		$res = json_decode(curl_exec($curl));
+		curl_setopt($curl, CURLOPT_URL, 'https://www.googleapis.com/oauth2/v1/userinfo?access_token='$res->access_token);
+		curl_setopt($curl, CURLOPT_POST, false);
+		$res = json_decode(curl_exec($curl));
 		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }

@@ -78,6 +78,8 @@ function login_query ($provider) {
 function auth ($provider) {
 	global $conf;
 	$redirect_uri = 'http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/';
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	if ($provider == 'facebook') {
 		$data = http_build_query(array(
 			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
@@ -85,13 +87,21 @@ function auth ($provider) {
 			'code' => $_GET['code'],
 			'redirect_uri' => $redirect_uri
 		));
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
 		parse_str($response = curl_exec($curl));
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/me?access_token='.$access_token);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->id, $res->email, $provider);
+	} elseif ($provider == 'vkontakte') {
+		$data = http_build_query(array(
+			'client_id' => $conf['provider'][$provider]['CLIENT_ID'],
+			'client_secret' => $conf['provider'][$provider]['CLIENT_SECRET'],
+			'code' => $_GET['code'],
+			'redirect_uri' => $redirect_uri
+		));
+		curl_setopt($curl, CURLOPT_URL, 'https://oauth.vk.com/access_token?'.$data);
+		$res = json_decode(curl_exec($curl));
+		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

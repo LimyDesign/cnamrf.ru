@@ -117,12 +117,12 @@ ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
 ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
 
 ol.progtrckr li.progtrckr-done {
-    color: black;
-    border-bottom: 4px solid #9ACD32;
+    color: #fff;
+    border-bottom: 4px solid #9acd32;
 }
 ol.progtrckr li.progtrckr-todo {
-    color: silver; 
-    border-bottom: 4px solid silver;
+    color: #708090; 
+    border-bottom: 4px solid #708090;
 }
 
 ol.progtrckr li:after {

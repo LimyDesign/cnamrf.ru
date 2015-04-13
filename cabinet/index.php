@@ -81,8 +81,8 @@ function auth ($provider) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
-		$response = curl_exec($curl);
-		parse_str($response);
+		parse_str(curl_exec($curl));
+		echo var_dump($access_token);
 		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/me?access_token='.$access_token);
 		$response = curl_exec($curl);
 		echo var_dump($response);

@@ -29,11 +29,15 @@ switch ($cmd[0]) {
 	case 'dashboard':
 		check_auth();
 		break;
+	case 'logout':
+		logout();
+		break;
 }
 
 if ($_SESSION['auth'] === true) 
 {
 	echo $_SESSION['userid'];
+	echo "<a href=/cabinet/logout>Logout</a>";
 }
 else
 {
@@ -140,5 +144,10 @@ function auth_db ($id, $email, $provider) {
 function check_auth() {
 	if ($_SESSION['auth'] !== true || $_SESSION['userid'] == 0)
 		header("Location: /cabinet/");
+}
+
+function logout() {
+	session_destroy();
+	header("Location: /cabinet/");
 }
 ?>

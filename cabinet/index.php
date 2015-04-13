@@ -22,19 +22,26 @@ for ($i=0;$i<sizeof($scriptName);$i++)
 }
 $cmd = array_values($requestURI);
 
+switch ($cmd[0]) {
+	case 'auth':
+		auth($cmd[1]);
+		break;
+}
+
 if ($_SESSION['auth'] == 'true') 
 {
 }
 else
 {
-	echo "<pre>"; var_dump($cmd); echo "</pre>";
+	// echo "<pre>"; var_dump($cmd); echo "</pre>";
 	echo $twig->render('auth.html', array(
 		'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
 		'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
 		'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
 		'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
 		'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
-		'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex')));
+		'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
+		'home_link' => 'http://'.$_SERVER['SERVER_NAME']));
 }
 
 function login_query ($provider) {
@@ -58,6 +65,16 @@ function login_query ($provider) {
 		return 'client_id'.$client_id[$provider].'&response_type=code&redirect_uri='.$redirect_uri;
 	} elseif ($provider == 'yandex') {
 		return 'client_id'.$client_id[$provider].'&response_type=code&state='.$state;
+	}
+}
+
+function auth ($provider) {
+	if ($provider == 'facebook') {
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, 'https://graph.facebook.com/oauth/access_token?'.$data);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($curl);
+		var_dump($response);
 	}
 }
 ?>

@@ -146,7 +146,8 @@ ol.progtrckr li.progtrckr-done:before {
     border-radius: 1.2em;
 }
 ol.progtrckr li.progtrckr-todo:before {
-    content: "\039F";
+	font-family: "FontAwesome";
+    content: "\f10c";
     color: #708090;
     background-color: #fff;
     font-size: 1.5em;

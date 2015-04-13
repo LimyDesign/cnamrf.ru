@@ -138,7 +138,7 @@ ol.progtrckr li:before {
 ol.progtrckr li.progtrckr-done:before {
     content: "\2713";
     color: #fff;
-    background-color: #9ACD32;
+    background-color: #9acd32;
     height: 1.2em;
     width: 1.2em;
     line-height: 1.2em;

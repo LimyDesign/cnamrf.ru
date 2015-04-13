@@ -69,9 +69,9 @@ function login_query ($provider) {
 	} elseif ($provider == 'odnoklassniki') {
 		return 'client_id='.$client_id[$provider].'&scope=GET_EMAIL&response_type=code&redirect_uri='.$redirect_uri.'&state='.$state;
 	} elseif ($provider == 'mailru') {
-		return 'client_id'.$client_id[$provider].'&response_type=code&redirect_uri='.$redirect_uri;
+		return 'client_id='.$client_id[$provider].'&response_type=code&redirect_uri='.$redirect_uri;
 	} elseif ($provider == 'yandex') {
-		return 'client_id'.$client_id[$provider].'&response_type=code&state='.$state;
+		return 'client_id='.$client_id[$provider].'&response_type=code&state='.$state;
 	}
 }
 

@@ -27,6 +27,11 @@ switch ($cmd[0]) {
 		auth($cmd[1]);
 		break;
 	case 'dashboard':
+	case 'tariff':
+	case 'balans':
+	case 'profile':
+	case 'key':
+	case 'log':
 		check_auth();
 		break;
 	case 'logout':
@@ -36,7 +41,15 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	echo $twig->render('dashboard.html');
+	switch ($cmd[0]) {
+		case 'tariff':
+			echo $twig->render('tariff.html');
+			break;
+		
+		default:
+			echo $twig->render('dashboard.html');
+			break;
+	}
 }
 else
 {
@@ -194,7 +207,6 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
 		auth_db($res->id, $res->default_email, $provider);
-		// echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

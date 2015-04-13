@@ -130,7 +130,7 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		$res = json_decode(curl_exec($curl));
-		// echo "<pre>"; var_dump($res); echo "</pre>";
+		echo "<pre>"; var_dump($res); echo "</pre>";
 	}
 }
 

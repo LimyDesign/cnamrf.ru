@@ -29,6 +29,9 @@ switch ($cmd[0]) {
 	case 'unlink':
 		providerUnlink($cmd[1]);
 		break;
+	case 'newkey':
+		newAPIKey();
+		break;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -75,7 +78,9 @@ if ($_SESSION['auth'] === true)
 				'apikey' => userAPIKey()));
 			break;
 		case 'log':
-			echo $twig->render('log.html', array('log' => true));
+			echo $twig->render('log.html', array(
+				'log' => true,
+				'logs_data' => getUserLogs()));
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));
@@ -339,6 +344,42 @@ function convertProvider ($provider) {
 		case 'yandex':
 			return 'ya';
 			break;
+	}
+}
+
+function getUserLogs() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$userid = $_SESSION['userid'];
+		$query = "select phone, debet, credit, modtime, client, ip from log, users where uid = {$userid} limit 100 offset 0";
+		$result = pg_query($query);
+		$logs_data = new Array();
+		while ($row = pg_fetch_assoc($result))
+		{
+			$logs_data[]['phone'] = $row['phone'];
+			$logs_data[]['debet'] = $row['debet'];
+			$logs_data[]['credit'] = $row['credit'];
+			$logs_data[]['modtime'] = $row['modtime'];
+			$logs_data[]['client'] = $row['client'];
+			$logs_data[]['ip'] = $row['ip'];
+		}
+	}
+}
+
+function newAPIKey() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$userid = $_SESSION['userid'];
+		$apikey = sha1($_SERVER['HTTP_USER_AGENT'].time());
+		$_SESSION['state'] = $apikey;
+		$query = "update users set apikey = {$apikey} where id = {$userid}";
+		pg_query($query);
+		pg_close($db);
+		header("Location: /cabinet/key/");
 	}
 }
 

@@ -8,12 +8,22 @@
 	<p>В остальных случаях вы должны увидеть единый аккаунт на этих двух сайтах и вам не стоит беспокоиться за объединение 2-х аккаунтов.</p>
 
 	<h3>Привязанные сети</h3>
-	<h3>Не привязанные сети</h3>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-6 col-sm-offset-3">
-				<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
+				{% if facebook %}
+					<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>				
+	<h3>Не привязанные сети</h3>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				{% if !facebook %}
+					<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
+				{% endif %}
 				<a href="{{ ok_link }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
 				<a href="{{ vk_link }}" class="btn btn-lg btn-vkontakte btn-block">Вконтакте</a>
 				<a href="{{ mr_link }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
@@ -22,8 +32,4 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	
 {% endblock %}

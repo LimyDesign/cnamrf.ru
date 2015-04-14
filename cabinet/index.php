@@ -67,6 +67,7 @@ if ($_SESSION['auth'] === true)
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));
+			echo "<pre>"; var_dump($cmd[0]); echo "</pre>";
 			break;
 	}
 }

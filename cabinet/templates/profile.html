@@ -12,22 +12,34 @@
 		<div class="row">
 			<div class="col-sm-6 col-sm-offset-3">
 				{% if facebook %}
-					<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
-				{% endif %}
-				{% if odnoklassniki %}
-					<a href="{{ ok_link }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
+					<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook
+						<span class="label label-default">{{ facebook }}</span>
+					</a>
 				{% endif %}
 				{% if vkontakte %}
-					<a href="{{ vk_link }}" class="btn btn-lg btn-vkontakte btn-block">Вконтакте</a>
-				{% endif %}
-				{% if mailru %}
-					<a href="{{ mr_link }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
+					<a href="{{ vk_link }}" class="btn btn-lg btn-vkontakte btn-block">Вконтакте
+						<span class="label label-default">{{ vkontakte }}</span>
+					</a>
 				{% endif %}
 				{% if googleplus %}
-					<a href="{{ gp_link }}" class="btn btn-lg btn-google-plus btn-block">Google+</a>
+					<a href="{{ gp_link }}" class="btn btn-lg btn-google-plus btn-block">Google+
+						<span class="label label-default">{{ googleplus }}</span>
+					</a>
+				{% endif %}
+				{% if odnoklassniki %}
+					<a href="{{ ok_link }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники
+						<span class="label label-default">{{ odnoklassniki }}</span>
+					</a>
+				{% endif %}
+				{% if mailru %}
+					<a href="{{ mr_link }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru
+						<span class="label label-default">{{ mailru }}</span>
+					</a>
 				{% endif %}
 				{% if yandex %}
-					<a href="{{ ya_link }}" class="btn btn-lg btn-yandex btn-block">Яндекс</a>
+					<a href="{{ ya_link }}" class="btn btn-lg btn-yandex btn-block">Яндекс
+						<span class="label label-default">{{ yandex }}</span>
+					</a>
 				{% endif %}
 			</div>
 		</div>
@@ -39,17 +51,17 @@
 				{% if not facebook %}
 					<a href="{{ fb_link }}" class="btn btn-lg btn-facebook btn-block">Facebook</a>
 				{% endif %}
-				{% if not odnoklassniki %}
-					<a href="{{ ok_link }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
-				{% endif %}
 				{% if not vkontakte %}
 					<a href="{{ vk_link }}" class="btn btn-lg btn-vkontakte btn-block">Вконтакте</a>
 				{% endif %}
-				{% if not mailru %}
-					<a href="{{ mr_link }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
-				{% endif %}
 				{% if not googleplus %}
 					<a href="{{ gp_link }}" class="btn btn-lg btn-google-plus btn-block">Google+</a>
+				{% endif %}
+				{% if not odnoklassniki %}
+					<a href="{{ ok_link }}" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники</a>
+				{% endif %}
+				{% if not mailru %}
+					<a href="{{ mr_link }}" class="btn btn-lg btn-mailru btn-block">Mail.Ru</a>
 				{% endif %}
 				{% if not yandex %}
 					<a href="{{ ya_link }}" class="btn btn-lg btn-yandex btn-block">Яндекс</a>

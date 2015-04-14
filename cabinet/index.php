@@ -69,6 +69,9 @@ if ($_SESSION['auth'] === true)
 				'yandex' => checkProviderLink('ya')
 			));
 			break;
+		case 'profile':
+			echo $twig->render('key.html', array('key' => true));
+			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));
 			break;

@@ -242,21 +242,30 @@ function auth_db ($id, $email, $provider) {
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = 'SELECT * FROM users WHERE '.$pr.' = '.$id;
-		$result = pg_query($query);
-		if (pg_num_rows($result) != 1) 
+		if ($_SESSION['userid'])
 		{
-			$query = "INSERT INTO users (email, {$pr}) VALUES ('{$email}', '{$id}') RETURNING id";
+			$query = "UPDATE users SET {$pr} = {$id} WHERE id = {$_SESSION['userid']}";
 			$result = pg_query($query);
-			$userid = pg_fetch_result($result, 0, 0);
+			header("Location: /cabinet/profile/");
 		}
 		else
 		{
-			$userid = pg_fetch_result($result, 0, 'id');
+			$query = 'SELECT * FROM users WHERE '.$pr.' = '.$id;
+			$result = pg_query($query);
+			if (pg_num_rows($result) != 1) 
+			{
+				$query = "INSERT INTO users (email, {$pr}) VALUES ('{$email}', '{$id}') RETURNING id";
+				$result = pg_query($query);
+				$userid = pg_fetch_result($result, 0, 0);
+			}
+			else
+			{
+				$userid = pg_fetch_result($result, 0, 'id');
+			}
+			$_SESSION['userid'] = $userid;
+			$_SESSION['auth'] = true;
+			header("Location: /cabinet/dashboard/");
 		}
-		$_SESSION['userid'] = $userid;
-		$_SESSION['auth'] = true;
-		header("Location: /cabinet/dashboard/");
 	}
 }
 

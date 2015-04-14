@@ -15,61 +15,61 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><a href="#.">CNAM-Start</a></td>
+				<td><a href="/cabinet/tariff/info/start/" data-toggle="tooltip" title="Информация о тарифе">CNAM-Start</a></td>
 				<td>0</td>
 				<td>0 <i class="fa fa-rub"></i></td>
 				<td>10 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XS</a></td>
+				<td><a href="/cabinet/tariff/info/xs/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XS</a></td>
 				<td>1 000</td>
 				<td>5 000 <i class="fa fa-rub"></i></td>
 				<td>5 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XM</a></td>
+				<td><a href="/cabinet/tariff/info/xm/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM</a></td>
 				<td>10 000</td>
 				<td>15 000 <i class="fa fa-rub"></i></td>
 				<td>1,5 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XM3</a></td>
+				<td><a href="/cabinet/tariff/info/xm3/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM3</a></td>
 				<td>30 000</td>
 				<td>20 000 <i class="fa fa-rub"></i></td>
 				<td>0,67 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XM5</a></td>
+				<td><a href="/cabinet/tariff/info/xm5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM5</a></td>
 				<td>50 000</td>
 				<td>30 000 <i class="fa fa-rub"></i></td>
 				<td>0,60 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XL</a></td>
+				<td><a href="/cabinet/tariff/info/xl/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL</a></td>
 				<td>100 000</td>
 				<td>50 000 <i class="fa fa-rub"></i></td>
 				<td>0,50 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XL5</a></td>
+				<td><a href="/cabinet/tariff/info/xl5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL5</a></td>
 				<td>500 000</td>
 				<td>200 000 <i class="fa fa-rub"></i></td>
 				<td>0,40 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XXL</a></td>
+				<td><a href="/cabinet/tariff/info/xxl/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL</a></td>
 				<td>1 000 000</td>
 				<td>300 000 <i class="fa fa-rub"></i></td>
 				<td>0,30 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XXL3</a></td>
+				<td><a href="/cabinet/tariff/info/xxl3/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL3</a></td>
 				<td>3 000 000</td>
 				<td>600 000 <i class="fa fa-rub"></i></td>
 				<td>0,20 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="#." data-toggle="tooltip" title="Активировать тариф">CNAM-XXL5</a></td>
+				<td><a href="/cabinet/tariff/info/xxl5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL5</a></td>
 				<td>5 000 000</td>
 				<td>700 000 <i class="fa fa-rub"></i></td>
 				<td>0,14 <i class="fa fa-rub"></i></td>
@@ -77,11 +77,49 @@
 		</tbody>
 	</table>
 	<div class="panel panel-success">
-		<div class="panel-heading">Текущий тарифный план</div>
+		<div class="panel-heading">Описание тарифа</div>
 		<div class="panel-body">
-			<h1>«CNAM-Start» <small class="hidden-xs hidden-sm">10 <i class="fa fa-rub"></i>/запрос</small></h1>
-			<p class="text-muted hidden-md hidden-lg"><strong>10 <i class="fa fa-rub"></i>/запрос</strong></p>
-			<p>Данный тарифный план не имеет минимальной суммы для подключения, он будет действовать до тех пор, пока вами не будет выбран подходящий тариф. Вы можете пользоваться данным тарифом также в ознакомительных целях, пополняя баланс от 100 до 5 000 рублей. При пополнении баланса свыше 5 000 рублей, рекомендуется подключить тариф CNAM-XS, т.к. стоимость каждого запроса на текущем тарифе очень высока.</p>
+			{% if cnam.start %}
+				<h1>«CNAM-Start» <small class="hidden-xs hidden-sm">10 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>10 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план не имеет минимальной суммы для подключения, он будет действовать до тех пор, пока вами не будет выбран подходящий тариф. Вы можете пользоваться данным тарифом также в ознакомительных целях, пополняя баланс от 100 до 5 000 рублей. При пополнении баланса свыше 5 000 рублей, рекомендуется подключить тариф CNAM-XS, т.к. стоимость каждого запроса на текущем тарифе очень высока.</p>
+			{% elseif cnam.xs %}
+				<h1>«CNAM-XS» <small class="hidden-xs hidden-sm">5 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>5 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 5 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для сектора микро-бизнеса, не дорогой при подключении, однако с достаточно дорогой составляющей. Прекрасно подойдет для организаций принимающих/осуществляющих более 100 звонков в месяц.</p>
+			{% elseif cnam.xm %}
+				<h1>«CNAM-XM» <small class="hidden-xs hidden-sm">1,5 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>1,5 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 15 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для SMB сектора, экономный при подключении с достаточно сбалансированной составляющей. Прекрасно подойдет для компаний компаний принимающих/осуществляющих более тысячи звонков за месяц. По статистике большинству российских компаний подходит именно этот тарифный план.</p>
+			{% elseif cnam.xm3 %}
+				<h1>«CNAM-XM3» <small class="hidden-xs hidden-sm">0,67 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,67 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 20 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для SMB сектора, экономный при подключении и со сбалансированной составляющей. Прекрасно подойдет для компаний принимающих/осуществляющих более 10 тысяч звонков за месяц.</p>
+			{% elseif cnam.xm5 %}
+				<h1>«CNAM-XM5» <small class="hidden-xs hidden-sm">0,60 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,60 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 30 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для SMB сектора, экономный при подключении и с экономной составляющей. Прекрасно подойдет для компаний принимающих/осуществляющих более 30 тысяч звонков за месяц.</p>
+			{% elseif cnam.xl %}
+				<h1>«CNAM-XL» <small class="hidden-xs hidden-sm">0,50 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,50 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 50 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для телемаркетинговых организаций, экономный при подключении но с дорогой составляющей. Прекрасно подойдет для компаний принимающих/осуществляющих более 50 тысяч звонков за месяц.</p>
+			{% elseif cnam.xl5 %}
+				<h1>«CNAM-XL5» <small class="hidden-xs hidden-sm">0,40 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,40 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 200 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для телемаркетинговых организаций, экономный при подключении с экономной составляющей. Прекрасно подойдет для компаний принимающих/осуществляющих более 100 тысяч звонков за месяц.</p>
+			{% elseif cnam.xxl %}
+				<h1>«CNAM-XXL» <small class="hidden-xs hidden-sm">0,30 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,30 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 300 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для операторов связи и крупных корпораций, экономный при подключении, но с достаточно дорогой составляющей. Прекрасно подойдет для компаний принимающих/осуществляющих более 500 тысяч звонков за месяц.</p>
+			{% elseif cnam.xxl3 %}
+				<h1>«CNAM-XXL3» <small class="hidden-xs hidden-sm">0,20 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,20 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 600 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для операторов связи и крупных корпораций, хорошее соотношение цена/качество, прекрасно подойдет для компаний генерирующих более 1 миллиона входящих/исходящих звонок за месяц.</p>
+			{% elseif cnam.xxl5 %}
+				<h1>«CNAM-XXL5» <small class="hidden-xs hidden-sm">0,14 <i class="fa fa-rub"></i>/запрос</small></h1>
+				<p class="text-muted hidden-md hidden-lg"><strong>0,14 <i class="fa fa-rub"></i>/запрос</strong></p>
+				<p>Данный тарифный план можно подключить при текущем балансе 700 000 рублей и более. Дальнейшее использование возможно при любом балансе, однако при изменении тарифа условия действуют такие же как при подключении. Тариф предназначен для операторов связи и крупных корпораций, лучшая цена составляющей, при объеме 3 и более миллионов входящих/исходящих звонок за месяц — это лучший тариф.</p>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

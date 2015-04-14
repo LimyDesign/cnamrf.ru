@@ -295,9 +295,9 @@ function providerUnlink ($provider) {
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
-		$query = "explain select count(ok)+count(fb)+count(gp)+count(mr)+count(ya)+count(vk) from users where id = {$userid} and (vk != 0 or ok != 0 or fb != 0 or gp != 0 or mr != 0 or ya != 0);";
+		$query = "explain select count(ok)+count(fb)+count(gp)+count(mr)+count(ya)+count(vk) as count from users where id = {$userid} and (vk != 0 or ok != 0 or fb != 0 or gp != 0 or mr != 0 or ya != 0);";
 		$result = pg_query($query);
-		$count = pg_fetch_result($result, 0, 0);
+		$count = pg_fetch_result($result, 0, 'count');
 		if ($count > 1) {
 			$query = "UPDATE users SET {$pr} = NULL WHERE id = {$_SESSION['userid']}";
 			$result = pg_query($query);

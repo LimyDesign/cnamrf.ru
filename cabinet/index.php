@@ -67,7 +67,6 @@ if ($_SESSION['auth'] === true)
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));
-			echo "<pre>"; var_dump($cmd[0]); echo "</pre>";
 			break;
 	}
 }
@@ -305,7 +304,7 @@ function checkProviderLink ($pr) {
 }
 
 function check_auth() {
-	if ($_SESSION['auth'] !== true || $_SESSION['userid'] == 0)
+	if ($_SESSION['auth'] !== true)
 		header("Location: /cabinet/");
 }
 

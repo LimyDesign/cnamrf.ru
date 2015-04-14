@@ -376,7 +376,7 @@ function newAPIKey() {
 		$userid = $_SESSION['userid'];
 		$apikey = sha1($_SERVER['HTTP_USER_AGENT'].time());
 		$_SESSION['state'] = $apikey;
-		$query = "update users set apikey = {$apikey} where id = {$userid}";
+		$query = "update users set apikey = '{$apikey}' where id = {$userid}";
 		die($query);
 		pg_query($query);
 		pg_close($db);

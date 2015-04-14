@@ -51,7 +51,7 @@ if ($_SESSION['auth'] === true)
 		case 'tariff':
 			echo $twig->render('tariff.html', array(
 				'tariff' => true,
-				'cnam' => array('start' => true)));
+				'cnam' => selectTariff($cmd[2])));
 			break;
 		case 'balans':
 			echo $twig->render('balans.html', array('balans' => true));
@@ -283,6 +283,26 @@ function auth_db ($id, $email, $provider) {
 			pg_close($db);
 			header("Location: /cabinet/dashboard/");
 		}
+	}
+}
+
+function selectTariff ($tariff) {
+	global $conf;
+	if (!$tariff) {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "SELECT tariff FROM users WHERE id = {$_SESSION['userid']}";
+			$result = pg_query($query);
+			$userTariff = pg_fetch_result($result, 0, 'tariff');
+			pg_free_result($result);
+			pg_close($db);
+			if (!$userTariff) $tariff = array('start' => true);
+			else $tariff = array($userTariff => true);
+			return $tariff;
+		}
+	} else {
+		return array($tariff => true);
 	}
 }
 

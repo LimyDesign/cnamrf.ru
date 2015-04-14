@@ -266,7 +266,7 @@ function auth_db ($id, $email, $provider) {
 			$result = pg_query($query);
 			if (pg_num_rows($result) != 1) 
 			{
-				$state = $_SESSION['state'];
+				$state = sha1($_SERVER['HTTP_USER_AGENT'].time());
 				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '$state') RETURNING id";
 				$result = pg_query($query);
 				$userid = pg_fetch_result($result, 0, 0);
@@ -375,7 +375,6 @@ function newAPIKey() {
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		$apikey = sha1($_SERVER['HTTP_USER_AGENT'].time());
-		$_SESSION['state'] = $apikey;
 		$query = "update users set apikey = '{$apikey}' where id = {$userid}";
 		pg_query($query);
 		pg_close($db);

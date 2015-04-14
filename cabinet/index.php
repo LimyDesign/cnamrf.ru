@@ -210,7 +210,8 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_URL, 'http://www.appsmail.ru/platform/api?'.$data);
 		curl_setopt($curl, CURLOPT_POST, false);
 		$res = json_decode(curl_exec($curl));
-		die($res);
+		var_dump($res);
+		die();
 		auth_db($res->uid, $res->email, $provider);
 	} elseif ($provider == 'yandex') {
 		$data = http_build_query(array(

@@ -49,10 +49,10 @@
 						<li{% if tariff %}{{ active }}{% endif %}>
 							<a href="/cabinet/tariff/">Тарифный план</a>
 						</li>
-						<li{% if balans %} class="active"{% endif %}>
+						<li{% if balans %}{{ active }}{% endif %}>
 							<a href="/cabinet/balans/">Пополнение баланса</a>
 						</li>
-						<li{% if profile %} class="active"{% endif %}>
+						<li{% if profile %}{{ active }}{% endif %}>
 							<a href="/cabinet/profile/">Мой аккаунт</a>
 						</li>
 					</ul>

@@ -49,7 +49,9 @@ if ($_SESSION['auth'] === true)
 {
 	switch ($cmd[0]) {
 		case 'tariff':
-			echo $twig->render('tariff.html', array('tariff' => true));
+			echo $twig->render('tariff.html', array(
+				'tariff' => true,
+				'cnam' => array('start' => true)));
 			break;
 		case 'balans':
 			echo $twig->render('balans.html', array('balans' => true));

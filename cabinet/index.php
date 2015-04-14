@@ -49,7 +49,14 @@ if ($_SESSION['auth'] === true)
 			echo $twig->render('balans.html', array('balans' => true));
 			break;
 		case 'profile':
-			echo $twig->render('profile.html', array('profile' => true));
+			echo $twig->render('profile.html', array(
+				'profile' => true,
+				'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
+				'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
+				'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
+				'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
+				'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
+				'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex')));
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));

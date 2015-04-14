@@ -161,6 +161,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-facebook:hover {
   background: #21396b;
+  color: #fff;
 }
 .btn-vkontakte {
   background: #597da3;
@@ -168,6 +169,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-vkontakte:hover {
   background: #476482;
+  color: #fff;
 }
 .btn-odnoklassniki {
   background: #eb722e;
@@ -175,6 +177,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-odnoklassniki:hover {
   background: #b84819;
+  color: #fff;
 }
 .btn-google-plus {
   background: #cc3732;
@@ -182,6 +185,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-google-plus:hover {
   background: #a32c28;
+  color: #fff;
 }
 .btn-mailru {
   background: #168de2;
@@ -189,6 +193,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-mailru:hover {
   background: #1170b4;
+  color: #fff;
 }
 .btn-yandex {
   background: #fdcc01;
@@ -196,4 +201,5 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 .btn-yandex:hover {
   background: #caa301;
+  color: #000;
 }

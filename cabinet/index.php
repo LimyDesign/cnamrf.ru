@@ -59,7 +59,7 @@ if ($_SESSION['auth'] === true)
 				'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
 				'facebook' => checkProviderLink('fb'),
 				'vkontakte' => checkProviderLink('vk'),
-				'google-plus' => checkProviderLink('gp'),
+				'googleplus' => checkProviderLink('gp'),
 				'odnoklassniki' => checkProviderLink('ok'),
 				'mailru' => checkProviderLink('mr'),
 				'yandex' => checkProviderLink('ya')));

@@ -41,6 +41,7 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
+	echo "<pre>"; var_dump($cmd[0]); echo "</pre>";
 	switch ($cmd[0]) {
 		case 'tariff':
 			echo $twig->render('tariff.html', array('tariff' => true));
@@ -61,8 +62,8 @@ if ($_SESSION['auth'] === true)
 				'vkontakte' => checkProviderLink('vk'),
 				'googleplus' => checkProviderLink('gp'),
 				'odnoklassniki' => checkProviderLink('ok'),
-				// 'mailru' => checkProviderLink('mr'),
-				// 'yandex' => checkProviderLink('ya')
+				'mailru' => checkProviderLink('mr'),
+				'yandex' => checkProviderLink('ya')
 			));
 			break;
 		default:
@@ -72,7 +73,6 @@ if ($_SESSION['auth'] === true)
 }
 else
 {
-	// echo "<pre>"; var_dump($cmd); echo "</pre>";
 	echo $twig->render('auth.html', array(
 		'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
 		'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),

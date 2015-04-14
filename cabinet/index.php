@@ -293,8 +293,11 @@ function checkProviderLink ($pr) {
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = "SELECT {$pr} FROM users WHERE id = {$_SESSION['userid']}";
 		$result = pg_query($query);
-		if (pg_fetch_result($result, 0, $pr) > 0)
-			return $pr;
+		$provider = pg_fetch_result($result, 0, $pr);
+		pg_free_result($result);
+		pg_close($db);
+		if ($provider > 0)
+			return $provider;
 		else
 			return 0;
 	}

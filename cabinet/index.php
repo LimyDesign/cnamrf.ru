@@ -294,10 +294,19 @@ function providerUnlink ($provider) {
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "UPDATE users SET {$pr} = NULL WHERE id = {$_SESSION['userid']}";
+		$userid = $_SESSION['userid'];
+		$query = "select (select count(*) from users where id = {$userid} and vk != 0) + (select count(*) from users where id = {$userid} and ok != 0) + (select count(*) from users where id = {$userid} and fb != 0) + (select count(*) from users where id = {$userid} and gp != 0) + (select count(*) from users where id = {$userid} and mr != 0) + (select count(*) from users where id = {$userid} and ya != 0) as count";
 		$result = pg_query($query);
-		pg_free_result($result);
-		pg_close($db);
+		$count = pg_fetch_result($result, 0, 'count');
+		if ($count > 1) {
+			$query = "UPDATE users SET {$pr} = NULL WHERE id = {$_SESSION['userid']}";
+			$result = pg_query($query);
+			pg_free_result($result);
+			pg_close($db);
+		} else {
+			pg_free_result($result);
+			pg_close($db);
+		}
 		header("Location: /cabinet/profile/");
 	}
 }

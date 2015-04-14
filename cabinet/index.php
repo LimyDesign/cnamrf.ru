@@ -51,6 +51,7 @@ if ($_SESSION['auth'] === true)
 		case 'profile':
 			echo $twig->render('profile.html', array(
 				'profile' => true,
+				'userid' => $_SESSION['userid'],
 				'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
 				'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
 				'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),

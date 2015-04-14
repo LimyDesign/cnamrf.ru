@@ -4,4 +4,28 @@
 {% block content %}
 	<h1 class="page-header">Статистика</h1>
 	<p class="lead">Данные по использования системы — будь то зачисление денежных средств на лицевой счет или использование системы для получения данных по номеру телефона.</p>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th>Номер телефона</th>
+				<th>Дебет</th>
+				<th>Кредит</th>
+				<th>Клиентская система</th>
+				<th>IP клиента</th>
+				<th>Дата время</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for log_data in logs_data %}
+				<tr>
+					<td>{{ log_data.phone }}</td>
+					<td>{{ log_data.debet }}</td>
+					<td>{{ log_data.credit }}</td>
+					<td>{{ log_data.client }}</td>
+					<td>{{ log_data.ip }}</td>
+					<td>{{ log_data.datetime }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

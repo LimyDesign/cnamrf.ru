@@ -355,7 +355,7 @@ function getUserLogs() {
 		$userid = $_SESSION['userid'];
 		$query = "select phone, debet, credit, modtime, client, ip from log, users where uid = {$userid} limit 100 offset 0";
 		$result = pg_query($query);
-		$logs_data = new Array();
+		$logs_data = array();
 		while ($row = pg_fetch_assoc($result))
 		{
 			$logs_data[]['phone'] = $row['phone'];

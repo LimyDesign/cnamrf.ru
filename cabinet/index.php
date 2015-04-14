@@ -270,7 +270,8 @@ function auth_db ($id, $email, $provider) {
 			$result = pg_query($query);
 			if (pg_num_rows($result) != 1) 
 			{
-				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '{$_SESSION[\'state\']') RETURNING id";
+				$state = $_SESSION['state'];
+				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '$state') RETURNING id";
 				$result = pg_query($query);
 				$userid = pg_fetch_result($result, 0, 0);
 			}

@@ -1,3 +1,4 @@
+{% set active %} class="active"{% endset %}
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -45,7 +46,7 @@
 						</li>
 					</li>
 					<ul class="nav nav-sidebar">
-						<li{% if tariff %} class="active"{% endif %}>
+						<li{% if tariff %}{{ active }}{% endif %}>
 							<a href="/cabinet/tariff/">Тарифный план</a>
 						</li>
 						<li{% if balans %} class="active"{% endif %}>

@@ -41,7 +41,6 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	echo "<pre>"; var_dump($cmd[0]); echo "</pre>";
 	switch ($cmd[0]) {
 		case 'tariff':
 			echo $twig->render('tariff.html', array('tariff' => true));

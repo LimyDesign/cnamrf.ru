@@ -267,6 +267,7 @@ function auth_db ($id, $email, $provider) {
 		else
 		{
 			$query = "SELECT * FROM users WHERE {$pr} = '{$id}'";
+			die($query);
 			$result = pg_query($query);
 			if (pg_num_rows($result) != 1) 
 			{

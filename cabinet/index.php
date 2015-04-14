@@ -70,7 +70,9 @@ if ($_SESSION['auth'] === true)
 			));
 			break;
 		case 'key':
-			echo $twig->render('key.html', array('key' => true));
+			echo $twig->render('key.html', array(
+				'key' => true,
+				'apikey' => userAPIKey()));
 			break;
 		case 'log':
 			echo $twig->render('log.html', array('log' => true));
@@ -337,6 +339,21 @@ function convertProvider ($provider) {
 		case 'yandex':
 			return 'ya';
 			break;
+	}
+}
+
+function userAPIKey() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$userid = $_SESSION['userid'];
+		$query = "select apikey from users where id = {$userid}";
+		$result = pg_query($query);
+		$apikey = pg_fetch_result($result, 0, 'apikey');
+		pg_free_result($result);
+		pg_close($db);
+		return $apikey;
 	}
 }
 

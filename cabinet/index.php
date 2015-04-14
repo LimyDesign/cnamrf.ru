@@ -297,6 +297,7 @@ function checkProviderLink ($pr) {
 			return $pr;
 		else
 			return 0;
+	}
 }
 
 function check_auth() {

@@ -222,9 +222,9 @@ function auth ($provider) {
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		$res = json_decode(curl_exec($curl));
-		curl_setopt($curl, CURLOPT_URL, 'http://login.yandex.ru/info?'.$res->access_token);
+		curl_setopt($curl, CURLOPT_URL, 'http://login.yandex.ru/info?oauth_token='.$res->access_token);
 		curl_setopt($curl, CURLOPT_POST, false);
-		$res = curl_exec($curl);
+		$res = json_decode(curl_exec($curl));
 		echo "<pre>"; var_dump($res); echo "</pre>"; die();
 		auth_db($res->id, $res->default_email, $provider);
 	}

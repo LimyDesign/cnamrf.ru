@@ -61,8 +61,9 @@ if ($_SESSION['auth'] === true)
 				'vkontakte' => checkProviderLink('vk'),
 				'googleplus' => checkProviderLink('gp'),
 				'odnoklassniki' => checkProviderLink('ok'),
-				'mailru' => checkProviderLink('mr'),
-				'yandex' => checkProviderLink('ya')));
+				// 'mailru' => checkProviderLink('mr'),
+				// 'yandex' => checkProviderLink('ya')
+			));
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));

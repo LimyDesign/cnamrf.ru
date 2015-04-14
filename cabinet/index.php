@@ -26,6 +26,9 @@ switch ($cmd[0]) {
 	case 'auth':
 		auth($cmd[1]);
 		break;
+	case 'unlink':
+		providerUnlink($cmd[1]);
+		break;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -231,27 +234,7 @@ function auth ($provider) {
 
 function auth_db ($id, $email, $provider) {
 	global $conf;
-
-	switch ($provider) {
-		case 'facebook':
-			$pr = 'fb';
-			break;
-		case 'vkontakte':
-			$pr = 'vk';
-			break;
-		case 'google-plus':
-			$pr = 'gp';
-			break;
-		case 'odnoklassniki':
-			$pr = 'ok';
-			break;
-		case 'mailru':
-			$pr = 'mr';
-			break;
-		case 'yandex':
-			$pr = 'ya';
-			break;
-	}
+	$pr = convertProvider($provider);
 
 	if ($conf['db']['type'] == 'postgres')
 	{
@@ -302,6 +285,42 @@ function checkProviderLink ($pr) {
 			return $provider;
 		else
 			return 0;
+	}
+}
+
+function providerUnlink ($provider) {
+	global $conf;
+	$pr = convertProvider($provider);
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "UPDATE users SET {$pr} = NULL WHERE id = {$_SESSION['userid']}";
+		pg_free_result($result);
+		pg_close($db);
+		header("Location: /cabinet/profile/");
+	}
+}
+
+function convertProvider ($provider) {
+	switch ($provider) {
+		case 'facebook':
+			return 'fb';
+			break;
+		case 'vkontakte':
+			return 'vk';
+			break;
+		case 'google-plus':
+			return 'gp';
+			break;
+		case 'odnoklassniki':
+			return 'ok';
+			break;
+		case 'mailru':
+			return 'mr';
+			break;
+		case 'yandex':
+			return 'ya';
+			break;
 	}
 }
 

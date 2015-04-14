@@ -56,7 +56,13 @@ if ($_SESSION['auth'] === true)
 				'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
 				'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
 				'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
-				'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex')));
+				'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
+				'facebook' => checkProviderLink('fb'),
+				'vkontakte' => checkProviderLink('vk'),
+				'google-plus' => checkProviderLink('gp'),
+				'odnoklassniki' => checkProviderLink('ok'),
+				'mailru' => checkProviderLink('mr'),
+				'yandex' => checkProviderLink('ya')));
 			break;
 		default:
 			echo $twig->render('dashboard.html', array('dashboard' => true));
@@ -253,6 +259,8 @@ function auth_db ($id, $email, $provider) {
 		{
 			$query = "UPDATE users SET {$pr} = {$id} WHERE id = {$_SESSION['userid']}";
 			$result = pg_query($query);
+			pg_free_result($result);
+			pg_close($db);
 			header("Location: /cabinet/profile/");
 		}
 		else
@@ -271,9 +279,24 @@ function auth_db ($id, $email, $provider) {
 			}
 			$_SESSION['userid'] = $userid;
 			$_SESSION['auth'] = true;
+			pg_free_result($result);
+			pg_close($db);
 			header("Location: /cabinet/dashboard/");
 		}
 	}
+}
+
+function checkProviderLink ($pr) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "SELECT {$pr} FROM users WHERE id = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		if (pg_fetch_result($result, 0, $pr) > 0)
+			return $pr;
+		else
+			return 0;
 }
 
 function check_auth() {

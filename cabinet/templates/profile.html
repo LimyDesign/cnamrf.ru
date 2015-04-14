@@ -21,31 +21,43 @@
 					<a href="/cabinet/unlink/facebook/" class="btn btn-lg btn-facebook btn-block">Facebook
 						<span class="label label-default">{{ facebook }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Facebook</a>
 				{% endif %}
 				{% if vkontakte %}
 					<a href="/cabinet/unlink/vkontakte/" class="btn btn-lg btn-vkontakte btn-block">Вконтакте
 						<span class="label label-default">{{ vkontakte }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Вконтакте</a>
 				{% endif %}
 				{% if googleplus %}
 					<a href="/cabinet/unlink/google-plus/" class="btn btn-lg btn-google-plus btn-block">Google+
 						<span class="label label-default">{{ googleplus }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Google+</a>
 				{% endif %}
 				{% if odnoklassniki %}
 					<a href="/cabinet/unlink/odnoklassniki/" class="btn btn-lg btn-odnoklassniki btn-block">Одноклассники
 						<span class="label label-default">{{ odnoklassniki }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Одноклассники</a>
 				{% endif %}
 				{% if mailru %}
 					<a href="/cabinet/unlink/mailru/" class="btn btn-lg btn-mailru btn-block">Mail.Ru
 						<span class="label label-default">{{ mailru }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Mail.Ru</a>
 				{% endif %}
 				{% if yandex %}
 					<a href="/cabinet/unlink/yandex/" class="btn btn-lg btn-yandex btn-block">Яндекс
 						<span class="label label-default">{{ yandex }}</span>
 					</a>
+				{% else %}
+					<a href="#." class="btn btn-lg btn-default btn-block disabled">Яндекс</a>
 				{% endif %}
 			</div>
 			{{ infotext }}

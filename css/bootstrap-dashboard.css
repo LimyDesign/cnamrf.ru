@@ -151,3 +151,49 @@ ol.progtrckr li.progtrckr-todo:before {
     font-size: 1.5em;
     bottom: -1.6em;
 }
+
+/**
+ * Цвета кнопок для соц. сетей
+ */
+.btn-facebook {
+  background: #3b5998;
+  color: #fff;
+}
+.btn-facebook:hover {
+  background: #21396b;
+}
+.btn-vkontakte {
+  background: #597da3;
+  color: #fff;
+}
+.btn-vkontakte:hover {
+  background: #476482;
+}
+.btn-odnoklassniki {
+  background: #eb722e;
+  color: #fff;
+}
+.btn-odnoklassniki:hover {
+  background: #b84819;
+}
+.btn-google-plus {
+  background: #cc3732;
+  color: #fff;
+}
+.btn-google-plus:hover {
+  background: #a32c28;
+}
+.btn-mailru {
+  background: #168de2;
+  color: #fff;
+}
+.btn-mailru:hover {
+  background: #1170b4;
+}
+.btn-yandex {
+  background: #fdcc01;
+  color: #000;
+}
+.btn-yandex:hover {
+  background: #caa301;
+}

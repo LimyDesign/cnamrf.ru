@@ -330,10 +330,9 @@ function generateInvoice($summ) {
 	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-	$pdf->setFontSubsetting(true);
-	$pdf->SetFont('arialb', '', 10);
+	$pdf->SetFont('arial', '', 10);
 	$pdf->AddPage();
-	$txt = "ИП Беспалов Арсен Георгиевич\n\nАдрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17";
+	$html = "<p><strong>ИП Беспалов Арсен Георгиевич</strong></p><p><b>Адрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17</b></p>";
 	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);
 	$pdf->Output('invoice.pdf', 'D');
 }

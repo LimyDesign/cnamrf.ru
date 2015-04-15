@@ -457,6 +457,7 @@ function acceptContract($action = true) {
 			session_destroy();
 			header("Location: /");
 		}
+	}
 }
 
 function check_auth() {

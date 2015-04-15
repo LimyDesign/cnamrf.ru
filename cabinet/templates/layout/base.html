@@ -18,7 +18,7 @@
 		<![endif]-->
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-fixed-top hide-print">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -39,7 +39,7 @@
 		</nav>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-3 col-md-2 sidebar">
+				<div class="col-sm-3 col-md-2 sidebar hide-print">
 					<ul class="nav nav-sidebar">
 						<li{% if dashboard %}{{ active }}{% endif %}>
 							<a href="/cabinet/dashboard/">Общие данные</a>
@@ -70,7 +70,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main visible-print">
 					{% block content %}{% endblock %}
 				</div>
 			</div>

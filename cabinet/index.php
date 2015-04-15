@@ -331,7 +331,7 @@ function generateInvoice($summ) {
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 	$pdf->setFontSubsetting(true);
-	$pdf->SetFont('freeserif', '', 20);
+	$pdf->SetFont('arial', '', 20);
 	$pdf->AddPage();
 	$txt = "Шалом! ёБА! " . $summ;
 	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);

@@ -10,6 +10,7 @@ $twig = new Twig_Environment($loader, array(
 	'cache' => __DIR__.'/cache',
 	'auto_reload' => true,
 ));
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 $conf = json_decode(file_get_contents(__DIR__.'/config.json'), true);
 
@@ -37,6 +38,9 @@ switch ($cmd[0]) {
 		break;
 	case 'not-accept':
 		acceptContract(false);
+		break;
+	case 'invoice':
+		generateInoice($_POST['invoice']);
 		break;
 	case 'dashboard':
 	case 'tariff':
@@ -307,6 +311,32 @@ function auth_db ($id, $email, $provider) {
 			header("Location: /cabinet/dashboard/");
 		}
 	}
+}
+
+function generateInvoice($summ) {
+	global $pdf;
+
+	$pdf->SetCreator(PDF_CREATOR);
+	$pdf->SetAuthor('Arsen Bespalov');
+	$pdf->SetTitle('CNAM RF Invoice');
+	$pdf->SetSubject('Invoice');
+	$pdf->SetKeywords('CNAM, invoice');
+
+	$pdf->setPrintHeader(false);
+	$pdf->setPrintFooter(false);
+
+	$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+	$pdf->SetFont('helvetica', '', 20);
+	$pdf->AddPage();
+	$txt = <<<EOD
+	Шалом! ёБА!
+EOD;
+	$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
+	$pdf->Output('invoice.pdf', 'I');
 }
 
 function selectTariff ($tariff) {

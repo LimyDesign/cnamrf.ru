@@ -331,7 +331,7 @@ function generateInvoice($summ) {
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 	$pdf->setFontSubsetting(true);
-	$pdf->SetFont('arialb', '', 20);
+	$pdf->SetFont('arialb', '', 10);
 	$pdf->AddPage();
 	$txt = "ИП Беспалов Арсен Георгиевич\n\nАдрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17";
 	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);

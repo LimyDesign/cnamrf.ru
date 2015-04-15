@@ -65,6 +65,9 @@
 						</li>
 					</ul>
 					<ul class="nav nav-sidebar">
+						<li{% if support %}{{ active }}{% endif %}>
+							<a href="/cabinet/support/">Поддержка</a>
+						</li>
 						<li{% if contract %}{{ active }}{% endif %}>
 							<a href="/cabinet/contract/">Договор-оферта</a>
 						</li>

@@ -93,6 +93,10 @@ if ($_SESSION['auth'] === true)
 					'log' => true,
 					'logs_data' => getUserLogs()));
 				break;
+			case 'support':
+				echo $twig->render('support.html', array(
+					'support' => true));
+				break;
 			case 'contract':
 				echo $twig->render('contract.html', array(
 					'contract' => true,

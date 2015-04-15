@@ -47,51 +47,59 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	switch ($cmd[0]) {
-		case 'tariff':
-			echo $twig->render('tariff.html', array(
-				'tariff' => true,
-				'cnam' => selectTariff($cmd[2]),
-				'current' => selectTariff()));
-			break;
-		case 'balans':
-			echo $twig->render('balans.html', array('balans' => true));
-			break;
-		case 'profile':
-			echo $twig->render('profile.html', array(
-				'profile' => true,
-				'userid' => $_SESSION['userid'],
-				'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
-				'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
-				'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
-				'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
-				'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
-				'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
-				'facebook' => checkProviderLink('fb'),
-				'vkontakte' => checkProviderLink('vk'),
-				'googleplus' => checkProviderLink('gp'),
-				'odnoklassniki' => checkProviderLink('ok'),
-				'mailru' => checkProviderLink('mr'),
-				'yandex' => checkProviderLink('ya')
-			));
-			break;
-		case 'key':
-			echo $twig->render('key.html', array(
-				'key' => true,
-				'apikey' => userAPIKey()));
-			break;
-		case 'log':
-			echo $twig->render('log.html', array(
-				'log' => true,
-				'logs_data' => getUserLogs()));
-			break;
-		case 'contract':
-			echo $twig->render('contract.html', array(
-				'contract' => true));
-			break;
-		default:
-			echo $twig->render('dashboard.html', array('dashboard' => true));
-			break;
+	if ($_SESSION['contract'] == true) 
+	{
+		switch ($cmd[0]) {
+			case 'tariff':
+				echo $twig->render('tariff.html', array(
+					'tariff' => true,
+					'cnam' => selectTariff($cmd[2]),
+					'current' => selectTariff()));
+				break;
+			case 'balans':
+				echo $twig->render('balans.html', array('balans' => true));
+				break;
+			case 'profile':
+				echo $twig->render('profile.html', array(
+					'profile' => true,
+					'userid' => $_SESSION['userid'],
+					'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
+					'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
+					'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
+					'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
+					'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
+					'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
+					'facebook' => checkProviderLink('fb'),
+					'vkontakte' => checkProviderLink('vk'),
+					'googleplus' => checkProviderLink('gp'),
+					'odnoklassniki' => checkProviderLink('ok'),
+					'mailru' => checkProviderLink('mr'),
+					'yandex' => checkProviderLink('ya')
+				));
+				break;
+			case 'key':
+				echo $twig->render('key.html', array(
+					'key' => true,
+					'apikey' => userAPIKey()));
+				break;
+			case 'log':
+				echo $twig->render('log.html', array(
+					'log' => true,
+					'logs_data' => getUserLogs()));
+				break;
+			case 'contract':
+				echo $twig->render('contract.html', array(
+					'contract' => true,
+					'accept' => $_SESSION['contract']));
+				break;
+			default:
+				echo $twig->render('dashboard.html', array('dashboard' => true));
+				break;
+		}
+	} else {
+		echo $twig->render('contract.html', array(
+			'contract' => true,
+			'accept' => $_SESSION['contract']));
 	}
 }
 else

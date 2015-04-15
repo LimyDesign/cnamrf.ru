@@ -118,4 +118,13 @@
 		</tbody>
 	</table>
 	<small>* Данный тарифный план действует в течении 1 месяца и автоматически продляется при наличии на лицевом счету Заказчика необходимой суммы равной стоимости тарифного плана.</small>
+	{% if not accept %}
+		<div class="container-fuid">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<a href="/cabinet/accept/" class="btn btn-lg btn-primary btn-block">Принимаю условия настоящего договора-оферты</a>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}

@@ -32,6 +32,12 @@ switch ($cmd[0]) {
 	case 'newkey':
 		newAPIKey();
 		break;
+	case 'accept':
+		acceptContract();
+		break;
+	case 'not-accept':
+		acceptContract(false);
+		break;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -47,7 +53,7 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	if ($_SESSION['contract'] == true) 
+	if ($_SESSION['contract'] === true) 
 	{
 		switch ($cmd[0]) {
 			case 'tariff':
@@ -430,6 +436,27 @@ function userAPIKey() {
 		pg_close($db);
 		return $apikey;
 	}
+}
+
+function acceptContract($action = true) {
+	lobal $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$userid = $_SESSION['userid'];
+		if ($action) {
+			$query = "update users set contract = 1 where id = {$userid}";
+			pg_query($query);
+			pg_close($db);
+			$_SESSION['contract'] = true;
+			header("Location: /cabinet/dashboard/");
+		} else {
+			$query = "delete from users where id = {$userid}";
+			pg_query($query);
+			pg_close($db);
+			session_destroy();
+			header("Location: /");
+		}
 }
 
 function check_auth() {

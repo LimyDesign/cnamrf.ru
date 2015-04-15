@@ -335,7 +335,7 @@ function generateInvoice($summ) {
 	$pdf->AddPage();
 	$txt = "Шалом! ёБА! " . $summ;
 	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);
-	$pdf->Output('invoice.pdf', 'I');
+	$pdf->Output('invoice.pdf', 'D');
 }
 
 function selectTariff ($tariff) {

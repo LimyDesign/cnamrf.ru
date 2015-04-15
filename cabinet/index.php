@@ -10,7 +10,7 @@ $twig = new Twig_Environment($loader, array(
 	'cache' => __DIR__.'/cache',
 	'auto_reload' => true,
 ));
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
 
 $conf = json_decode(file_get_contents(__DIR__.'/config.json'), true);
 
@@ -326,13 +326,13 @@ function generateInvoice($summ) {
 	$pdf->setPrintFooter(false);
 
 	$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+	$pdf->SetMargins(18, 10, 32, true);
 	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 	$pdf->SetFont('arial', '', 8);
 	$pdf->AddPage();
-	$html = file_get_contents(__DIR__.'/templates/invoice.html');
+	$html = file_get_contents(__DIR__.'/templates/invoice2.html');
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->lastPage();
 	$pdf->Output('invoice.pdf', 'D');

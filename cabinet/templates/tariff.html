@@ -122,10 +122,11 @@
 			{% endif %}
 		</div>
 		{% if not cnam.start or not current %}
-			{% for tariff in cnam|keys %}{% endfor %}
+			{% for tariff in cnam|keys %}
 			<div class="panel-footer">
 				<a href="/cabinet/tariff/set/{{ tariff }}/#info" class="btn btn-lg btn-success btn-block">Подключить</a>
 			</div>
+			{% endfor %}
 		{% endif %}
 	</div>
 {% endblock %}

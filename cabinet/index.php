@@ -330,12 +330,11 @@ function generateInvoice($summ) {
 	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
+	$pdf->setFontSubsetting(true);
 	$pdf->SetFont('helvetica', '', 20);
 	$pdf->AddPage();
-	$txt = <<<EOD
-	Шалом! ёБА!
-EOD;
-	$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
+	$txt = "Шалом! ёБА! " . $summ;
+	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);
 	$pdf->Output('invoice.pdf', 'I');
 }
 

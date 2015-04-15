@@ -330,7 +330,7 @@ function generateInvoice($summ) {
 	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-	$pdf->SetFont('arial', '', 8);
+	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
 	$html = file_get_contents(__DIR__.'/templates/invoice2.html');
 	$pdf->writeHTML($html, true, 0, true, 0);

@@ -13,11 +13,14 @@
 				<input type="hidden" name="customerNumber" value="{{ userid }}">
 				<div class="form-group">
 					<label for="sum">Сумма пополнения:</label>
-					<input type="text" class="form-control" id="sum" name="sum" value="5000.00" placeholder="5000.00">
+					<div class="input-group">
+						<input type="text" class="form-control" id="sum" name="sum" value="5000.00" placeholder="5000.00">
+						<div class="input-group-addon"><i class="fa fa-rub"></i></div>
+					</div>
 				</div>
 				<button class="btn btn-yandex" type="submit">Пополнить</button>
 			</form>
-			<p style="padding-top:30px;">Вы можете пополнить свой баланс используя форму выше. Для пополнения можно воспользоваться банковскими картами, электронными деньгами, наличными через более чем 170 тысяч пунктов оплаты в России, с баланса мобильного телефона, либо через Интернет-банкинг.</p>
+			<p style="padding-top:10px;">Вы можете пополнить свой баланс используя форму выше. Для пополнения можно воспользоваться банковскими картами, электронными деньгами, наличными через более чем 170 тысяч пунктов оплаты в России, с баланса мобильного телефона, либо через Интернет-банкинг.</p>
 		</div>
 	</div>
 {% endblock %}

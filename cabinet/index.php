@@ -333,7 +333,8 @@ function generateInvoice($summ) {
 	$pdf->SetFont('arial', '', 10);
 	$pdf->AddPage();
 	$html = "<p><strong>ИП Беспалов Арсен Георгиевич</strong></p><p><b>Адрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17</b></p>";
-	$pdf->Write(0, $txt, '', 0, '', false, 0, false, false, 0);
+	$pdf->writeHTML($html, true, 0, true, 0);
+	$pdf->lastPage();
 	$pdf->Output('invoice.pdf', 'D');
 }
 

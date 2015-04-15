@@ -40,7 +40,7 @@ switch ($cmd[0]) {
 		acceptContract(false);
 		break;
 	case 'invoice':
-		generateInoice($_POST['invoice']);
+		generateInvoice($_POST['invoice']);
 		break;
 	case 'dashboard':
 	case 'tariff':

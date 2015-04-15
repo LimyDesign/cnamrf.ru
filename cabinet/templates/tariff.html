@@ -123,7 +123,7 @@
 		</div>
 		{% if not cnam.start and not current %}
 			<div class="panel-footer">
-				<a href="/cabinet/tariff/set/{{ cnam[0] }}/#info" class="btn btn-lg btn-success btn-block">Подключить</a>
+				<a href="/cabinet/tariff/set/{{ loop.cnam }}/#info" class="btn btn-lg btn-success btn-block">Подключить</a>
 			</div>
 		{% endif %}
 	</div>

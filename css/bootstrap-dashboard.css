@@ -83,6 +83,7 @@ body {
 }
 
 a[data-toggle="popover"]:hover,
+a[data-toggle="popover"]:focus,
 a[data-toggle="popover"]:active {
 	text-decoration: none;
 	border-bottom-size: 1px;

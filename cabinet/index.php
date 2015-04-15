@@ -439,7 +439,7 @@ function userAPIKey() {
 }
 
 function acceptContract($action = true) {
-	lobal $conf;
+	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());

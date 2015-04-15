@@ -82,7 +82,7 @@ body {
 	margin-top: 0;
 }
 
-a[data-toggle="popover"]:hover, {
+a[data-toggle="popover"]:hover,
 a[data-toggle="popover"]:active {
 	text-decoration: none;
 	border-bottom-size: 1px;

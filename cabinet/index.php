@@ -332,10 +332,9 @@ function generateInvoice($summ) {
 
 	$pdf->SetFont('arial', '', 10);
 	$pdf->AddPage();
-	$html = "<p><b>ИП Беспалов Арсен Георгиевич</b></p><p><b>Адрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17</b></p>";
-	$pdf->writeHTML($html, true, 0, true, 0);
-	$pdf->Ln();
-	$html = '<p style="font-weight:bold;text-align:center;">Образец заполнения платежного поручения</p>';
+	$html = "<p style=\"font-weight:bold;\">ИП Беспалов Арсен Георгиевич</p>" .
+			"<p style=\"font-weight:bold;\">Адрес: 664002, Иркутск г, Жукова, 2-4, тел.: (499) 704-69-17</p>" .
+			"<p style=\"font-weight:bold;text-align:center;\">Образец заполнения платежного поручения</p>"
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->lastPage();
 	$pdf->Output('invoice.pdf', 'D');

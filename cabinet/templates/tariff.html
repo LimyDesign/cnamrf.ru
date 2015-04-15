@@ -15,61 +15,61 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><a href="/cabinet/tariff/info/start/" data-toggle="tooltip" title="Информация о тарифе">CNAM-Start</a></td>
+				<td><a href="/cabinet/tariff/info/start/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-Start</a></td>
 				<td>0</td>
 				<td>0 <i class="fa fa-rub"></i></td>
 				<td>10 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xs/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XS</a></td>
+				<td><a href="/cabinet/tariff/info/xs/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XS</a></td>
 				<td>1 000</td>
 				<td>5 000 <i class="fa fa-rub"></i></td>
 				<td>5 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xm/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM</a></td>
+				<td><a href="/cabinet/tariff/info/xm/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM</a></td>
 				<td>10 000</td>
 				<td>15 000 <i class="fa fa-rub"></i></td>
 				<td>1,5 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xm3/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM3</a></td>
+				<td><a href="/cabinet/tariff/info/xm3/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM3</a></td>
 				<td>30 000</td>
 				<td>20 000 <i class="fa fa-rub"></i></td>
 				<td>0,67 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xm5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM5</a></td>
+				<td><a href="/cabinet/tariff/info/xm5/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XM5</a></td>
 				<td>50 000</td>
 				<td>30 000 <i class="fa fa-rub"></i></td>
 				<td>0,60 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xl/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL</a></td>
+				<td><a href="/cabinet/tariff/info/xl/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL</a></td>
 				<td>100 000</td>
 				<td>50 000 <i class="fa fa-rub"></i></td>
 				<td>0,50 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xl5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL5</a></td>
+				<td><a href="/cabinet/tariff/info/xl5/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XL5</a></td>
 				<td>500 000</td>
 				<td>200 000 <i class="fa fa-rub"></i></td>
 				<td>0,40 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xxl/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL</a></td>
+				<td><a href="/cabinet/tariff/info/xxl/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL</a></td>
 				<td>1 000 000</td>
 				<td>300 000 <i class="fa fa-rub"></i></td>
 				<td>0,30 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xxl3/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL3</a></td>
+				<td><a href="/cabinet/tariff/info/xxl3/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL3</a></td>
 				<td>3 000 000</td>
 				<td>600 000 <i class="fa fa-rub"></i></td>
 				<td>0,20 <i class="fa fa-rub"></i></td>
 			</tr>
 			<tr>
-				<td><a href="/cabinet/tariff/info/xxl5/" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL5</a></td>
+				<td><a href="/cabinet/tariff/info/xxl5/#info" data-toggle="tooltip" title="Информация о тарифе">CNAM-XXL5</a></td>
 				<td>5 000 000</td>
 				<td>700 000 <i class="fa fa-rub"></i></td>
 				<td>0,14 <i class="fa fa-rub"></i></td>
@@ -121,9 +121,9 @@
 				<p>Данный тарифный план можно подключить при текущем балансе 700 000 рублей и более. Срок действия тарифа — 1 месяц. Тариф предназначен для операторов связи и крупных корпораций, лучшая цена составляющей, при объеме 3 и более миллионов входящих/исходящих звонок за месяц — это лучший тариф.</p>
 			{% endif %}
 		</div>
-		{% if not cnam.start %}
+		{% if not cnam.start and not current %}
 			<div class="panel-footer">
-				<a href="/cabinet/tariff/set/{{ cnam }}/" class="btn btn-lg btn-success btn-block">Установить</a>
+				<a href="/cabinet/tariff/set/{{ cnam[0] }}/#info" class="btn btn-lg btn-success btn-block">Подключить</a>
 			</div>
 		{% endif %}
 	</div>

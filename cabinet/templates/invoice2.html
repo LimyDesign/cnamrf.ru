@@ -20,3 +20,16 @@
 		<td width="13mm">Сч. №</td>
 	</tr>
 </table>
+
+<h1>СЧЕТ № {{ invoice_number }} от {{ invoice_date }}</h1>
+<p>&nbsp;</p>
+<table border="0" cellpadding="1" cellspacing="0">
+	<tr>
+		<td>Плательщик:</td>
+		<td>{{ client_company }}</td>
+	</tr>
+	<tr>
+		<td>Грузополучатель:</td>
+		<td>{{ client_company }}</td>
+	</tr>
+</table>

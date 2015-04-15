@@ -1,81 +1,75 @@
-<style>
-    /*body { width: 210mm; margin-left: auto; margin-right: auto; border: 1px #efefef solid; font-size: 11pt;}*/
-    table.invoice_bank_rekv { border-collapse: collapse; border: 1px solid; }
-    table.invoice_bank_rekv > tbody > tr > td, table.invoice_bank_rekv > tr > td { border: 1px solid; }
-    table.invoice_items { border: 1px solid; border-collapse: collapse;}
-    table.invoice_items td, table.invoice_items th { border: 1px solid;}
-</style>
-<table width="100%">
+<table>
     <tr>
         <td>&nbsp;</td>
-        <td style="width: 155mm;">
-            <div style="width:155mm; ">Внимание! Оплата данного счета означает согласие с условиями оказания информационных услуг системы «CNAM РФ». Уведомление об оплате  обязательно, в противном случае зачисление денежных средств может затянуться до 7 рабочих дней. Зачисление денежных средств на лицевой счет Покупателя в системе «CNAM РФ» осуществляется по факту прихода денег на р/с Поставщика.</div>
+        <td>
+            Внимание! Оплата данного счета означает согласие с условиями оказания информационных услуг системы «CNAM РФ». Уведомление об оплате  обязательно, в противном случае зачисление денежных средств может затянуться до 7 рабочих дней. Зачисление денежных средств на лицевой счет Покупателя в системе «CNAM РФ» осуществляется по факту прихода денег на р/с Поставщика.
         </td>
     </tr>
     <tr>
         <td colspan="2">
             <div style="text-align:center;  font-weight:bold;">
-                Образец заполнения платежного поручения            </div>
+                Образец заполнения платежного поручения
+            </div>
         </td>
     </tr>
 </table>
 
 
-<table width="100%" cellpadding="1" cellspacing="0" border="1">
+<table cellpadding="1" cellspacing="0" border="1">
     <tr>
-        <td colspan="2" rowspan="2" style="min-height:13mm; width: 105mm;">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="height: 13mm;">
+        <td colspan="2" rowspan="2">
+            <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                     <td valign="top">
                         <div>БАЙКАЛЬСКИЙ БАНК СБЕРБАНКА РОССИИ г. ИРКУТСК</div>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="bottom" style="height: 3mm;">
-                        <div style="font-size:10pt;">Банк получателя        </div>
+                    <td valign="bottom">
+                        <div>Банк получателя</div>
                     </td>
                 </tr>
             </table>
         </td>
-        <td style="min-height:7mm;height:auto; width: 25mm;">
+        <td>
             <div>БИK</div>
         </td>
-        <td rowspan="2" style="vertical-align: top; width: 60mm;">
-            <div style=" height: 7mm; line-height: 7mm; vertical-align: middle;">042520607</div>
+        <td rowspan="2" style="vertical-align: top;">
+            <div style="vertical-align: middle;">042520607</div>
             <div>30101810900000000607</div>
         </td>
     </tr>
     <tr>
-        <td style="width: 25mm;">
+        <td>
             <div>Сч. №</div>
         </td>
     </tr>
     <tr>
-        <td style="min-height:6mm; height:auto; width: 50mm;">
+        <td>
             <div>ИНН 381004151548</div>
         </td>
-        <td style="min-height:6mm; height:auto; width: 55mm;">
+        <td>
             <div>КПП </div>
         </td>
-        <td rowspan="2" style="min-height:19mm; height:auto; vertical-align: top; width: 25mm;">
+        <td rowspan="2" style="vertical-align: top;">
             <div>Сч. №</div>
         </td>
-        <td rowspan="2" style="min-height:19mm; height:auto; vertical-align: top; width: 60mm;">
+        <td rowspan="2" style="vertical-align: top;">
             <div>40802810618350007723</div>
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="min-height:13mm; height:auto;">
+        <td colspan="2">
 
-            <table border="0" cellpadding="0" cellspacing="0" style="height: 13mm; width: 105mm;">
+            <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                     <td valign="top">
                         <div>Индивидуальный предприниматель БЕСПАЛОВ АРСЕН ГЕОРГИЕВИЧ</div>
                     </td>
                 </tr>
                 <tr>
-                    <td valign="bottom" style="height: 3mm;">
-                        <div style="font-size: 10pt;">Получатель</div>
+                    <td valign="bottom">
+                        <div>Получатель</div>
                     </td>
                 </tr>
             </table>
@@ -85,54 +79,54 @@
 </table>
 <br/>
 
-<div style="font-weight: bold; font-size: 16pt; padding-left:5px;">
+<div style="font-weight: bold; padding-left:5px;">
     Счет № {{ invoice_number }} от {{ invoice_date }}</div>
 <br/>
 
 <div style="background-color:#000000; width:100%; font-size:1px; height:2px;">&nbsp;</div>
 
-<table width="100%">
+<table>
     <tr>
-        <td style="width: 30mm;">
-            <div style=" padding-left:2px;">Поставщик:    </div>
+        <td>
+            <div>Поставщик:</div>
         </td>
         <td>
-            <div style="font-weight:bold;  padding-left:2px;">
+            <div>
                 Индивидуальный предприниматель БЕСПАЛОВ АРСЕН ГЕОРГИЕВИЧ            </div>
         </td>
     </tr>
     <tr>
-        <td style="width: 30mm;">
-            <div style=" padding-left:2px;">Покупатель:    </div>
+        <td>
+            <div>Покупатель:    </div>
         </td>
         <td>
-            <div style="font-weight:bold;  padding-left:2px;">
+            <div>
                 {{ company_name }}            </div>
         </td>
     </tr>
 </table>
 
 
-<table width="100%" cellpadding="1" cellspacing="0" border="1">
+<table cellpadding="1" cellspacing="0" border="1">
     <thead>
     <tr>
-        <th style="width:13mm;">№</th>
+        <th>№</th>
         <th>Товар (работы, услуги)</th>
-        <th style="width:20mm;">Кол-во</th>
-        <th style="width:17mm;">Ед.</th>
-        <th style="width:27mm;">Цена</th>
-        <th style="width:27mm;">Сумма</th>
+        <th>Кол-во</th>
+        <th>Ед.</th>
+        <th>Цена</th>
+        <th>Сумма</th>
     </tr>
     </thead>
     <tbody >
 <tr><td align="center">1</td><td align="left">Предоплата за оказание информационных услуг на сайте www.cnamrf.ru на лицевой счет № {{ userid }}</td><td align="right">1</td><td align="left">мес.</td><td align="right">{{ price }}</td><td align="right">{{ summ }}</td></tr>    </tbody>
 </table>
 
-<table border="0" width="100%" cellpadding="1" cellspacing="1">
+<table border="0" cellpadding="1" cellspacing="1">
     <tr>
         <td></td>
-        <td style="width:27mm; font-weight:bold;  text-align:right;">Итого:</td>
-        <td style="width:27mm; font-weight:bold;  text-align:right;">{{ total }}</td>
+        <td style="text-align:right;">Итого:</td>
+        <td style="text-align:right;">{{ total }}</td>
     </tr>
 </table>
 
@@ -150,11 +144,11 @@
 <div>Главный бухгалтер ______________________ (Беспалов А.Г.)</div>
 <br/>
 
-<div style="width: 85mm;text-align:center;">М.П.</div>
+<div style="text-align:center;">М.П.</div>
 <br/>
 
 
-<div style="width:800px;text-align:left;font-size:10pt;">Счет действителен к оплате в течении четырнадцати дней.</div>
+<div style="text-align:left;">Счет действителен к оплате в течении четырнадцати дней.</div>
 
 </body>
 </html>

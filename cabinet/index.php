@@ -375,12 +375,14 @@ function generateInvoice($summ) {
 	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
 
-
+	if (!getUserCompany()) {
+		setUserCompany($_POST['company-name']);
+	}
 
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => '0',
 		'invoice_date' => date('d.m.Y').' г.',
-		'client_company' => setUserCompany($_POST['company-name']),
+		'client_company' => $_SESSION['company'],
 		'userid' => $_SESSION['userid'],
 		'price' => $_POST['invoice'],
 		'summ' => $_POST['invoice'],

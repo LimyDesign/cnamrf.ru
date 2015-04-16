@@ -42,6 +42,9 @@ switch ($cmd[0]) {
 	case 'invoice':
 		generateInvoice($_POST['invoice']);
 		break;
+	case 'getUserBalans':
+		getUserBalans();
+		break;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -321,6 +324,20 @@ function auth_db ($id, $email, $provider) {
 			header("Location: /cabinet/dashboard/");
 		}
 	}
+}
+
+function getUserBalans() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select (debet-credit) as balans from log where uid = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		$balans = pg_fetch_result($result, 0, 'balans');
+		pg_free_result($result);
+		pg_close($db);
+	}
+	return $balans;
 }
 
 function setUserCompany($company) {

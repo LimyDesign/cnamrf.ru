@@ -134,13 +134,13 @@
 <script>
 	$( document ).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip()
+	})
 
-		$(window).load(function() {
-			var hash = location.hash.replace('#','')
-			if (hash != '') {
-				$('html, body').animate({ scrollTop: $('#info').offset().top }, 1000)
-			}
-		})
+	$(window).load(function() {
+		var hash = location.hash.replace('#','')
+		if (hash != '') {
+			$('html, body').animate({ scrollTop: $('#info').offset().top }, 1000)
+		}
 	})
 </script>
 {% endblock %}

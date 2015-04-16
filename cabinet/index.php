@@ -357,15 +357,20 @@ function generateInvoice($summ) {
 	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
 
+	$sum = number_format($_POST['invoice'], 2, '-', ' ');
+	$sum_alt = number_format($_POST['invoice'], 2, '.', '\'');
+	$spacer = str_repeat("&nbsp;", strlen($sum)-1);
+
 	$html = $twig->render('invoice.html', array(
-		'invoice_number' => 'CNAM-'.date('ymdHis'),
+		'invoice_number' => 'CNAM-'.date('ymdHis').rand(0,9),
 		'invoice_date' => russian_date().' г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
-		'price' => $_POST['invoice'],
-		'summ' => $_POST['invoice'],
-		'total' => $_POST['invoice'],
-		'spacer' => '',
+		'price' => $sum,
+		'summ' => $sum,
+		'summ_alt' => $sum_alt,
+		'total' => $sum,
+		'spacer' => $spacer,
 		'summ_text' => ''));
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);

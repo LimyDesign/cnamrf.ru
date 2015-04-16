@@ -323,24 +323,6 @@ function auth_db ($id, $email, $provider) {
 	}
 }
 
-function getUserCompany() {
-	if (!$_SESSION['company'])
-	{
-		global $conf;
-		if ($conf['db']['type'] == 'postgres')
-		{
-			$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select company from users where id = {$_SESSION['userid']}";
-			$result = pg_query($query);
-			$company = pg_fetch_result($result, 0, 'company');
-			$_SESSION['company'] = $company;
-			pg_free_result($result);
-			pg_close($db);
-		}
-	}
-	return $_SESSION['company'];
-}
-
 function setUserCompany($company) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
@@ -377,7 +359,7 @@ function generateInvoice($summ) {
 
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => '0',
-		'invoice_date' => date('d.m.Y').' г.',
+		'invoice_date' => russian_date().'&nbsp;г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
 		'price' => $_POST['invoice'],
@@ -545,6 +527,25 @@ function acceptContract($action = true) {
 			header("Location: /");
 		}
 	}
+}
+
+function russian_date() {
+	$date = explode('.',date('d.m.Y'));
+	switch ($date[1]) {
+		case 1: $m = 'января'; break;
+		case 2: $m = 'февраля'; break;
+		case 3: $m = 'марта'; break;
+		case 4: $m = 'апреля'; break;
+		case 5: $m = 'мая'; break;
+		case 6: $m = 'июня'; break;
+		case 7: $m = 'июля'; break;
+		case 8: $m = 'августа'; break;
+		case 9: $m = 'сентября'; break;
+		case 10: $m = 'октября'; break;
+		case 11: $m = 'ноября'; break;
+		case 12: $m = 'декабря'; break;
+	}
+	return $date[0].'&nbsp;'.$m.'&nbsp;'.$date[2];
 }
 
 function check_auth() {

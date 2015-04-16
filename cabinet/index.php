@@ -352,6 +352,7 @@ function setUserCompany($company) {
 		pg_close($db);
 		$_SESSION['company'] = $company;
 	}
+	return $_SESSION['company'];
 }
 
 function generateInvoice($summ) {
@@ -373,17 +374,19 @@ function generateInvoice($summ) {
 
 	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
+
+
+
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => '0',
 		'invoice_date' => date('d.m.Y').' г.',
-		'client_company' => getUserCompany(),
+		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
 		'price' => $_POST['invoice'],
 		'summ' => $_POST['invoice'],
 		'total' => $_POST['invoice'],
 		'spacer' => '',
 		'summ_text' => ''));
-	// $html = file_get_contents(__DIR__.'/templates/invoice2.html');
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);
 	$pdf->Image(K_PATH_IMAGES . 'sign_trans.png', 50, 124, 60, '', '', '', '', false);

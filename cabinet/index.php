@@ -369,7 +369,8 @@ function generateInvoice($summ) {
 		'summ' => $sum,
 		'summ_alt' => $sum_alt,
 		'total' => $sum,
-		'summ_text' => ucfirst(num2str($user_sum))));
+		'summ_text' => ucfirst(num2str($user_sum))
+		));
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);
 	$pdf->Image(K_PATH_IMAGES . 'sign_trans.png', 50, 124, 60, '', '', '', '', false);

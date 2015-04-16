@@ -95,8 +95,7 @@
 
 			$( document ).ready(function() {
 				$.post('/cabinet/getUserBalans/', function (data) {
-					data = (data).formatMoney(2, '.', ',')
-					$('#balans').text(data)
+					$('#balans').text(data.formatMoney(2))
 				})
 			})
 		</script>

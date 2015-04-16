@@ -369,7 +369,7 @@ function generateInvoice($summ) {
 		'summ' => $sum,
 		'summ_alt' => $sum_alt,
 		'total' => $sum,
-		'summ_text' => ucfirst(num2str($user_sum))
+		'summ_text' => mb_ucfirst(num2str($user_sum))
 		));
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);
@@ -598,6 +598,14 @@ function morph($n, $f1, $f2, $f5) {
     if ($n>1 && $n<5) return $f2;
     if ($n==1) return $f1;
     return $f5;
+}
+
+function mb_ucfirst($str, $encoding='UTF-8')
+{
+   $str = mb_ereg_replace('^[\ ]+', '', $str);
+   $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
+          mb_substr($str, 1, mb_strlen($str), $encoding);
+   return $str;
 }
 
 function check_auth() {

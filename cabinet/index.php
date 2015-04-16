@@ -67,7 +67,9 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('tariff.html', array(
 					'tariff' => true,
 					'cnam' => selectTariff($cmd[2]),
-					'current' => selectTariff()));
+					'current' => selectTariff(),
+					'balans' => getUserBalans(true),
+					));
 				break;
 			case 'balans':
 				echo $twig->render('balans.html', array(
@@ -326,7 +328,7 @@ function auth_db ($id, $email, $provider) {
 	}
 }
 
-function getUserBalans() {
+function getUserBalans($return = false) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
@@ -338,8 +340,15 @@ function getUserBalans() {
 		pg_free_result($result);
 		pg_close($db);
 	}
-	echo $balans;
-	exit();
+	if (!$return)
+	{
+		echo $balans;
+		exit();
+	}
+	else
+	{
+		return $balans;
+	}
 }
 
 function setUserCompany($company) {
@@ -413,7 +422,7 @@ function selectTariff ($tariff) {
 			return $tariff;
 		}
 	} else {
-		return array($tariff => true);
+		return array($tariff => true, 'xs' => '5000', 'xm' => '15000', 'xm3' => '20000');
 	}
 }
 

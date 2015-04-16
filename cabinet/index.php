@@ -359,7 +359,7 @@ function generateInvoice($summ) {
 
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => '0',
-		'invoice_date' => russian_date().'&nbsp;г.',
+		'invoice_date' => russian_date().' г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
 		'price' => $_POST['invoice'],
@@ -545,7 +545,7 @@ function russian_date() {
 		case 11: $m = 'ноября'; break;
 		case 12: $m = 'декабря'; break;
 	}
-	return $date[0].'&nbsp;'.$m.'&nbsp;'.$date[2];
+	return $date[0].' '.$m.' '.$date[2];
 }
 
 function check_auth() {

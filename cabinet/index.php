@@ -336,6 +336,7 @@ function getUserCompany() {
 			$_SESSION['company'] = $company;
 			pg_free_result($result);
 			pg_close($db);
+		}
 	}
 	return $_SESSION['company'];
 }

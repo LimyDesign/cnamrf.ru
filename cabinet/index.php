@@ -338,6 +338,7 @@ function getUserBalans() {
 		pg_close($db);
 	}
 	echo $balans;
+	exit();
 }
 
 function setUserCompany($company) {

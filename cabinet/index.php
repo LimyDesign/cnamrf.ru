@@ -336,7 +336,7 @@ function generateInvoice($summ) {
 	$pdf->AddPage();
 	$html = file_get_contents(__DIR__.'/templates/invoice2.html');
 	$pdf->writeHTML($html, true, 0, true, 0);
-	$pdf->Image('http://cnamrf.ru/images/print_trans.png', 21, 145, 40, '', '', '', '', false);
+	$pdf->Image('*http://cnamrf.ru/images/print_trans.png', 21, 145, 40, '', '', '', '', false);
 	$pdf->lastPage();
 	$pdf->Output('invoice.pdf', 'D');
 }

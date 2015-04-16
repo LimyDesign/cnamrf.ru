@@ -358,7 +358,7 @@ function generateInvoice($summ) {
 	$pdf->AddPage();
 
 	$html = $twig->render('invoice.html', array(
-		'invoice_number' => '0',
+		'invoice_number' => 'CNAM-'.date('ymdHis'),
 		'invoice_date' => russian_date().' г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],

@@ -85,7 +85,7 @@
 		<script>
 			$( document ).ready(function() {
 				$.post('/cabinet/getUserBalans/', function (data) {
-					$('#balans').text(data)
+					$('#balans').number(data, 2, '.', ' ');
 				})
 			})
 		</script>

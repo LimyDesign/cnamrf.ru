@@ -337,7 +337,7 @@ function getUserBalans() {
 		pg_free_result($result);
 		pg_close($db);
 	}
-	return $balans;
+	echo $balans;
 }
 
 function setUserCompany($company) {

@@ -72,7 +72,7 @@ if ($_SESSION['auth'] === true)
 					'yaShopId' => $conf['payments']['ShopID'],
 					'yaSCId' => '',
 					'userid' => $_SESSION['userid'],
-					'company_name' => htmlentities(getUserCompany()),
+					'company_name' => htmlentities($_SESSION['company']),
 					));
 				break;
 			case 'profile':
@@ -375,14 +375,10 @@ function generateInvoice($summ) {
 	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
 
-	if (!getUserCompany()) {
-		setUserCompany($_POST['company-name']);
-	}
-
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => '0',
 		'invoice_date' => date('d.m.Y').' г.',
-		'client_company' => getUserCompany(),
+		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
 		'price' => $_POST['invoice'],
 		'summ' => $_POST['invoice'],

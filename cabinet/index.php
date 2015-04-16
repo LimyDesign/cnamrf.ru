@@ -369,7 +369,7 @@ function generateInvoice($summ) {
 		'summ' => $sum,
 		'summ_alt' => $sum_alt,
 		'total' => $sum,
-		'summ_text' => mb_convert_case(num2str($user_sum), MB_CASE_TITLE, 'UTF-8')));
+		'summ_text' => mb_ucfirst(num2str($user_sum))));
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);
 	$pdf->Image(K_PATH_IMAGES . 'sign_trans.png', 50, 124, 60, '', '', '', '', false);

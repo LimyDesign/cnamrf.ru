@@ -23,22 +23,21 @@
 
 <h1 align="center">СЧЕТ № {{ invoice_number }} от {{ invoice_date }}</h1>
 <p>&nbsp;</p>
-<p>
-	<table border="0" cellpadding="1" cellspacing="0">
-		<tr>
-			<td width="30mm">&nbsp;Плательщик:</td>
-			<td>{{ client_company }}</td>
-		</tr>
-		<tr>
-			<td width="30mm">&nbsp;Грузополучатель:</td>
-			<td>{{ client_company }}</td>
-		</tr>
-	</table>
-</p>
+<table border="0" cellpadding="1" cellspacing="0">
+	<tr>
+		<td width="30mm">&nbsp;Плательщик:</td>
+		<td>{{ client_company }}</td>
+	</tr>
+	<tr>
+		<td width="30mm">&nbsp;Грузополучатель:</td>
+		<td>{{ client_company }}</td>
+	</tr>
+</table>
+&nbsp;
 <table border="1" cellpadding="1" cellspacing="0">
 	<tr>
 		<td width="7mm" align="center" style="line-height:12mm;">№</td>
-		<td width="71mm" align="center" style="line-height:12mm;">Наименование<br>товара</td>
+		<td width="71mm" align="center" style="line-height:12mm;"><span>Наименование<br>товара</span></td>
 		<td width="15mm" align="center">Еденица изме-рения</td>
 		<td width="13mm" align="center">Коли-чество</td>
 		<td width="27mm" align="center">Цена</td>

@@ -121,7 +121,7 @@
 				<p>Данный тарифный план можно подключить при текущем балансе 700 000 рублей и более. Срок действия тарифа — 1 месяц. Тариф предназначен для операторов связи и крупных корпораций, лучшая цена составляющей, при объеме 3 и более миллионов входящих/исходящих звонок за месяц — это лучший тариф.</p>
 			{% endif %}
 		</div>
-		{% if not cnam.start or not current and curr_balans >= tariff_price %}
+		{% if not cnam.start or not current and tariff_allow %}
 			{% for tariff in cnam|keys %}
 				<div class="panel-footer">
 					<a href="/cabinet/tariff/set/{{ tariff }}/#info" class="btn btn-lg btn-success btn-block">Подключить {{ curr_balans }} - {{ tariff_price }}</a>

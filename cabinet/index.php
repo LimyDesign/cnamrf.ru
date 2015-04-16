@@ -68,8 +68,7 @@ if ($_SESSION['auth'] === true)
 					'tariff' => true,
 					'cnam' => selectTariff($cmd[2]),
 					'current' => selectTariff(),
-					'curr_balans' => getUserBalans(true),
-					'tariff_price' => getTariffPrice($cmd[2])
+					'tariff_allow' => (getUserBalans(true) >= getTariffPrice($cmd[2])) ? true : false,
 					));
 				break;
 			case 'balans':

@@ -68,7 +68,8 @@ if ($_SESSION['auth'] === true)
 					'tariff' => true,
 					'cnam' => selectTariff($cmd[2]),
 					'current' => selectTariff(),
-					'balans' => getUserBalans(true),
+					'curr_balans' => getUserBalans(true),
+					'tariff_price' => getTariffPrice($cmd[2])
 					));
 				break;
 			case 'balans':
@@ -422,7 +423,21 @@ function selectTariff ($tariff) {
 			return $tariff;
 		}
 	} else {
-		return array($tariff => true, 'xs' => '5000', 'xm' => '15000', 'xm3' => '20000');
+		return array($tariff => true);
+	}
+}
+
+function getTariffPrice($tariff) {
+	switch ($tariff) {
+		case 'xs': return 5000; break;
+		case 'xm': return 15000; break;
+		case 'xm3': return 20000; break;
+		case 'xm5': return 30000; break;
+		case 'xl': return 50000; break;
+		case 'xl5': return 200000; break;
+		case 'xxl': return 300000; break;
+		case 'xxl3': return 600000; break;
+		case 'xxl5': return 700000; break;
 	}
 }
 

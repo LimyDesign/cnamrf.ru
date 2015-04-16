@@ -124,7 +124,7 @@
 		{% if not cnam.start or not current and tariff_allow %}
 			{% for tariff in cnam|keys %}
 				<div class="panel-footer">
-					<a href="/cabinet/tariff/set/{{ tariff }}/#info" class="btn btn-lg btn-success btn-block">Подключить {{ curr_balans }} - {{ tariff_price }}</a>
+					<a href="/cabinet/tariff/set/{{ tariff }}/#info" class="btn btn-lg btn-success btn-block">Подключить - {{ tariff_allow }}</a>
 				</div>
 			{% endfor %}
 		{% endif %}

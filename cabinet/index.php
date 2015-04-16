@@ -67,7 +67,13 @@ if ($_SESSION['auth'] === true)
 					'current' => selectTariff()));
 				break;
 			case 'balans':
-				echo $twig->render('balans.html', array('balans' => true));
+				echo $twig->render('balans.html', array(
+					'balans' => true,
+					'yaShopId' => $conf['payments']['ShopID'],
+					'yaSCId' => '',
+					'userid' => $_SESSION['userid'],
+					'company_name' => htmlentities(getUserCompany()),
+					));
 				break;
 			case 'profile':
 				echo $twig->render('profile.html', array(
@@ -85,7 +91,7 @@ if ($_SESSION['auth'] === true)
 					'odnoklassniki' => checkProviderLink('ok'),
 					'mailru' => checkProviderLink('mr'),
 					'yandex' => checkProviderLink('ya')
-				));
+					));
 				break;
 			case 'key':
 				echo $twig->render('key.html', array(
@@ -304,9 +310,11 @@ function auth_db ($id, $email, $provider) {
 			{
 				$userid = pg_fetch_result($result, 0, 'id');
 				$contract = pg_fetch_result($result, 0, 'contract');
+				$company = pg_fetch_result($result, 0, 'company');
 			}
 			$_SESSION['userid'] = $userid;
 			$_SESSION['contract'] = $result ? true : false;
+			$_SESSION['company'] = $company;
 			$_SESSION['auth'] = true;
 			pg_free_result($result);
 			pg_close($db);
@@ -315,10 +323,40 @@ function auth_db ($id, $email, $provider) {
 	}
 }
 
-function generateInvoice($summ) {
-	global $pdf;
+function getUserCompany() {
+	if (!$_SESSION['company'])
+	{
+		global $conf;
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select company from users where id = {$_SESSION['userid']}";
+			$result = pg_query($query);
+			$company = pg_fetch_result($result, 0, 'company');
+			$_SESSION['company'] = $company;
+			pg_free_result($result);
+			pg_close($db);
+	}
+	return $_SESSION['company'];
+}
 
-	$pdf->SetCreator(PDF_CREATOR);
+function setUserCompany($company) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$company = pg_escape_string($company);
+		$query = "update users set company = '{$company}' where id = {$_SESSION['userid']}";
+		pg_query($query);
+		pg_close($db);
+		$_SESSION['company'] = $company;
+	}
+}
+
+function generateInvoice($summ) {
+	global $pdf, $twig;
+
+	$pdf->SetCreator('CNAM RF');
 	$pdf->SetAuthor('Arsen Bespalov');
 	$pdf->SetTitle('CNAM RF Invoice');
 	$pdf->SetSubject('Invoice');
@@ -334,7 +372,17 @@ function generateInvoice($summ) {
 
 	$pdf->SetFont('arial', '', 9);
 	$pdf->AddPage();
-	$html = file_get_contents(__DIR__.'/templates/invoice2.html');
+	$html = $twig->render('invoice.html', array(
+		'invoice_number' => '0',
+		'invoice_date' => date('d.m.Y').' г.',
+		'client_company' => getUserCompany(),
+		'userid' => $_SESSION['userid'],
+		'price' => $_POST['invoice'],
+		'summ' => $_POST['invoice'],
+		'total' => $_POST['invoice'],
+		'spacer' => '',
+		'summ_text' => ''));
+	// $html = file_get_contents(__DIR__.'/templates/invoice2.html');
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);
 	$pdf->Image(K_PATH_IMAGES . 'sign_trans.png', 50, 124, 60, '', '', '', '', false);

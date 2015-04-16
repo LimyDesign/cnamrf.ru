@@ -306,7 +306,7 @@ function auth_db ($id, $email, $provider) {
 				$contract = pg_fetch_result($result, 0, 'contract');
 			}
 			$_SESSION['userid'] = $userid;
-			$_SESSION['contract'] = $result;
+			$_SESSION['contract'] = $result ? true : false;
 			$_SESSION['auth'] = true;
 			pg_free_result($result);
 			pg_close($db);

@@ -359,8 +359,6 @@ function generateInvoice($summ) {
 
 	$sum = number_format($_POST['invoice'], 2, '-', ' ');
 	$sum_alt = number_format($_POST['invoice'], 2, '.', '\'');
-	$spacer = str_repeat("&nbsp;", strlen($sum)-1);
-
 	$html = $twig->render('invoice.html', array(
 		'invoice_number' => 'CNAM-'.date('ymdHis').rand(0,9),
 		'invoice_date' => russian_date().' г.',
@@ -370,7 +368,7 @@ function generateInvoice($summ) {
 		'summ' => $sum,
 		'summ_alt' => $sum_alt,
 		'total' => $sum,
-		'spacer' => $spacer,
+		'spacer' => strlen($sum)-1,
 		'summ_text' => ''));
 	$pdf->writeHTML($html, true, 0, true, 0);
 	$pdf->Image(K_PATH_IMAGES . 'print_trans.png', 21, 140, 40, '', '', '', '', false);

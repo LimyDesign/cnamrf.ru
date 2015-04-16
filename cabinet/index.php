@@ -72,7 +72,7 @@ if ($_SESSION['auth'] === true)
 					'yaShopId' => $conf['payments']['ShopID'],
 					'yaSCId' => '',
 					'userid' => $_SESSION['userid'],
-					'company_name' => htmlspecialchars($_SESSION['company']),
+					'company_name' => $_SESSION['company'],
 					));
 				break;
 			case 'profile':

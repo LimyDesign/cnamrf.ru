@@ -334,6 +334,7 @@ function getUserBalans() {
 		$query = "select (debet-credit) as balans from log where uid = {$_SESSION['userid']}";
 		$result = pg_query($query);
 		$balans = pg_fetch_result($result, 0, 'balans');
+		$balans = $balans ? $balans : '0';
 		pg_free_result($result);
 		pg_close($db);
 	}

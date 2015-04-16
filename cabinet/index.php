@@ -64,11 +64,15 @@ if ($_SESSION['auth'] === true)
 	{
 		switch ($cmd[0]) {
 			case 'tariff':
+				if (getUserBalans(true) >= getTariffPrice($cmd[2]))
+					$tariff_allow = true;
+				else
+					$tariff_allow = false;
 				echo $twig->render('tariff.html', array(
 					'tariff' => true,
 					'cnam' => selectTariff($cmd[2]),
 					'current' => selectTariff(),
-					'tariff_allow' => (getUserBalans(true) >= getTariffPrice($cmd[2])) ? true : false,
+					'tariff_allow' => $tariff_allow,
 					));
 				break;
 			case 'balans':

@@ -124,9 +124,9 @@ if ($_SESSION['auth'] === true)
 			default:
 				echo $twig->render('dashboard.html', array(
 					'dashboard' => true,
-					'progtrckr-module' => progtrckr('module'),
-					'progtrckr-balans' => progtrckr('balans'),
-					'progtrckr-tariff' => progtrckr('tariff'),
+					'progtrckr_module' => progtrckr('module'),
+					'progtrckr_balans' => progtrckr('balans'),
+					'progtrckr_tariff' => progtrckr('tariff'),
 					));
 				break;
 		}
@@ -368,25 +368,16 @@ function progtrckr($step) {
 	elseif ($step == 'tariff')
 	{
 		if (array_key_exists('start', selectTariff()))
-		{
 			return 'todo';
-		}
 		else
-		{
 			return 'done';
-		}
 	}
 	elseif ($step == 'balans')
 	{
 		if (getUserBalans(true) > 0)
-		{
-			die('done');
 			return 'done';
-		}
 		else
-		{
 			return 'todo';
-		}
 	}
 }
 

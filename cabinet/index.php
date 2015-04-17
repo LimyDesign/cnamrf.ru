@@ -367,18 +367,26 @@ function progtrckr($step) {
 	}
 	elseif ($step == 'tariff')
 	{
-		die('todo');
 		if (array_key_exists('start', selectTariff()))
+		{
 			return 'todo';
+		}
 		else
+		{
 			return 'done';
+		}
 	}
 	elseif ($step == 'balans')
 	{
 		if (getUserBalans(true) > 0)
+		{
+			die('done');
 			return 'done';
+		}
 		else
+		{
 			return 'todo';
+		}
 	}
 }
 

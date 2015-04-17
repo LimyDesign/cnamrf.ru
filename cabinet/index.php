@@ -122,7 +122,12 @@ if ($_SESSION['auth'] === true)
 					'accept' => $_SESSION['contract']));
 				break;
 			default:
-				echo $twig->render('dashboard.html', array('dashboard' => true));
+				echo $twig->render('dashboard.html', array(
+					'dashboard' => true,
+					'progtrckr-module' => progtrckr('module'),
+					'progtrckr-balans' => progtrckr('balans'),
+					'progtrckr-tariff' => progtrckr('tariff'),
+					));
 				break;
 		}
 	} else {
@@ -352,6 +357,27 @@ function getUserBalans($return = false) {
 	else
 	{
 		return $balans;
+	}
+}
+
+function progtrckr($step) {
+	if ($step == 'module')
+	{
+		return 'todo';
+	}
+	elseif ($step == 'tariff')
+	{
+		if (array_key_exists('start', selectTariff()))
+			return 'todo';
+		else
+			return 'done';
+	}
+	elseif ($step == 'balans')
+	{
+		if (getUserBalans(true) > 0)
+			return 'done';
+		else
+			return 'todo';
 	}
 }
 

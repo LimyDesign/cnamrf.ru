@@ -363,6 +363,7 @@ function getUserBalans($return = false) {
 function progtrckr($step) {
 	if ($step == 'module')
 	{
+		die('todo');
 		return 'todo';
 	}
 	elseif ($step == 'tariff')
@@ -378,8 +379,6 @@ function progtrckr($step) {
 			return 'done';
 		else
 			return 'todo';
-	} else {
-		return 'todo';
 	}
 }
 

@@ -378,6 +378,8 @@ function progtrckr($step) {
 			return 'done';
 		else
 			return 'todo';
+	} else {
+		return 'todo';
 	}
 }
 

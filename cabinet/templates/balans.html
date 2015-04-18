@@ -8,7 +8,7 @@
 		<div class="panel-heading">Физическим лицам</div>
 		<div class="panel-body">
 			{# <form action="https://money.yandex.ru/eshop.xml" method="post" class="form-inline"> #}
-			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-inline">
+			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-inline" id="yapayform">
 				<input type="hidden" name="shopId" value="{{ yaShopId }}">
 				<input type="hidden" name="scid" value="{{ yaSCId }}">
 				<input type="hidden" name="customerNumber" value="{{ userid }}">
@@ -62,6 +62,11 @@
 		})
 		$('#sum').number(true, 2, '.', ' ');
 		$('#invoice').number(true, 2, '.', ' ');
+		$('#yapayform').submit(function(e){
+			e.preventDefault();
+			$('#sum').number(true, 2, '.', '');
+			return true;
+		})
 	})
 </script>
 {% endblock %}

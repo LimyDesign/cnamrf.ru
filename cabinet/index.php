@@ -45,6 +45,9 @@ switch ($cmd[0]) {
 	case 'getUserBalans':
 		getUserBalans();
 		break;
+	case 'checkOrder':
+		checkOrder();
+		break;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -358,6 +361,11 @@ function getUserBalans($return = false) {
 	{
 		return $balans;
 	}
+}
+
+function checkOrder() {
+	$post = implode(':::', $_POST);
+	file_put_contents('tmp.txt', $post);
 }
 
 function progtrckr($step) {

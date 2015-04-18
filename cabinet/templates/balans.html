@@ -9,6 +9,14 @@
 		<div class="panel-body">
 			{# <form action="https://money.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform"> #}
 			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform">
+				{% if fail %}
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<button class="close" type="button" data-dismiss="alert" aria-label="Закрыть">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>Ошибка!</strong> Платеж не был осуществлен. Попробуйте еще раз или выберете другой способ оплаты.
+					</div>
+				{% endif %}
 				<input type="hidden" name="shopId" value="{{ yaShopId }}">
 				<input type="hidden" name="scid" value="{{ yaSCId }}">
 				<input type="hidden" name="customerNumber" value="{{ userid }}">

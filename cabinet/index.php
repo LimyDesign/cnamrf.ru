@@ -79,12 +79,14 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'balans':
+				if ($cmd[1] == 'fail') $fail = true;
 				echo $twig->render('balans.html', array(
 					'balans' => true,
 					'yaShopId' => $conf['payments']['ShopID'],
 					'yaSCId' => $conf['payments']['SCID'],
 					'userid' => $_SESSION['userid'],
 					'company_name' => $_SESSION['company'],
+					'fail' => $fail,
 					));
 				break;
 			case 'profile':

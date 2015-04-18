@@ -364,7 +364,7 @@ function getUserBalans($return = false) {
 }
 
 function checkOrder() {
-	$post = implode(':::', $_POST);
+	$post = implode($_POST);
 	file_put_contents('tmp.txt', $post);
 }
 

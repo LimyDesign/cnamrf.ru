@@ -15,7 +15,7 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Способ оплаты:</label>
 					<div class="col-sm-8">
-							<label class="radio-inline">
+							<label class="radio-inline" data-toggle="tooltip" title="jdfgsh">
 								<input type="radio" name="paymentType" value="PC"> 
 								<img src="https://kassa.yandex.ru/style/gfx/ya.png" alt="Яндекс.Деньги" title="Яндекс.Деньги">
 							</label>
@@ -81,6 +81,7 @@
 			placement: 'top',
 			html: true
 		})
+		$('[data-toggle="tooltip"]').tooltip()
 		$('#sum').number(true, 2, '.', ' ')
 		$('#invoice').number(true, 2, '.', ' ')
 		$('#yapayform').submit(function(e){

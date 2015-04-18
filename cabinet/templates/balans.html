@@ -15,46 +15,72 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label">Способ оплаты:</label>
 					<div class="col-sm-8">
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="PC"> 
-							<img src="https://kassa.yandex.ru/style/gfx/ya.png" alt="Яндекс.Деньги" data-toggle="tooltip" title="Яндекс.Деньги">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="AC">
-							<img src="https://kassa.yandex.ru/style/gfx/visa.png" alt="Visa" data-toggle="tooltip" title="Visa">
-							<img src="https://kassa.yandex.ru/style/gfx/mastercard.png" alt="MasterCard" data-toggle="tooltip" title="MasterCard">
-							<img src="https://kassa.yandex.ru/style/gfx/maestro.png" alt="Maestro" data-toggle="tooltip" title="Maestro">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="MC"> 
-							<img src="https://kassa.yandex.ru/style/gfx/beeline.png" alt="Билайн" data-toggle="tooltip" title="Билайн">
-							<img src="https://kassa.yandex.ru/style/gfx/megafon.png" alt="Мегафон" data-toggle="tooltip" title="Мегафон">
-							<img src="https://kassa.yandex.ru/style/gfx/mts.png" alt="МТС" data-toggle="tooltip" title="МТС">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="GP"> 
-							Наличные
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="WM"> 
-							<img src="https://kassa.yandex.ru/style/gfx/webmoney.png" alt="WebMoney" data-toggle="tooltip" title="WebMoney">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="SB"> 
-							<img src="https://kassa.yandex.ru/style/gfx/sberbank.png" alt="Сбербанк" data-toggle="tooltip" title="Сбербанк">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="AB"> 
-							<img src="https://kassa.yandex.ru/style/gfx/alfa.png" alt="Альфа-Клик" data-toggle="tooltip" title="Альфа-Клик">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="МА"> 
-							<img src="https://kassa.yandex.ru/style/gfx/masterpass.png" alt="MasterPass" data-toggle="tooltip" title="MasterPass">
-						</label>
-						<label class="radio-inline">
-							<input type="radio" name="paymentType" value="PB"> 
-							<img src="https://kassa.yandex.ru/style/gfx/psb.png" alt="Промсвязьбанк" data-toggle="tooltip" title="Промсвязьбанк">
-						</label>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="PC"> 
+								<img src="https://kassa.yandex.ru/style/gfx/ya.png" alt="Яндекс.Деньги" data-toggle="tooltip" title="Яндекс.Деньги">
+								Оплата из кошелька в Яндекс.Деньгах.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="AC" checked>
+								<img src="https://kassa.yandex.ru/style/gfx/visa.png" alt="Visa" data-toggle="tooltip" title="Visa">
+								<img src="https://kassa.yandex.ru/style/gfx/mastercard.png" alt="MasterCard" data-toggle="tooltip" title="MasterCard">
+								<img src="https://kassa.yandex.ru/style/gfx/maestro.png" alt="Maestro" data-toggle="tooltip" title="Maestro">
+								Оплата с произвольной банковской карты.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="MC"> 
+								<img src="https://kassa.yandex.ru/style/gfx/beeline.png" alt="Билайн" data-toggle="tooltip" title="Билайн">
+								<img src="https://kassa.yandex.ru/style/gfx/megafon.png" alt="Мегафон" data-toggle="tooltip" title="Мегафон">
+								<img src="https://kassa.yandex.ru/style/gfx/mts.png" alt="МТС" data-toggle="tooltip" title="МТС">
+								Платеж со счета мобильного телефона.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="GP"> 
+								Оплата наличными через кассы и терминалы.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="WM"> 
+								<img src="https://kassa.yandex.ru/style/gfx/webmoney.png" alt="WebMoney" data-toggle="tooltip" title="WebMoney">
+								Оплата из кошелька в системе WebMoney.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="SB"> 
+								<img src="https://kassa.yandex.ru/style/gfx/sberbank.png" alt="Сбербанк" data-toggle="tooltip" title="Сбербанк">
+								Оплата через Сбербанк: оплата по SMS или Сбербанк Онлайн.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="AB"> 
+								<img src="https://kassa.yandex.ru/style/gfx/alfa.png" alt="Альфа-Клик" data-toggle="tooltip" title="Альфа-Клик">
+								Оплата через Альфа-Клик.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="МА"> 
+								<img src="https://kassa.yandex.ru/style/gfx/masterpass.png" alt="MasterPass" data-toggle="tooltip" title="MasterPass">
+								Оплата через MasterPass.
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="PB"> 
+								<img src="https://kassa.yandex.ru/style/gfx/psb.png" alt="Промсвязьбанк" data-toggle="tooltip" title="Промсвязьбанк">
+								Оплата через Промсвязьбанк.
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">

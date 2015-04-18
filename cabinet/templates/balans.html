@@ -7,19 +7,38 @@
 	<div class="panel panel-warning">
 		<div class="panel-heading">Физическим лицам</div>
 		<div class="panel-body">
-			{# <form action="https://money.yandex.ru/eshop.xml" method="post" class="form-inline"> #}
-			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-inline" id="yapayform">
+			{# <form action="https://money.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform"> #}
+			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform">
 				<input type="hidden" name="shopId" value="{{ yaShopId }}">
 				<input type="hidden" name="scid" value="{{ yaSCId }}">
 				<input type="hidden" name="customerNumber" value="{{ userid }}">
 				<div class="form-group">
-					<label for="sum">Сумма пополнения:</label>
-					<div class="input-group">
-						<input type="text" class="form-control text-right" id="sum" name="sum" value="5000.00" placeholder="5 000.00">
-						<div class="input-group-addon"><i class="fa fa-rub"></i></div>
+					<label class="col-sm-4 control-label">Способ оплаты:</label>
+					<div class="col-sm-3">
+						<div class="radio">
+							<label>
+								<input type="radio" name="paymentType" value="PC"> Яндекс.Деньги
+							</label>
+							<label>
+								<input type="radio" name="paymentType" value="AC"> Банковская карта
+							</label>
+						</div>
 					</div>
 				</div>
-				<button class="btn btn-yandex" type="submit">Пополнить</button>
+				<div class="form-group">
+					<label for="sum" class="col-sm-4 control-label">Сумма пополнения:</label>
+					<div class="col-sm-3">
+						<div class="input-group">
+							<input type="text" class="form-control text-right" id="sum" name="sum" value="5000.00" placeholder="5 000.00">
+							<div class="input-group-addon"><i class="fa fa-rub"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<button class="btn btn-yandex" type="submit">Пополнить</button>
+					</div>
+				</div>
 			</form>
 			<p style="padding-top:10px;">Вы можете пополнить свой баланс используя форму выше. Для пополнения можно воспользоваться <a tabindex="0" role="button" href="#." data-toggle="popover" data-trigger="focus" title="Лимиты по банковским картам" data-content="С одной карты можно списать максимум 250 000 рублей за один раз и 500 000 рублей в месяц">банковскими картами</a>, <a tabindex="0" role="button" href="#." data-toggle="popover" data-trigger="focus" title="Лимиты по электронным деньгам" data-content="Владелец идентифицированного кошелька в Яндекс.Деньгах может потратить до 250 000 рублей за один раз, анонимного — до 15 000 рублей.<br><br>Из WM-кошелька можно списать максимум 15 000 рублей за один раз и 150 000 рублей в месяц">электронными деньгами</a>, <a tabindex="0" role="button" href="#." data-toggle="popover" data-trigger="focus" title="Лимиты по наличным" data-content="Максимальный размер платежа наличными — 15 000 рублей за один раз.">наличными через более чем 170 тысяч пунктов оплаты в России</a>, с <a tabindex="0" role="button" href="#." data-toggle="popover" data-trigger="focus" title="Лимиты по платежам с баланса мобильного телефона" data-content="Для абонентов Билайн и Мегафон — 14 000 рублей за один раз, 15 000 в сутки, 40 000 в месяц.<br><br>Для абонентов МТС — 14 999 рублей за один раз, 30 000 рублей в сутки, 40 000 рублей в месяц.">баланса мобильного телефона</a>, либо через <a tabindex="0" role="button" href="#." data-toggle="popover" data-trigger="focus" title="Лимиты по Интернет-банкингу" data-content="Через Сбербанк можно заплатить 15 000 рублей за один раз, 10 000 рублей в сутки по смс.<br><br>С одной карты Альфа-Банка можно списать максимум 60 000 рублей за один раз.<br><br>Через MasterPass можно заплатить максимум 250 000 рублей за один раз и 500 000 рублей в месяц.<br><br>Через Промсвязьбанк можно заплатить максимум 60 000 рублей за один раз." data-placement="bottom">Интернет-банкинг</a>.</p>
 		</div>

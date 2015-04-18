@@ -28,21 +28,27 @@ switch ($cmd[0]) {
 		auth($cmd[1]);
 		break;
 	case 'unlink':
+		check_auth();
 		providerUnlink($cmd[1]);
 		break;
 	case 'newkey':
+		check_auth();
 		newAPIKey();
 		break;
 	case 'accept':
+		check_auth();
 		acceptContract();
 		break;
 	case 'not-accept':
+		check_auth();
 		acceptContract(false);
 		break;
 	case 'invoice':
+		check_auth();
 		generateInvoice($_POST['invoice']);
 		break;
 	case 'getUserBalans':
+		check_auth();
 		getUserBalans();
 		break;
 	case 'checkOrder':

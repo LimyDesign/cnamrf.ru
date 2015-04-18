@@ -79,7 +79,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('balans.html', array(
 					'balans' => true,
 					'yaShopId' => $conf['payments']['ShopID'],
-					'yaSCId' => '',
+					'yaSCId' => $conf['payments']['SCID'],
 					'userid' => $_SESSION['userid'],
 					'company_name' => $_SESSION['company'],
 					));

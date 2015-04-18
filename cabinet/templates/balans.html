@@ -64,7 +64,16 @@
 		$('#invoice').number(true, 2, '.', ' ')
 		$('#yapayform').submit(function(e){
 			$('#sum').number(true, 2, '.', '')
-			return true
+			if ($('#sum').val() > 100)
+			{
+				return true
+			}
+			else
+			{
+				return false
+				$('#sum').number(true, 2, '.', ' ')
+			}
+
 		})
 	})
 </script>

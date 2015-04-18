@@ -374,6 +374,7 @@ function getUserBalans($return = false) {
 function checkOrder() {
 	$post = implode($_POST) . "\n".rand();
 	file_put_contents('tmp.txt', $post);
+	exit();
 }
 
 function progtrckr($step) {

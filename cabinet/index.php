@@ -2,6 +2,8 @@
 // стартуем сесиию, нахуй!
 session_start();
 
+$start = microtime(true);
+
 // автозагрузчик классов
 require_once __DIR__.'/src/vendor/autoload.php';
 
@@ -133,11 +135,17 @@ if ($_SESSION['auth'] === true)
 					'accept' => $_SESSION['contract']));
 				break;
 			default:
+				$progtrckr_module = progtrckr('module');
+				$progtrckr_balans = progtrckr('balans');
+				$progtrckr_tariff = progtrckr('tariff');
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('dashboard.html', array(
 					'dashboard' => true,
-					'progtrckr_module' => progtrckr('module'),
-					'progtrckr_balans' => progtrckr('balans'),
-					'progtrckr_tariff' => progtrckr('tariff'),
+					'timer' => $timer,
+					'progtrckr_module' => $progtrckr_module,
+					'progtrckr_balans' => $progtrckr_balans,
+					'progtrckr_tariff' => $progtrckr_tariff,
 					));
 				break;
 		}

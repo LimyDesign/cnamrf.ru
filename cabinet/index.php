@@ -374,8 +374,9 @@ function getUserBalans($return = false) {
 function yandexPayments($cmd) {
 	if ($cmd == 'check')
 	{
-		$post = print_r($_POST, true);
-		file_put_contents('tmp.txt', $post);
+		header('Content-Type: application/xml');
+		echo '<?xml version="1.0" encoding="UTF-8"?>';
+		echo '<checkOrderResponse performedDatetime="{$performedDatetime}" code="100" invoiceId={$invoiceId} massage="Нам денег не надо!" techMessage="Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!"/>';
 	}
 	exit();
 }

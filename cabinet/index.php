@@ -658,8 +658,8 @@ function getUserLogs($limit = 100, $offset = 0) {
 		while ($row = pg_fetch_assoc($result))
 		{
 			$logs_data[$i]['phone'] = $row['phone'];
-			$logs_data[$i]['debet'] = $row['debet'];
-			$logs_data[$i]['credit'] = $row['credit'];
+			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
+			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = $row['modtime'];
 			$logs_data[$i]['client'] = $row['client'];
 			$logs_data[$i]['ip'] = $row['ip'];

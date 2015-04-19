@@ -71,7 +71,7 @@ switch ($cmd[0]) {
 
 if ($_SESSION['auth'] === true) 
 {
-	if ($_SESSION['contract'] === true) 
+	if ($_SESSION['contract'] == 't') 
 	{
 		switch ($cmd[0]) {
 			case 'tariff':

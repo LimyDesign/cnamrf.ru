@@ -51,7 +51,7 @@ switch ($cmd[0]) {
 		check_auth();
 		getUserBalans();
 		break;
-	case 'payments':
+	case 'payment':
 		yandexPayments($cmd[1]);
 		break;
 	case 'dashboard':

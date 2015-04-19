@@ -171,7 +171,7 @@ function login_query ($provider) {
 			$protocol = 'http://';
 		}
 	} else {
-		$protocol = 'http://'
+		$protocol = 'http://';
 	}
 	$redirect_uri = rawurlencode($protocol.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
 	if ($_SESSION['state']) 
@@ -209,7 +209,7 @@ function auth ($provider) {
 			$protocol = 'http://';
 		}
 	} else {
-		$protocol = 'http://'
+		$protocol = 'http://';
 	}
 	$redirect_uri = $protocol.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/';
 	$curl = curl_init();

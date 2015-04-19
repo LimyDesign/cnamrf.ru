@@ -372,13 +372,15 @@ function getUserBalans($return = false) {
 }
 
 function yandexPayments($cmd) {
+	global $conf;
 	if ($cmd == 'check')
 	{
 		header('Content-Type: application/xml');
 		$performedDatetime = date(DATE_W3C);
+		$shopId = $conf['payments']['ShopID'];
 		$invoiceId = $_POST['invoiceId'];
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"100\" invoiceId=\"{$invoiceId}\" massage=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!\"/>";
+		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"100\" invoiceId=\"{$invoiceId}\" shopId=\"{$shopId}\" message=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!\"/>";
 		file_put_contents('tmp.txt', $response);
 		echo $response;
 	}

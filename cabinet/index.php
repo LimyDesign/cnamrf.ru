@@ -468,7 +468,6 @@ function yandexPayments($cmd) {
 
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" message=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без твоих денег!\"/>";
-		// file_put_contents('tmp.txt', $response);
 		echo $response;
 	}
 	exit();
@@ -707,7 +706,7 @@ function acceptContract($action = true) {
 			$query = "update users set contract = true where id = {$userid}";
 			pg_query($query);
 			pg_close($db);
-			$_SESSION['contract'] = true;
+			$_SESSION['contract'] = 't';
 			header("Location: /cabinet/dashboard/");
 		} else {
 			$query = "delete from users where id = {$userid}";

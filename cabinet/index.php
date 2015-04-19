@@ -654,15 +654,16 @@ function getUserLogs($limit = 100, $offset = 0) {
 		$userid = $_SESSION['userid'];
 		$query = "select phone, debet, credit, modtime, client, ip from log, users where uid = {$userid} limit {$limit} offset {$offset}";
 		$result = pg_query($query);
-		$logs_data = array();
+		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))
 		{
-			$logs_data[]['phone'] = $row['phone'];
-			$logs_data[]['debet'] = $row['debet'];
-			$logs_data[]['credit'] = $row['credit'];
-			$logs_data[]['modtime'] = $row['modtime'];
-			$logs_data[]['client'] = $row['client'];
-			$logs_data[]['ip'] = $row['ip'];
+			$logs_data[$i]['phone'] = $row['phone'];
+			$logs_data[$i]['debet'] = $row['debet'];
+			$logs_data[$i]['credit'] = $row['credit'];
+			$logs_data[$i]['modtime'] = $row['modtime'];
+			$logs_data[$i]['client'] = $row['client'];
+			$logs_data[$i]['ip'] = $row['ip'];
+			$i++;
 		}
 		pg_free_result($result);
 		pg_close($db);

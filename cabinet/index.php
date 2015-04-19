@@ -144,12 +144,13 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'log':
+				$logs = getUserLogs();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('log.html', array(
 					'log' => true,
 					'timer' => $timer,
-					'logs_data' => getUserLogs()
+					'logs_data' => $logs
 					));
 				break;
 			case 'support':
@@ -663,6 +664,9 @@ function getUserLogs($limit = 100, $offset = 0) {
 			$logs_data[]['client'] = $row['client'];
 			$logs_data[]['ip'] = $row['ip'];
 		}
+		pg_free_result($result)
+		pg_close($db);
+		return $logs_data;
 	}
 }
 

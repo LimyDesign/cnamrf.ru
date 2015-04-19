@@ -112,7 +112,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">Юридическим лицам</div>
 		<div class="panel-body">
-			<form action="/cabinet/invoice/" method="post" class="form-horizontal">
+			<form action="/cabinet/invoice/" method="post" class="form-horizontal" id="bankpayform">
 				<div class="form-group">
 					<label for="company-name" class="col-sm-4 control-label">Наименование юридического лица:</label>
 					<div class="col-sm-8">
@@ -160,6 +160,10 @@
 				$('#sum').number(true, 2, '.', ' ')
 			}
 
+		})
+		%('#bankpayform').submit(function(e){
+			$('#invoice').number(true,2,'.','')
+			return true;
 		})
 	})
 </script>

@@ -374,7 +374,7 @@ function getUserBalans($return = false) {
 function yandexPayments($cmd) {
 	if ($cmd == 'check')
 	{
-		$post = implode($_POST) . "\n".rand();
+		$post = print_r($_POST, true);
 		file_put_contents('tmp.txt', $post);
 	}
 	exit();

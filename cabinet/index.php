@@ -652,7 +652,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
-		$query = "select * from log, users where uid = {$userid} limit {$limit} offset {$offset} order by modtime desc";
+		$query = "select * from log where uid = {$userid} order by modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))

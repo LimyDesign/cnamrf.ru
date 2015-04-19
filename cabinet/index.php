@@ -56,6 +56,9 @@ switch ($cmd[0]) {
 	case 'payment':
 		yandexPayments($cmd[1]);
 		break;
+	case 'test':
+		echo 'sdfsdf';
+		exit;
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':

@@ -653,7 +653,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
-		$query = "select * from log where uid = {$userid} order by modtime desc limit {$limit} offset {$offset}";
+		$query = "select phone, debet, credit, modtime, (client || invoice) as new_client, ip from log where uid = {$userid} order by modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))
@@ -662,7 +662,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = $row['modtime'];
-			$logs_data[$i]['client'] = $row['client'];
+			$logs_data[$i]['client'] = $row['new_client'];
 			$logs_data[$i]['ip'] = $row['ip'];
 			$i++;
 		}

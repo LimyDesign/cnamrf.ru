@@ -19,8 +19,8 @@
 			{% for log_data in logs_data %}
 				<tr>
 					<td>{{ log_data.phone }}</td>
-					<td>{{ log_data.debet }}</td>
-					<td>{{ log_data.credit }}</td>
+					<td class="text-success text-right">+{{ log_data.debet }}</td>
+					<td class="text-danger text-right">-{{ log_data.credit }}</td>
 					<td>{{ log_data.client }}</td>
 					<td>{{ log_data.ip }}</td>
 					<td>{{ log_data.modtime }}</td>

@@ -164,7 +164,16 @@ function login_query ($provider) {
 	foreach ($conf['provider'] as $key => $value) {
 		$client_id[$key] = $value['CLIENT_ID'];
 	}
-	$redirect_uri = rawurlencode('http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
+	if (isset($_SERVER['HTTPS'])) {
+		if ($_SERVER['HTTPS'] == 'on') {
+			$protocol = 'https://';
+		} else {
+			$protocol = 'http://';
+		}
+	} else {
+		$protocol = 'http://'
+	}
+	$redirect_uri = rawurlencode($protocol.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/');
 	if ($_SESSION['state']) 
 	{
 		$state = $_SESSION['state'];
@@ -193,7 +202,16 @@ function login_query ($provider) {
 
 function auth ($provider) {
 	global $conf;
-	$redirect_uri = 'http://'.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/';
+	if (isset($_SERVER['HTTPS'])) {
+		if ($_SERVER['HTTPS'] == 'on') {
+			$protocol = 'https://';
+		} else {
+			$protocol = 'http://';
+		}
+	} else {
+		$protocol = 'http://'
+	}
+	$redirect_uri = $protocol.$_SERVER['SERVER_NAME'].'/cabinet/auth/'.$provider.'/';
 	$curl = curl_init();
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	if ($provider == 'facebook') {
@@ -376,11 +394,29 @@ function yandexPayments($cmd) {
 	if ($cmd == 'check')
 	{
 		header('Content-Type: application/xml');
+		
 		$performedDatetime = date(DATE_W3C);
 		$shopId = $conf['payments']['ShopID'];
+		$shopPassword = $conf['payments']['ShopPassword'];
+		if ($shopId != $_POST['invoiceId'])
+			$code = '100';
+		else 
+			$code = '0';
 		$invoiceId = $_POST['invoiceId'];
+
+		$checkOrderStr = array(
+			'checkOrder',
+			$_POST['orderSumAmount'],
+			$_POST['orderSumCurrencyPaycash'],
+			$_POST['orderSumBankPaycash'],
+			$shopId,
+			$invoiceId,
+			$_SESSION['userid'],
+			$shopPassword);
+		$md5 = md5(implode(';', $checkOrderStr));
+
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"100\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" message=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!\"/>";
+		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" message=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без твоих денег!\"/>";
 		// file_put_contents('tmp.txt', $response);
 		echo $response;
 	}

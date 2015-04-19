@@ -525,6 +525,7 @@ function generateInvoice($summ) {
 	$pdf->AddPage();
 
 	$user_sum = str_replace(',', '.', $_POST['invoice']);
+	$user_sum = str_replace(' ', '', $user_sum);
 	$sum = number_format($user_sum, 2, '-', ' ');
 	$sum_alt = number_format($user_sum, 2, '.', '\'');
 	$html = $twig->render('invoice.html', array(

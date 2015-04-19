@@ -51,8 +51,8 @@ switch ($cmd[0]) {
 		check_auth();
 		getUserBalans();
 		break;
-	case 'checkOrder':
-		checkOrder();
+	case 'payments':
+		yandexPayments($cmd[1]);
 		break;
 	case 'dashboard':
 	case 'tariff':
@@ -371,9 +371,12 @@ function getUserBalans($return = false) {
 	}
 }
 
-function checkOrder() {
-	$post = implode($_POST) . "\n".rand();
-	file_put_contents('tmp.txt', $post);
+function yandexPayments($cmd) {
+	if ($cmd == 'check')
+	{
+		$post = implode($_POST) . "\n".rand();
+		file_put_contents('tmp.txt', $post);
+	}
 	exit();
 }
 

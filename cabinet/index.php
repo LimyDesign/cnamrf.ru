@@ -664,7 +664,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 			$logs_data[]['client'] = $row['client'];
 			$logs_data[]['ip'] = $row['ip'];
 		}
-		pg_free_result($result)
+		pg_free_result($result);
 		pg_close($db);
 		return $logs_data;
 	}

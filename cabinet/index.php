@@ -661,7 +661,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 			$logs_data[$i]['phone'] = $row['phone'];
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
-			$logs_data[$i]['modtime'] = $row['modtime'];
+			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));
 			$logs_data[$i]['client'] = $row['new_client'];
 			$logs_data[$i]['ip'] = $row['ip'];
 			$i++;

@@ -110,7 +110,7 @@ if ($_SESSION['auth'] === true)
 					'googleplus' => checkProviderLink('gp'),
 					'odnoklassniki' => checkProviderLink('ok'),
 					'mailru' => checkProviderLink('mr'),
-					'yandex' => checkProviderLink('ya')
+					'yandex' => checkProviderLink('ya'),
 					));
 				break;
 			case 'key':
@@ -356,7 +356,7 @@ function auth_db ($id, $email, $provider) {
 				$company = pg_fetch_result($result, 0, 'company');
 			}
 			$_SESSION['userid'] = $userid;
-			$_SESSION['contract'] = $result;
+			$_SESSION['contract'] = ($result == 'f') ? false : true;
 			$_SESSION['company'] = $company;
 			$_SESSION['auth'] = true;
 			pg_free_result($result);

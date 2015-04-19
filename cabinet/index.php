@@ -112,12 +112,7 @@ if ($_SESSION['auth'] === true)
 				$okq = login_query('odnoklassniki');
 				$mrq = login_query('mailru');
 				$yaq = login_query('yandex');
-				$fbs = checkProviderLink('fb');
-				$vks = checkProviderLink('vk');
-				$gps = checkProviderLink('gp');
-				$oks = checkProviderLink('ok');
-				$mrs = checkProviderLink('mr');
-				$yas = checkProviderLink('ya');
+				$checkProviderLink = checkProviderLink();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('profile.html', array(
@@ -130,12 +125,12 @@ if ($_SESSION['auth'] === true)
 					'ok_link' 		=> 'http://www.odnoklassniki.ru/oauth/authorize?' .  $okq,
 					'mr_link' 		=> 'https://connect.mail.ru/oauth/authorize?' .  $mrq,
 					'ya_link' 		=> 'https://oauth.yandex.ru/authorize?' .  $yaq,
-					'facebook' 		=> $fbs,
-					'vkontakte' 	=> $vks,
-					'googleplus' 	=> $gps,
-					'odnoklassniki'	=> $oks,
-					'mailru' 		=> $mrs,
-					'yandex' 		=> $yas,
+					'facebook' 		=> $checkProviderLink['fb'],
+					'vkontakte' 	=> $checkProviderLink['vk'],
+					'googleplus' 	=> $checkProviderLink['gp'],
+					'odnoklassniki'	=> $checkProviderLink['ok'],
+					'mailru' 		=> $checkProviderLink['mr'],
+					'yandex' 		=> $checkProviderLink['ya'],
 					));
 				break;
 			case 'key':
@@ -583,20 +578,24 @@ function getTariffPrice($tariff) {
 	}
 }
 
-function checkProviderLink ($pr) {
+function checkProviderLink() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "SELECT {$pr} FROM users WHERE id = {$_SESSION['userid']}";
+		$query = "SELECT vk, ok, fb, gp, mr, ya FROM users WHERE id = {$_SESSION['userid']}";
 		$result = pg_query($query);
-		$provider = pg_fetch_result($result, 0, $pr);
+		while ($row = pg_fetch_assoc($result)) {
+			$provider['vk'] = $row['vk'];
+			$provider['ok']	= $row['ok'];
+			$provider['fb'] = $row['fb'];
+			$provider['gp'] = $row['gp'];
+			$provider['mr'] = $row['mr'];
+			$provider['ya'] = $row['ya'];
+		}
 		pg_free_result($result);
 		pg_close($db);
-		if ($provider > 0)
-			return $provider;
-		else
-			return 0;
+		return $provider;
 	}
 }
 
@@ -785,8 +784,7 @@ function morph($n, $f1, $f2, $f5) {
     return $f5;
 }
 
-function mb_ucfirst($str, $encoding='UTF-8')
-{
+function mb_ucfirst($str, $encoding='UTF-8') {
    $str = mb_ereg_replace('^[\ ]+', '', $str);
    $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
           mb_substr($str, 1, mb_strlen($str), $encoding);

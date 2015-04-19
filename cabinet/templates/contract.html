@@ -119,7 +119,7 @@
 	</table>
 	<small>* Данный тарифный план действует в течении 1 месяца и автоматически продляется при наличии на лицевом счету Заказчика необходимой суммы равной стоимости тарифного плана.</small>
 	<p>accept: {{ accept }}</p>
-	{% if not accept in 'f' %}
+	{% if accept|in('f') %}
 		<div class="container-fuid">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">

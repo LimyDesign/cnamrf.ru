@@ -371,7 +371,7 @@ function getUserBalans($return = false) {
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select (debet-credit) as balans from log where uid = {$_SESSION['userid']}";
+		$query = "select (sum(debet) - sum(credit)) as balans from log where uid = {$_SESSION['userid']}";
 		$result = pg_query($query);
 		$balans = pg_fetch_result($result, 0, 'balans');
 		$balans = $balans ? $balans : '0';

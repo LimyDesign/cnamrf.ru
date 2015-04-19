@@ -64,11 +64,6 @@ body {
 	color: #fff;
 	background-color: #428bca;
 }
-.timer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-}
 
 /**
  * Основная область

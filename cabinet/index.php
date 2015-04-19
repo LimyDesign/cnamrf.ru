@@ -79,17 +79,25 @@ if ($_SESSION['auth'] === true)
 					$tariff_allow = true;
 				else
 					$tariff_allow = false;
+				$cnam = selectTariff($cmd[2]);
+				$current = selectTariff();
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('tariff.html', array(
 					'tariff' => true,
-					'cnam' => selectTariff($cmd[2]),
-					'current' => selectTariff(),
+					'timer' => $timer,
+					'cnam' => $cnam,
+					'current' => $current,
 					'tariff_allow' => $tariff_allow,
 					));
 				break;
 			case 'balans':
 				if ($cmd[1] == 'fail') $fail = true;
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('balans.html', array(
 					'balans' => true,
+					'timer' => $timer,
 					'yaShopId' => $conf['payments']['ShopID'],
 					'yaSCId' => $conf['payments']['SCID'],
 					'userid' => $_SESSION['userid'],
@@ -98,41 +106,73 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'profile':
+				$fbq = login_query('facebook');
+				$vkq = login_query('vkontakte');
+				$gpq = login_query('google-plus');
+				$okq = login_query('odnoklassniki');
+				$mrq = login_query('mailru');
+				$yaq = login_query('yandex');
+				$fbs = checkProviderLink('fb');
+				$vks = checkProviderLink('vk');
+				$gps = checkProviderLink('gp');
+				$oks = checkProviderLink('ok');
+				$mrs = checkProviderLink('mr');
+				$yas = checkProviderLink('ya');
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('profile.html', array(
-					'profile' => true,
-					'userid' => $_SESSION['userid'],
-					'fb_link' => 'https://www.facebook.com/dialog/oauth?' . login_query('facebook'),
-					'vk_link' => 'https://oauth.vk.com/authorize?' . login_query('vkontakte'),
-					'gp_link' => 'https://accounts.google.com/o/oauth2/auth?' . login_query('google-plus'),
-					'ok_link' => 'http://www.odnoklassniki.ru/oauth/authorize?' . login_query('odnoklassniki'),
-					'mr_link' => 'https://connect.mail.ru/oauth/authorize?' . login_query('mailru'),
-					'ya_link' => 'https://oauth.yandex.ru/authorize?' . login_query('yandex'),
-					'facebook' => checkProviderLink('fb'),
-					'vkontakte' => checkProviderLink('vk'),
-					'googleplus' => checkProviderLink('gp'),
-					'odnoklassniki' => checkProviderLink('ok'),
-					'mailru' => checkProviderLink('mr'),
-					'yandex' => checkProviderLink('ya'),
+					'profile' 		=> true,
+					'timer' 		=> $timer,
+					'userid' 		=> $_SESSION['userid'],
+					'fb_link' 		=> 'https://www.facebook.com/dialog/oauth?' . $fbq,
+					'vk_link' 		=> 'https://oauth.vk.com/authorize?' .  $vkq,
+					'gp_link' 		=> 'https://accounts.google.com/o/oauth2/auth?' .  $gpq,
+					'ok_link' 		=> 'http://www.odnoklassniki.ru/oauth/authorize?' .  $okq,
+					'mr_link' 		=> 'https://connect.mail.ru/oauth/authorize?' .  $mrq,
+					'ya_link' 		=> 'https://oauth.yandex.ru/authorize?' .  $yaq,
+					'facebook' 		=> $fbs,
+					'vkontakte' 	=> $vks,
+					'googleplus' 	=> $gps,
+					'odnoklassniki'	=> $oks,
+					'mailru' 		=> $mrs,
+					'yandex' 		=> $yas,
 					));
 				break;
 			case 'key':
+				$apikey = userAPIKey();
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('key.html', array(
 					'key' => true,
-					'apikey' => userAPIKey()));
+					'timer' => $timer,
+					'apikey' => $apikey
+					));
 				break;
 			case 'log':
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('log.html', array(
 					'log' => true,
-					'logs_data' => getUserLogs()));
+					'timer' => $timer,
+					'logs_data' => getUserLogs()
+					));
 				break;
 			case 'support':
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('support.html', array(
-					'support' => true));
+					'timer' => $timer,
+					'support' => true
+					));
 				break;
 			case 'contract':
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
 				echo $twig->render('contract.html', array(
 					'contract' => true,
-					'accept' => $_SESSION['contract']));
+					'timer' => $timer,
+					'accept' => $_SESSION['contract']
+					));
 				break;
 			default:
 				$progtrckr_module = progtrckr('module');
@@ -150,8 +190,11 @@ if ($_SESSION['auth'] === true)
 				break;
 		}
 	} else {
+		$time = microtime(true) - $start;
+		$timer = sprintf('%.4F', $time);
 		echo $twig->render('contract.html', array(
 			'contract' => true,
+			'timer' => $timer,
 			'accept' => $_SESSION['contract']));
 	}
 }

@@ -375,8 +375,10 @@ function yandexPayments($cmd) {
 	if ($cmd == 'check')
 	{
 		header('Content-Type: application/xml');
+		$performedDatetime = date(DATE_W3C);
+		$invoiceId = $_POST['invoiceId'];
 		echo '<?xml version="1.0" encoding="UTF-8"?>';
-		echo '<checkOrderResponse performedDatetime="{$performedDatetime}" code="100" invoiceId={$invoiceId} massage="Нам денег не надо!" techMessage="Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!"/>';
+		echo "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"100\" invoiceId=\"{$invoiceId}\" massage=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без ваших денег!\"/>";
 	}
 	exit();
 }

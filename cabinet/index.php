@@ -356,7 +356,7 @@ function auth_db ($id, $email, $provider) {
 				$company = pg_fetch_result($result, 0, 'company');
 			}
 			$_SESSION['userid'] = $userid;
-			$_SESSION['contract'] = $result ? true : false;
+			$_SESSION['contract'] = $result;
 			$_SESSION['company'] = $company;
 			$_SESSION['auth'] = true;
 			pg_free_result($result);
@@ -653,7 +653,7 @@ function acceptContract($action = true) {
 		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		if ($action) {
-			$query = "update users set contract = 1 where id = {$userid}";
+			$query = "update users set contract = true where id = {$userid}";
 			pg_query($query);
 			pg_close($db);
 			$_SESSION['contract'] = true;

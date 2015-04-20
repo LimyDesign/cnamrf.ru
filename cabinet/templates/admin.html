@@ -27,7 +27,7 @@
 	<script>
 	$(function () {
 		var hash = window.location.hash;
-		$('#adminTab a#'+hash).tab('show');
+		$('#adminTab a[href="#'+hash+'"]').tab('show');
 	})
 	</script>
 {% endblock %}

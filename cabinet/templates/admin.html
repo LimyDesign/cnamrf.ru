@@ -134,7 +134,7 @@
 			modal.find('.modal-body input#tariffSum').val(sum)
 			modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
 			modal.find('.modal-footer').append('<a class="btn btn-danger" href="/cabinet/deleteTariff/' + id + '/">Удалить</a>')
-			modal.find('#action').on(submit(), '#addEditTariffForm');
+			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() })
 		})
 	})
 	</script>

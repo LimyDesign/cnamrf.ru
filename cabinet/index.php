@@ -59,6 +59,9 @@ switch ($cmd[0]) {
 	case 'addTariff':
 		addTariff();
 		break;
+	case 'changeTariff':
+		updateTariff($cmd[1]);
+		break;
 	case 'deleteTariff':
 		deleteTariff($cmd[1]);
 		break;
@@ -491,6 +494,27 @@ function addTariff() {
 	}
 }
 
+function updateTariff($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+			$name = pg_escape_string($_POST['tariffName']);
+			$price = pg_escape_string($_POST['tariffPrice']);
+			$qty = pg_escape_string($_POST['tariffQty']);
+			$sum = pg_escape_string($_POST['tariffSum']);
+			$code = pg_escape_string($_POST['tariffCode']);
+			$desc = pg_escape_string($_POST['tariffDescription']);
+			$query = "update tariff set name = '{$name}', price = {$price}, queries = {$qty}, sum = {$sum}, code = '{$code}', description = '{$desc}' where id = {$id}";
+			pg_query($query);
+			pg_close($db);
+			header("Location: /cabinet/admin/#tariff");
+		}
+	}
+}
+
 function deleteTariff($id) {
 	global $conf;
 	if ($_SESSION['is_admin'] == 't') {
@@ -511,7 +535,7 @@ function getTariff() {
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
-		$query = "select * from tariff where domain = '{$domain}'";
+		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
 		$result = pg_query($query);
 		$tariff_datas = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result)) {

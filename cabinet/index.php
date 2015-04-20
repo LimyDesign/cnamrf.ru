@@ -379,7 +379,8 @@ function auth_db ($id, $email, $provider) {
 
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		// $db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		if ($_SESSION['userid'])
 		{
 			$query = "UPDATE users SET {$pr} = {$id} WHERE id = {$_SESSION['userid']}";
@@ -420,7 +421,7 @@ function getUserBalans($return = false) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = "select (sum(debet) - sum(credit)) as balans from log where uid = {$_SESSION['userid']}";
 		$result = pg_query($query);
 		$balans = pg_fetch_result($result, 0, 'balans');
@@ -497,7 +498,7 @@ function setUserCompany($company) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$company = pg_escape_string($company);
 		$query = "update users set company = '{$company}' where id = {$_SESSION['userid']}";
 		pg_query($query);
@@ -554,7 +555,7 @@ function selectTariff ($tariff) {
 	if (!$tariff) {
 		if ($conf['db']['type'] == 'postgres')
 		{
-			$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$query = "SELECT tariff FROM users WHERE id = {$_SESSION['userid']}";
 			$result = pg_query($query);
 			$userTariff = pg_fetch_result($result, 0, 'tariff');
@@ -587,7 +588,7 @@ function checkProviderLink() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = "SELECT vk, ok, fb, gp, mr, ya FROM users WHERE id = {$_SESSION['userid']}";
 		$result = pg_query($query);
 		while ($row = pg_fetch_assoc($result)) {
@@ -609,7 +610,7 @@ function providerUnlink ($provider) {
 	$pr = convertProvider($provider);
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		$query = "select count(ok)+count(fb)+count(gp)+count(mr)+count(ya)+count(vk) from users where id = {$userid} and (vk != 0 or ok != 0 or fb != 0 or gp != 0 or mr != 0 or ya != 0);";
 		$result = pg_query($query);
@@ -654,7 +655,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		$query = "select phone, debet, credit, modtime, (client || invoice) as new_client, ip from log where uid = {$userid} order by modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
@@ -679,7 +680,7 @@ function newAPIKey() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		$apikey = sha1($_SERVER['HTTP_USER_AGENT'].time());
 		$query = "update users set apikey = '{$apikey}' where id = {$userid}";
@@ -693,7 +694,7 @@ function userAPIKey() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		$query = "select apikey from users where id = {$userid}";
 		$result = pg_query($query);
@@ -708,7 +709,7 @@ function acceptContract($action = true) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
-		$db = pg_connect("host=".$conf['db']['host'].' dbname='.$conf['db']['database'].' user='.$conf['db']['username'].' password='.$conf['db']['password']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
 		if ($action) {
 			$query = "update users set contract = true where id = {$userid}";

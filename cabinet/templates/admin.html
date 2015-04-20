@@ -27,6 +27,17 @@
 							<th>Действие</th>
 						</tr>
 					</thead>
+					<tbody>
+						{% for tarif_data in tariff_datas %}
+							<tr>
+								<td>{{ tarif_data.name }}</td>
+								<td>{{ tarif_data.price }}</td>
+								<td>{{ tarif_data.qty }}</td>
+								<td>{{ tarif_data.sum }}</td>
+								<td></td>
+							</tr>
+						{% endfor %}
+					</tbody>
 				</table>
 			</div>
 			<div class="tab-pane" id="users" role="tabpanel">

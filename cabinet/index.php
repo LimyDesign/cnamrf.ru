@@ -59,6 +59,8 @@ switch ($cmd[0]) {
 	case 'test':
 		echo 'sdfsdf';
 		exit;
+	case 'admin':
+		check_admin();
 	case 'dashboard':
 	case 'tariff':
 	case 'balans':
@@ -78,6 +80,14 @@ if ($_SESSION['auth'] === true)
 	{
 		$is_admin = $_SESSION['is_admin'];
 		switch ($cmd[0]) {
+			case 'admin':
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
+				echo $twig->render('admin.html', array(
+					'admin' => true,
+					'timer' = $timer
+					));
+			break;
 			case 'tariff':
 				if (getUserBalans(true) >= getTariffPrice($cmd[2]))
 					$tariff_allow = true;
@@ -813,6 +823,11 @@ function mb_ucfirst($str, $encoding='UTF-8') {
    $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
           mb_substr($str, 1, mb_strlen($str), $encoding);
    return $str;
+}
+
+function check_admin() {
+	if ($_SESSION['is_admin'] == 'f')
+		header("Location: /cabinet/dashboard/");
 }
 
 function check_auth() {

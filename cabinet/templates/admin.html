@@ -143,6 +143,12 @@
 				modal.find('#delete').show();
 			} else {
 				modal.find('.modal-title').text('Добавление нового тарифного плана')
+				modal.find('.modal-body input#tariffName').val('')
+				modal.find('.modal-body input#tariffCode').val('')
+				modal.find('.modal-body textarea#tariffDescription').val('')
+				modal.find('.modal-body input#tariffPrice').val('')
+				modal.find('.modal-body input#tariffQty').val('')
+				modal.find('.modal-body input#tariffSum').val('')
 				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')

@@ -143,6 +143,7 @@
 				modal.find('#delete').show();
 			} else {
 				modal.find('.modal-title').text('Добавление нового тарифного плана')
+				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')
 				modal.find('#delete').hide()

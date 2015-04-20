@@ -471,7 +471,7 @@ function addTariff() {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$domain = pg_escape_string($_SERVER['host']);
+			$domain = pg_escape_string($_SERVER['SERVER_NAME']);
 			$name = pg_escape_string($_POST['tariffName']);
 			$price = pg_escape_string($_POST['tariffPrice']);
 			$qty = pg_escape_string($_POST['tariffQty']);

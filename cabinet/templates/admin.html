@@ -48,6 +48,29 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="addTariff" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
+				</div>
+				<div class="modal-body">
+					<form action="">
+						<div class="form-group">
+							<label for="tariffName" class="control-label">Название тарифа:</label>
+							<input type="text" class="form-control" id="tariffName">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
+					<button class="btn btn-primary" type="submit">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 {% block scripts %}
 	<script>

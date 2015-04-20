@@ -59,6 +59,9 @@ switch ($cmd[0]) {
 	case 'addTariff':
 		addTariff();
 		break;
+	case 'deleteTariff':
+		deleteTariff($cmd[1]);
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':
@@ -481,6 +484,20 @@ function addTariff() {
 			$code = pg_escape_string($_POST['tariffCode']);
 			$desc = pg_escape_string($_POST['tariffDescription']);
 			$query = "insert into tariff (domain, name, price, queries, sum, code, description) values ('{$domain}', '{$name}', '{$price}', '{$qty}', '{$sum}', '{$code}', '{$desc}')";
+			pg_query($query);
+			pg_close($db);
+			header("Location: /cabinet/admin/#tariff");
+		}
+	}
+}
+
+function deleteTariff($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = 'delete from tariff where id = {$id}';
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#tariff");

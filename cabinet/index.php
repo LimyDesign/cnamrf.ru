@@ -498,6 +498,7 @@ function deleteTariff($id) {
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$query = 'delete from tariff where id = {$id}';
+			die($query);
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#tariff");

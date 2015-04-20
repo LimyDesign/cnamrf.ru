@@ -31,9 +31,9 @@
 						{% for tarif_data in tariff_datas %}
 							<tr>
 								<td>{{ tarif_data.name }}</td>
-								<td>{{ tarif_data.price }}</td>
-								<td>{{ tarif_data.qty }}</td>
-								<td>{{ tarif_data.sum }}</td>
+								<td><span id="price">{{ tarif_data.price }}</span> <i class="fa fa-rub"></i></td>
+								<td><span id="qty">{{ tarif_data.qty }}</span></td>
+								<td><span id="sum">{{ tarif_data.sum }}</span> <i class="fa fa-rub"></i></td>
 								<td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="{{ tarif_data.id }}" data-tariff-name="{{ tarif_data.name }}" data-tariff-code="{{ tarif_data.code }}" data-tariff-desc="{{ tarif_data.desc }}" data-tariff-price="{{ tarif_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
 							</tr>
 						{% endfor %}
@@ -104,7 +104,7 @@
 			backdrop: false,
 			show: false
 		})
-
+		$('#price').number(true, 2, '.', ' ')
 		$('#tariffPrice').number(true, 2, '.', ' ')
 		$('#tariffQty').number(true, 0, '.', ' ')
 		$('#tariffSum').number(true, 2, '.', ' ')

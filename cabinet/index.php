@@ -417,7 +417,7 @@ function auth_db ($id, $email, $provider) {
 				$userid = pg_fetch_result($result, 0, 'id');
 				$contract = pg_fetch_result($result, 0, 'contract');
 				$company = pg_fetch_result($result, 0, 'company');
-				$is_admin = pg_fetch_result($result, 0, 'is_admin')
+				$is_admin = pg_fetch_result($result, 0, 'is_admin');
 			}
 			$_SESSION['userid'] = $userid;
 			$_SESSION['contract'] = $contract;

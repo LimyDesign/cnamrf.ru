@@ -86,7 +86,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
-					<button class="btn btn-primary" type="submit">Добавить</button>
+					<button class="btn btn-primary" id="action">Добавить</button>
 				</div>
 			</div>
 		</div>
@@ -115,7 +115,7 @@
 			return true
 		})
 
-		$('#editTariff').on('show.bs.modal', function (event) {
+		$('#addEditTariff').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var id = button.data('tariff-id')
 			var name = button.data('tariff-name')
@@ -134,6 +134,7 @@
 			modal.find('.modal-body input#tariffSum').val(sum)
 			modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
 			modal.find('.modal-footer').append('<a class="btn btn-danger" href="/cabinet/deleteTariff/' + id + '/">Удалить</a>')
+			modal.find('#action').on(submit(), '#addEditTariffForm');
 		})
 	})
 	</script>

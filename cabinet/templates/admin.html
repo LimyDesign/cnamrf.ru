@@ -57,7 +57,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addTariff/" method="post">
+					<form action="/cabinet/addTariff/" method="post" id="addTariffForm">
 						<div class="form-group">
 							<label for="tariffName" class="control-label">Название тарифа (text):</label>
 							<input type="text" class="form-control" id="tariffName" name="tariffName">
@@ -97,14 +97,23 @@
 	$(function () {
 		var hash = window.location.hash;
 		$('#adminTab a[href="'+hash+'"]').tab('show');
+
 		$('#addTariff').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
 		})
+
 		$('#tariffPrice').number(true, 2, '.', ' ');
 		$('#tariffQty').number(true, 0, '.', ' ');
 		$('#tariffSum').number(true, 2, '.', ' ');
+
+		$('#addTariffForm').submit(function(e){
+			$('#tariffPrice').number(true, 2, '.', '');
+			$('#tariffQty').number(true, 0, '.', '');
+			$('#tariffSum').number(true, 2, '.', '');
+			return true;
+		})
 	})
 	</script>
 {% endblock %}

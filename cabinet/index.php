@@ -96,7 +96,7 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
-					'users_data' = $users_data
+					'users_data' => $users_data
 					));
 				break;
 			case 'tariff':

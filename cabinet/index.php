@@ -481,6 +481,7 @@ function addTariff() {
 			$query = "insert into tariff (domain, name, price, queries, sum, code, description) values ('{$domain}', '{$name}', '{$price}', '{$qty}', '{$sum}', '{$code}', '{$desc}')";
 			pg_query($query);
 			pg_close($db);
+			header("Location: /cabinet/admin/#tariff");
 		}
 	}
 }

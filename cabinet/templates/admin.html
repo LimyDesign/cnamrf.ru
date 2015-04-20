@@ -77,6 +77,10 @@
 	$(function () {
 		var hash = window.location.hash;
 		$('#adminTab a[href="'+hash+'"]').tab('show');
+		$('#addTariff').modal({
+			keyboard: false,
+			backdrop: false
+		})
 	})
 	</script>
 {% endblock %}

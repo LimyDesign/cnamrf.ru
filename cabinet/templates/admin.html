@@ -50,7 +50,7 @@
 					<thead>
 						<tr>
 							<th>E-mail</th>
-							<th>API ключ</th>
+							<th>Баланс</th>
 							<th>Тариф</th>
 							<th>Компания</th>
 							<th>Админ</th>
@@ -65,7 +65,7 @@
 								<td>{{ user_data.tariff }}</td>
 								<td>{{ user_data.company }}</td>
 								<td>{% if user_data.admin in 't' %} да {% else %} нет {% endif %}</td>
-								<td></td>
+								<td><button class="btn btn-xs btn-default"><i class="fa fa-info"></i> Подробнее</button></td>
 							</tr>
 						{% endfor %}
 					</tbody>

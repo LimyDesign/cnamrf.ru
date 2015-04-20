@@ -56,9 +56,9 @@ switch ($cmd[0]) {
 	case 'payment':
 		yandexPayments($cmd[1]);
 		break;
-	case 'test':
-		echo 'sdfsdf';
-		exit;
+	case 'addTariff':
+		addTariff();
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':
@@ -462,6 +462,26 @@ function getUserBalans($return = false) {
 	else
 	{
 		return $balans;
+	}
+}
+
+function addTariff() {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$domain = pg_escape_string($_SERVER['host']);
+			$name = pg_escape_string($_POST['tariffName']);
+			$price = pg_escape_string($_POST['tariffPrice']);
+			$qty = pg_escape_string($_POST['tariffQty']);
+			$sum = pg_escape_string($_POST['tariffSum']);
+			$code = pg_escape_string($_POST['tariffCode']);
+			$desc = pg_escape_string($_POST['tariffDescription']);
+			$query = "insert into tariff (domain, name, price, queries, sum, code, description) values ('{$domain}', '{$name}', '{$price}', '{$qty}', '{$sum}', '{$code}', '{$desc}')";
+			pg_query($query);
+			pg_close($db);
+		}
 	}
 }
 

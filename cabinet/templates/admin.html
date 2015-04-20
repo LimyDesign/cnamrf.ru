@@ -34,7 +34,7 @@
 								<td>{{ tarif_data.price }}</td>
 								<td>{{ tarif_data.qty }}</td>
 								<td>{{ tarif_data.sum }}</td>
-								<td></td>
+								<td><button type="button" class="btn btn-defualt btn-small" data-toggle="modal" data-target="#addEditTariff" data-tariff-id="{{ tariff_data.id }}" data-tariff-name="{{ tariff_data.name }}" data-tariff-code="{{ tariff_data.code }}" data-tariff-desc="{{ tariff_data.desc }}" data-tariff-price="{{ tariff_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -117,6 +117,7 @@
 
 		$('#editTariff').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
+			var id = button.data('tariff-id')
 			var name = button.data('tariff-name')
 			var code = button.data('tariff-code')
 			var desc = button.data('tariff-desc')
@@ -132,6 +133,7 @@
 			modal.find('.modal-body input#tariffQty').val(qty)
 			modal.find('.modal-body input#tariffSum').val(sum)
 			modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
+			modal.find('.modal-footer').append('<a class="btn btn-danger" href="/cabinet/deleteTariff/' + id + '/">Удалить</a>')
 		})
 	})
 	</script>

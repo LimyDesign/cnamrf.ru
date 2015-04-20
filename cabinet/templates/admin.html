@@ -34,7 +34,7 @@
 								<td>{{ tarif_data.price }}</td>
 								<td>{{ tarif_data.qty }}</td>
 								<td>{{ tarif_data.sum }}</td>
-								<td><button type="button" class="btn btn-defualt btn-small" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="{{ tariff_data.id }}" data-tariff-name="{{ tariff_data.name }}" data-tariff-code="{{ tariff_data.code }}" data-tariff-desc="{{ tariff_data.desc }}" data-tariff-price="{{ tariff_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
+								<td><button type="button" class="btn btn-default btn-small" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="{{ tariff_data.id }}" data-tariff-name="{{ tariff_data.name }}" data-tariff-code="{{ tariff_data.code }}" data-tariff-desc="{{ tariff_data.desc }}" data-tariff-price="{{ tariff_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -86,6 +86,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
+					<a class="btn btn-danger hide" href="#." id="delete">Удалить</a>
 					<button class="btn btn-primary" id="action">Добавить</button>
 				</div>
 			</div>
@@ -137,7 +138,13 @@
 				modal.find('.modal-body input#tariffQty').val(qty)
 				modal.find('.modal-body input#tariffSum').val(sum)
 				modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
-				modal.find('.modal-footer').append('<a class="btn btn-danger" href="/cabinet/deleteTariff/' + id + '/">Удалить</a>')
+				modal.find('#action').text('Сохранить')
+				modal.find('#delete').attr('href', '/cabinet/deleteTariff/' + id + '/')
+				modal.find('#delete').show()
+			} else {
+				modal.find('#action').text('Добавить')
+				modal.find('#delete').attr('href', '#.')
+				modal.find('#delete').hide()
 			}
 			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() })
 		})

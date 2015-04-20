@@ -53,7 +53,7 @@
 							<th>API ключ</th>
 							<th>Тариф</th>
 							<th>Компания</th>
-							<th>Администратор</th>
+							<th>Админ</th>
 							<th>Действие</th>
 						</tr>
 					</thead>
@@ -64,7 +64,7 @@
 								<td>{{ user_data.apikey }}</td>
 								<td>{{ user_data.tariff }}</td>
 								<td>{{ user_data.company }}</td>
-								<td>{{ user_data.admin }}</td>
+								<td>{% if user_data.admin in 't' %} да {% else %} нет {% endif %}</td>
 								<td></td>
 							</tr>
 						{% endfor %}

@@ -88,15 +88,17 @@ if ($_SESSION['auth'] === true)
 		switch ($cmd[0]) {
 			case 'admin':
 				$tariff_datas = getTariff();
+				$users_data = getUserList();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
 					'admin' => true,
 					'timer' => $timer,
 					'is_admin' => $is_admin,
-					'tariff_datas' => $tariff_datas
+					'tariff_datas' => $tariff_datas,
+					'users_data' = $users_data
 					));
-			break;
+				break;
 			case 'tariff':
 				if (getUserBalans(true) >= getTariffPrice($cmd[2]))
 					$tariff_allow = true;
@@ -470,6 +472,36 @@ function getUserBalans($return = false) {
 	else
 	{
 		return $balans;
+	}
+}
+
+function getUserList($limit = 100, $offset = 0) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select * from users limit {$limit} offset {$offset}";
+			$result = pg_query($query);
+			$users_data = array(); $i = 0;
+			while ($row = pg_fetch_assoc($result)) {
+				$users_data[$i]['id'] = $row['id'];
+				$users_data[$i]['email'] = $row['email'];
+				$users_data[$i]['vk'] = $row['vk'];
+				$users_data[$i]['ok'] = $row['ok'];
+				$users_data[$i]['fb'] = $row['fb'];
+				$users_data[$i]['gp'] = $row['gp'];
+				$users_data[$i]['mr'] = $row['mr'];
+				$users_data[$i]['ya'] = $row['ya'];
+				$users_data[$i]['apikey'] = $row['apikey'];
+				$users_data[$i]['tariff'] = $row['tariff'];
+				$users_data[$i]['admin'] = $row['is_admin'];
+				$i++;
+			}
+			pg_free_result($result);
+			pg_close($db);
+			return $users_data;
+		}
 	}
 }
 

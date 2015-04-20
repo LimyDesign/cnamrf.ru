@@ -59,8 +59,16 @@
 				<div class="modal-body">
 					<form action="">
 						<div class="form-group">
-							<label for="tariffName" class="control-label">Название тарифа:</label>
-							<input type="text" class="form-control" id="tariffName">
+							<label for="tariffName" class="control-label">Название тарифа (text):</label>
+							<input type="text" class="form-control" id="tariffName" name="tariffName">
+						</div>
+						<div class="form-group">
+							<label for="tariffCode" class="control-label">Код тарифа (latin):</label>
+							<input type="text" class="form-control" id="tariffCode" name="tariffCode">
+						</div>
+						<div class="form-group">
+							<label for="tariffDescription" class="control-label">Описание тарифа (html):</label>
+							<textarea name="tariffDescription" id="tariffDescription" class="form-control"></textarea>
 						</div>
 					</form>
 				</div>

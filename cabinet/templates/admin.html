@@ -26,10 +26,8 @@
 {% block scripts %}
 	<script>
 	$(function () {
-	   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	     e.target // newly activated tab
-	     e.relatedTarget // previous active tab
-	   })
-	 })
+		var hash = window.location.hash;
+		$('#adminTab a#'+hash).tab('show');
+	})
 	</script>
 {% endblock %}

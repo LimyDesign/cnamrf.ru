@@ -44,7 +44,39 @@
 				</div>
 			</div>
 			<div class="tab-pane" id="users" role="tabpanel">
-				234862873642765
+				<h3>Управление рабами</h3>
+				<table class="table table-hover table-responsive">
+					<thead>
+						<tr>
+							<th>E-mail</th>
+							<th>Вконтакте</th>
+							<th>Одноклассники</th>
+							<th>Facebook</th>
+							<th>Google+</th>
+							<th>Mail.Ru</th>
+							<th>Яндекс</th>
+							<th>Тариф</th>
+							<th>Компания</th>
+							<th>Действие</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user_data in users_data %}
+							<tr>
+								<td>{{ user_data.email }}</td>
+								<td>{{ user_data.vk }}</td>
+								<td>{{ user_data.ok }}</td>
+								<td>{{ user_data.fb }}</td>
+								<td>{{ user_data.gp }}</td>
+								<td>{{ user_data.mr }}</td>
+								<td>{{ user_data.ya }}</td>
+								<td>{{ user_data.tariff }}</td>
+								<td>{{ user_data.company }}</td>
+								<td></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

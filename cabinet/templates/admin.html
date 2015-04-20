@@ -64,7 +64,7 @@
 								<td>{{ user_data.apikey }}</td>
 								<td>{{ user_data.tariff }}</td>
 								<td>{{ user_data.company }}</td>
-								<td>{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
+								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
 								<td><button class="btn btn-xs btn-default">Подробнее&hellip;</button></td>
 							</tr>
 						{% endfor %}

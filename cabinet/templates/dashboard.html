@@ -29,7 +29,34 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">Последние 10 запросов</div>
 		<div class="panel-body">
-			<p>Здесь вы найдете информацию о послединх 10 сделанных запроса к системе «CNAM РФ». До тех пор пока вы не делали никаких запросов, здесь ничего не будет отображаться.</p>
+			{% if logs_data %}
+				<table class="table table-hover table-responsive">
+					<thead>
+						<tr>
+							<th>Номер телефона</th>
+							<th>Дебет</th>
+							<th>Кредит</th>
+							<th>Клиентская система</th>
+							<th>IP клиента</th>
+							<th>Дата время</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for log_data in logs_data %}
+							<tr>
+								<td>{{ log_data.phone }}</td>
+								<td class="text-success text-right">+{{ log_data.debet }}</td>
+								<td class="text-danger text-right">-{{ log_data.credit }}</td>
+								<td>{{ log_data.client }}</td>
+								<td>{{ log_data.ip }}</td>
+								<td>{{ log_data.modtime }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>Здесь вы найдете информацию о послединх 10 сделанных запроса к системе «CNAM РФ». До тех пор пока вы не делали никаких запросов, здесь ничего не будет отображаться.</p>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

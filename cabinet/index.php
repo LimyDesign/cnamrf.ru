@@ -174,6 +174,7 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			default:
+				$logs = getUserLogs(10);
 				$progtrckr_module = progtrckr('module');
 				$progtrckr_balans = progtrckr('balans');
 				$progtrckr_tariff = progtrckr('tariff');
@@ -185,6 +186,7 @@ if ($_SESSION['auth'] === true)
 					'progtrckr_module' => $progtrckr_module,
 					'progtrckr_balans' => $progtrckr_balans,
 					'progtrckr_tariff' => $progtrckr_tariff,
+					'logs_data' => $logs
 					));
 				break;
 		}

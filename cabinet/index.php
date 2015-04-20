@@ -412,7 +412,6 @@ function auth_db ($id, $email, $provider) {
 
 	if ($conf['db']['type'] == 'postgres')
 	{
-		// $db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		if ($_SESSION['userid'])
 		{
@@ -495,6 +494,7 @@ function getUserList($limit = 100, $offset = 0) {
 				$users_data[$i]['ya'] = $row['ya'];
 				$users_data[$i]['apikey'] = $row['apikey'];
 				$users_data[$i]['tariff'] = $row['tariff'];
+				$users_data[$i]['company'] = $row['company'];
 				$users_data[$i]['admin'] = $row['is_admin'];
 				$i++;
 			}

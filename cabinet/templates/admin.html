@@ -61,7 +61,7 @@
 						{% for user_data in users_data %}
 							<tr>
 								<td>{{ user_data.email }}</td>
-								<td><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
+								<td class="text-right"><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
 								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
 								<td>{{ user_data.company }}</td>
 								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>

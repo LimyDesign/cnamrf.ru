@@ -86,7 +86,7 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
-					<a class="btn btn-danger hide" href="#." id="delete">Удалить</a>
+					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
 					<button class="btn btn-primary" id="action">Добавить</button>
 				</div>
 			</div>
@@ -140,7 +140,7 @@
 				modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
 				modal.find('#action').text('Сохранить')
 				modal.find('#delete').attr('href', '/cabinet/deleteTariff/' + id + '/')
-				modal.find('#delete').show()
+				modal.find('#delete').show();
 			} else {
 				modal.find('.modal-title').text('Добавление нового тарифного плана')
 				modal.find('#action').text('Добавить')

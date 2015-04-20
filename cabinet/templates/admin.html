@@ -53,8 +53,8 @@
 							<th>Баланс</th>
 							<th>Тариф</th>
 							<th>Компания</th>
-							<th>Админ</th>
-							<th>Действие</th>
+							<th class="text-center">Админ</th>
+							<th class="text-center">Действие</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,7 +65,7 @@
 								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
 								<td>{{ user_data.company }}</td>
 								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
-								<td><button class="btn btn-xs btn-default">Подробнее&hellip;</button></td>
+								<td class="text-center"><button class="btn btn-xs btn-default">Подробнее&hellip;</button></td>
 							</tr>
 						{% endfor %}
 					</tbody>

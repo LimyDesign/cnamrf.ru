@@ -49,14 +49,10 @@
 					<thead>
 						<tr>
 							<th>E-mail</th>
-							<th>Вконтакте</th>
-							<th>Одноклассники</th>
-							<th>Facebook</th>
-							<th>Google+</th>
-							<th>Mail.Ru</th>
-							<th>Яндекс</th>
+							<th>API ключ</th>
 							<th>Тариф</th>
 							<th>Компания</th>
+							<th>Администратор</th>
 							<th>Действие</th>
 						</tr>
 					</thead>
@@ -64,14 +60,10 @@
 						{% for user_data in users_data %}
 							<tr>
 								<td>{{ user_data.email }}</td>
-								<td>{{ user_data.vk }}</td>
-								<td>{{ user_data.ok }}</td>
-								<td>{{ user_data.fb }}</td>
-								<td>{{ user_data.gp }}</td>
-								<td>{{ user_data.mr }}</td>
-								<td>{{ user_data.ya }}</td>
+								<td>{{ user_data.apikey }}</td>
 								<td>{{ user_data.tariff }}</td>
 								<td>{{ user_data.company }}</td>
+								<td>{{ user_data.admin }}</td>
 								<td></td>
 							</tr>
 						{% endfor %}

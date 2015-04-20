@@ -85,7 +85,8 @@ if ($_SESSION['auth'] === true)
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
 					'admin' => true,
-					'timer' => $timer
+					'timer' => $timer,
+					'is_admin' => $is_admin,
 					));
 			break;
 			case 'tariff':

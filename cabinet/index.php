@@ -76,6 +76,7 @@ if ($_SESSION['auth'] === true)
 {
 	if ($_SESSION['contract'] == 't') 
 	{
+		$is_admin = $_SESSION['is_admin'];
 		switch ($cmd[0]) {
 			case 'tariff':
 				if (getUserBalans(true) >= getTariffPrice($cmd[2]))
@@ -89,6 +90,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('tariff.html', array(
 					'tariff' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'cnam' => $cnam,
 					'current' => $current,
 					'tariff_allow' => $tariff_allow,
@@ -101,6 +103,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('balans.html', array(
 					'balans' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'yaShopId' => $conf['payments']['ShopID'],
 					'yaSCId' => $conf['payments']['SCID'],
 					'userid' => $_SESSION['userid'],
@@ -121,6 +124,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('profile.html', array(
 					'profile' 		=> true,
 					'timer' 		=> $timer,
+					'is_admin' 		=> $is_admin,
 					'userid' 		=> $_SESSION['userid'],
 					'fb_link' 		=> 'https://www.facebook.com/dialog/oauth?' . $fbq,
 					'vk_link' 		=> 'https://oauth.vk.com/authorize?' .  $vkq,
@@ -143,6 +147,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('key.html', array(
 					'key' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'apikey' => $apikey
 					));
 				break;
@@ -153,6 +158,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('log.html', array(
 					'log' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'logs_data' => $logs
 					));
 				break;
@@ -160,8 +166,9 @@ if ($_SESSION['auth'] === true)
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('support.html', array(
+					'support' => true,
 					'timer' => $timer,
-					'support' => true
+					'is_admin' => $is_admin,
 					));
 				break;
 			case 'contract':
@@ -170,6 +177,7 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('contract.html', array(
 					'contract' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'accept' => $_SESSION['contract']
 					));
 				break;
@@ -183,10 +191,11 @@ if ($_SESSION['auth'] === true)
 				echo $twig->render('dashboard.html', array(
 					'dashboard' => true,
 					'timer' => $timer,
+					'is_admin' => $is_admin,
 					'progtrckr_module' => $progtrckr_module,
 					'progtrckr_balans' => $progtrckr_balans,
 					'progtrckr_tariff' => $progtrckr_tariff,
-					'logs_data' => $logs
+					'logs_data' => $logs,
 					));
 				break;
 		}
@@ -196,6 +205,7 @@ if ($_SESSION['auth'] === true)
 		echo $twig->render('contract.html', array(
 			'contract' => true,
 			'timer' => $timer,
+			'is_admin' => $is_admin,
 			'accept' => $_SESSION['contract']));
 	}
 }
@@ -407,10 +417,12 @@ function auth_db ($id, $email, $provider) {
 				$userid = pg_fetch_result($result, 0, 'id');
 				$contract = pg_fetch_result($result, 0, 'contract');
 				$company = pg_fetch_result($result, 0, 'company');
+				$is_admin = pg_fetch_result($result, 0, 'is_admin')
 			}
 			$_SESSION['userid'] = $userid;
 			$_SESSION['contract'] = $contract;
 			$_SESSION['company'] = $company;
+			$_SESSION['is_admin'] = $is_admin;
 			$_SESSION['auth'] = true;
 			pg_free_result($result);
 			pg_close($db);

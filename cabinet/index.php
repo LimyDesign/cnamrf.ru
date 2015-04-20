@@ -480,7 +480,7 @@ function getUserList($limit = 100, $offset = 0) {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select * from users limit {$limit} offset {$offset}";
+			$query = "select users.id, users.email, users.vk, users.ok, users.fb, users.gp, users.mr, users.ya, users.company, users.is_admin, tariff.name as tariff, (select (sum(debet) - sum(credit)) from log where uid = users.id) as balans from users left join tariff on users.tariffid = tariff.id limit {$limit} offset {$offset}";
 			$result = pg_query($query);
 			$users_data = array(); $i = 0;
 			while ($row = pg_fetch_assoc($result)) {
@@ -492,10 +492,10 @@ function getUserList($limit = 100, $offset = 0) {
 				$users_data[$i]['gp'] = $row['gp'];
 				$users_data[$i]['mr'] = $row['mr'];
 				$users_data[$i]['ya'] = $row['ya'];
-				$users_data[$i]['apikey'] = $row['apikey'];
-				$users_data[$i]['tariff'] = $row['tariff'];
 				$users_data[$i]['company'] = $row['company'];
 				$users_data[$i]['admin'] = $row['is_admin'];
+				$users_data[$i]['tariff'] = $row['tariff'];
+				$users_data[$i]['balans'] = $row['balans'];
 				$i++;
 			}
 			pg_free_result($result);
@@ -704,7 +704,7 @@ function selectTariff ($tariff) {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$query = "SELECT tariff FROM users WHERE id = {$_SESSION['userid']}";
 			$result = pg_query($query);
-			$userTariff = pg_fetch_result($result, 0, 'tariff');
+			$userTariff = pg_fetch_result($result, 0, 'tariffId');
 			pg_free_result($result);
 			pg_close($db);
 			if (!$userTariff) $tariff = array('start' => true);

@@ -4,7 +4,7 @@
 {% block content %}
 	<h1 class="page-header">Управляй и влавствуй!</h1>
 	<div class="tabpanel">
-		<ul class="nav nav-tabs" role="tablist">
+		<ul class="nav nav-tabs" role="tablist" id="adminTab">
 			<li class="active" role="presentation">
 				<a href="#tariff" aria-controls="tariff" role="tab" data-toggle="tab">Тарифы</a>
 			</li>
@@ -22,4 +22,12 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block scripts %}
+	<script>
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	  e.target // newly activated tab
+	  e.relatedTarget // previous active tab
+	})
+	</script>
 {% endblock %}

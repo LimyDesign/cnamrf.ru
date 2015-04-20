@@ -40,7 +40,7 @@
 					</tbody>
 				</table>
 				<div class="text-center">
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTariff"><i class="fa fa-plus"></i> Добавить новый тариф</button>
+					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addEditTariff"><i class="fa fa-plus"></i> Добавить новый тариф</button>
 				</div>
 			</div>
 			<div class="tab-pane" id="users" role="tabpanel">
@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="addTariff" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addEditTariff" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -57,7 +57,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addTariff/" method="post" id="addTariffForm">
+					<form action="/cabinet/addTariff/" method="post" id="addEditTariffForm">
 						<div class="form-group">
 							<label for="tariffName" class="control-label">Название тарифа (text):</label>
 							<input type="text" class="form-control" id="tariffName" name="tariffName">
@@ -95,24 +95,43 @@
 {% block scripts %}
 	<script>
 	$(function () {
-		var hash = window.location.hash;
-		$('#adminTab a[href="'+hash+'"]').tab('show');
+		var hash = window.location.hash
+		$('#adminTab a[href="'+hash+'"]').tab('show')
 
-		$('#addTariff').modal({
+		$('#addEditTariff').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
 		})
 
-		$('#tariffPrice').number(true, 2, '.', ' ');
-		$('#tariffQty').number(true, 0, '.', ' ');
-		$('#tariffSum').number(true, 2, '.', ' ');
+		$('#tariffPrice').number(true, 2, '.', ' ')
+		$('#tariffQty').number(true, 0, '.', ' ')
+		$('#tariffSum').number(true, 2, '.', ' ')
 
-		$('#addTariffForm').submit(function(e){
-			$('#tariffPrice').number(true, 2, '.', '');
-			$('#tariffQty').number(true, 0, '.', '');
-			$('#tariffSum').number(true, 2, '.', '');
-			return true;
+		$('#addEditTariffForm').submit(function(e){
+			$('#tariffPrice').number(true, 2, '.', '')
+			$('#tariffQty').number(true, 0, '.', '')
+			$('#tariffSum').number(true, 2, '.', '')
+			return true
+		})
+
+		$('#editTariff').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var name = button.data('tariff-name')
+			var code = button.data('tariff-code')
+			var desc = button.data('tariff-desc')
+			var price = button.data('tariff-price')
+			var qty = button.data('tariff-qty')
+			var sum = button.data('tariff-summ')
+			var modal = $(this)
+			modal.find('.modal-title').text('Редактирование тарифа «' + name + '»')
+			modal.find('.modal-body input#tariffName').val(name)
+			modal.find('.modal-body input#tariffCode').val(code)
+			modal.find('.modal-body textarea#tariffDescription').val(desc)
+			modal.find('.modal-body input#tariffPrice').val(price)
+			modal.find('.modal-body input#tariffQty').val(qty)
+			modal.find('.modal-body input#tariffSum').val(sum)
+			modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/')
 		})
 	})
 	</script>

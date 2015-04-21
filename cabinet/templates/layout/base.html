@@ -31,10 +31,10 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/cabinet/balans/">Баланс <span id="balans">0.00</span> <i class="fa fa-rub"></i></a></li>
 						{% if is_admin in 't' %}
 							<li{% if admin %}{{ active }}{% endif %}><a href="/cabinet/admin/"><i class="fa fa-cogs"></i> Администраторам</a></li>
 						{% endif %}
-						<li><a href="/cabinet/balans/">Баланс <span id="balans">0.00</span> <i class="fa fa-rub"></i></a></li>
 						<li><a href="/cabinet/logout/"><i class="fa fa-sign-out"></i> Выход</a></li>
 					</ul>
 				</div>

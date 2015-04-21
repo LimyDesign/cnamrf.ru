@@ -65,7 +65,7 @@
 								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
 								<td>{{ user_data.company }}</td>
 								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
-								<td class="text-center"><button class="btn btn-xs btn-default">Подробнее&hellip;</button></td>
+								<td class="text-center"><button class="btn btn-xs btn-default" data-toggle="modal" data-target="#infoUser" data-user-id="{{ user_data.id }}" data-user-email="{{ user_data.email }}" data-user-vk="{{ user_data.vk }}" data-user-ok="{{ user_data.ok }}" data-user-fb="{{ user_data.fb }}" data-user-gp="{{ user_data.gp }}" data-user-mr="{{ user_data.mr }}" data-user-ya="{{ user_data.ya }}" data-user-company="{{ user_data.company }}" data-user-admin="{{ user_data.admin }}" data-user-tariff="{{ user_data.tariff }}" data-user-balans="{{ user_data.balans }}">Подробнее&hellip;</button></td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -113,6 +113,30 @@
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
 					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
 					<button class="btn btn-primary" id="action">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="infoUser" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="adminModalLabel">Информация о пользователе №</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-6 text-right">Электропочта:</div>
+							<div class="col-sm-6" id="infoUserEmail"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
+					<a class="btn btn-danger" href="#." id="deleteUser">Удалить</a>
+					<button class="btn btn-primary" id="actionUser">Добавить</button>
 				</div>
 			</div>
 		</div>
@@ -185,6 +209,26 @@
 				modal.find('#delete').hide()
 			}
 			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() })
+		})
+
+		$('#addEditTariff').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var modal = $(this)
+			var id = button.data('user-id')
+			var email = button.data('user-email')
+			var vk = button.data('user-vk')
+			var ok = button.data('user-ok')
+			var fb = button.data('user-fb')
+			var gp = button.data('user-gp')
+			var mr = button.data('user-mr')
+			var ya = button.data('user-ya')
+			var company = button.data('user-company')
+			var admin = button.data('user-admin')
+			var tariff = button.data('user-tariff')
+			var balans = button.data('user-balans')
+
+			modal.find('.modal-title').text('Информация о пользователе №' + id)
+			modal.find('infoUserEmail').text(email)
 		})
 	})
 	</script>

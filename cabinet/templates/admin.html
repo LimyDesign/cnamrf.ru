@@ -289,15 +289,9 @@
 			var balans = button.data('user-balans')
 
 			if (admin == 't') {
-				if (!modal.find('input[id="adminTrue"]').is(':checked'))
-					modal.find('input[id="adminTrue"]').attr('checked', 'checked');
-				if (modal.find('input[id="adminFalse"]').is(':checked'))
-					modal.find('input[id="adminFalse"]').removeAttr('checked');
+				modal.find('input[id="adminTrue"]').attr('checked', 'checked');
 			} else {
-				if (!modal.find('input[id="adminFalse"]').is(':checked'))
-					modal.find('input[id="adminFalse"]').attr('checked', 'checked');
-				if (modal.find('input[id="adminTrue"]').is(':checked'))
-					modal.find('input[id="adminTrue"]').removeAttr('checked');
+				modal.find('input[id="adminFalse"]').attr('checked', 'checked');
 			}
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)

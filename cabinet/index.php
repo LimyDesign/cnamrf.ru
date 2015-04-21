@@ -648,6 +648,8 @@ function getInvoiceList($limit = 100, $offset = 0) {
 				$invoices_data[$i]['accept'] = $row['accept'];
 				$i++;
 			}
+			print_r($invoices_data);
+			die();
 			pg_free_result($result);
 			pg_close($db);
 			return $invoices_data;

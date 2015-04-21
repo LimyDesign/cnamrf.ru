@@ -431,9 +431,10 @@ function auth_db ($id, $email, $provider) {
 			if (pg_num_rows($result) != 1) 
 			{
 				$state = sha1($_SERVER['HTTP_USER_AGENT'].time());
-				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '$state') RETURNING id";
+				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '$state') RETURNING id, contract";
 				$result = pg_query($query);
-				$userid = pg_fetch_result($result, 0, 0);
+				$userid = pg_fetch_result($result, 0, 'id');
+				$userid = pg_fetch_result($result, 0, 'contract');
 			}
 			else
 			{

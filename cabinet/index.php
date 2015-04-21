@@ -724,7 +724,7 @@ function setUserCompany($company) {
 }
 
 function generateInvoice($summ) {
-	global $pdf, $twig;
+	global $pdf, $twig, $conf;
 
 	$pdf->SetCreator('CNAM RF');
 	$pdf->SetAuthor('Arsen Bespalov');
@@ -747,8 +747,9 @@ function generateInvoice($summ) {
 	$user_sum = str_replace(' ', '', $user_sum);
 	$sum = number_format($user_sum, 2, '-', ' ');
 	$sum_alt = number_format($user_sum, 2, '.', '\'');
+	$invoice_num = date('ymdHis').rand(0,9);
 	$html = $twig->render('invoice.html', array(
-		'invoice_number' => 'CNAM-'.date('ymdHis').rand(0,9),
+		'invoice_number' => 'CNAM-'.writeInvoice($invoice_num, $_POST['invoice']),
 		'invoice_date' => russian_date().' г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
@@ -763,6 +764,17 @@ function generateInvoice($summ) {
 	$pdf->Image(K_PATH_IMAGES . 'sign_trans.png', 50, 124, 60, '', '', '', '', false);
 	$pdf->lastPage();
 	$pdf->Output('invoice.pdf', 'D');
+}
+
+function writeInvoice($num, $sum) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "insert into invoices (invoice, uid, sum) values ({$num}, {$_SESSION['userid']}, '{$sum}')";
+		pg_query($query);
+		pg_close($db);
+	}
+	return $num;
 }
 
 function selectTariff ($tariff) {

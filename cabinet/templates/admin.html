@@ -290,7 +290,9 @@
 
 			if (admin == 't') {
 				modal.find('input#adminTrue').attr('checked', 'checked');
+				modal.find('input#adminFalse').removeAttr('checked');
 			} else {
+				modal.find('input#adminTrue').removeAttr('checked');
 				modal.find('input#adminFalse').attr('checked', 'checked');
 			}
 

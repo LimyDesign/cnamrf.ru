@@ -77,6 +77,37 @@
 			<div class="tab-pane" id="invoices" role="tabpanel">
 				<h3>Управление счетами</h3>
 				<p>Пока не настроили автоматическое подтверждение счетов прямиком из Сбербанк Бизнес Онлайн, необходимо подтверждать оплату каждого оплаченного счета, но будьте внимательны — не подтверждайте те счета, которые вовсе не оплачены, иначе кое-кто получит на халяву, возможно, запредельную сумму.</p>
+				<table class="table table-hover table-responsive">
+					<thead>
+						<tr>
+							<th>№ счета</th>
+							<th>Компания</th>
+							<th>Сумма счета</th>
+							<th>Время создания</th>
+							<th>Действие</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for invoice_data in invoices_data %}
+							<tr>
+								<td>{{ invoice_data.number }}</td>
+								<td>{{ invoice_data.company }}</td>
+								<td>{{ invoice_data.summ }}</td>
+								<td>{{ invoice_data.addtime }}</td>
+								<td>
+									{% if not invoice_data.accept %}
+										<a href="/cabinet/acceptInvoice/{{ invoice_data.id }}/">
+											<i class="fa fa-check"></i> Подтвердить оплату
+										</a>
+									{% else %}
+										<a href="/cabinet/withdrawInvoice/{{ invoice_data.id }}/">
+											<i class="fa fa-undo"></i> Отменить оплату
+										</a>
+									{% endif %}
+								</td>
+							</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

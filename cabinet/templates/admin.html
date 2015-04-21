@@ -84,7 +84,7 @@
 							<th>Компания</th>
 							<th>Сумма счета</th>
 							<th>Время создания</th>
-							<th>Действие</th>
+							<th class="text-center">Действие</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,9 +92,9 @@
 							<tr>
 								<td>{{ invoice_data.number }}</td>
 								<td>{{ invoice_data.company }}</td>
-								<td>{{ invoice_data.summ }}</td>
+								<td class="text-right" id="invoiceSum">{{ invoice_data.summ }}</td>
 								<td>{{ invoice_data.addtime }}</td>
-								<td>
+								<td class="text-center">
 									{% if not invoice_data.accept %}
 										<a href="/cabinet/acceptInvoice/{{ invoice_data.id }}/">
 											<i class="fa fa-check"></i> Подтвердить оплату

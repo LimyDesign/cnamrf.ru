@@ -434,7 +434,7 @@ function auth_db ($id, $email, $provider) {
 				$query = "INSERT INTO users (email, {$pr}, apikey) VALUES ('{$email}', '{$id}', '$state') RETURNING id, contract";
 				$result = pg_query($query);
 				$userid = pg_fetch_result($result, 0, 'id');
-				$userid = pg_fetch_result($result, 0, 'contract');
+				$contract = pg_fetch_result($result, 0, 'contract');
 			}
 			else
 			{

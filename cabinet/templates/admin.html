@@ -289,12 +289,14 @@
 			var balans = button.data('user-balans')
 
 			if (admin == 't') {
-				modal.find('input[id="adminTrue"]').attr('checked', 'checked');
-				if (modal.find('input[id="adminFalse"]')[0].checked)
+				if (!modal.find('input[id="adminTrue"]').is(':checked'))
+					modal.find('input[id="adminTrue"]').attr('checked', 'checked');
+				if (modal.find('input[id="adminFalse"]').is(':checked'))
 					modal.find('input[id="adminFalse"]').removeAttr('checked');
 			} else {
-				modal.find('input[id="adminFalse"]').attr('checked', 'checked');
-				if (modal.find('input[id="adminTrue"]')[0].checked)
+				if (!modal.find('input[id="adminFalse"]').is(':checked'))
+					modal.find('input[id="adminFalse"]').attr('checked', 'checked');
+				if (modal.find('input[id="adminTrue"]').is(':checked'))
 					modal.find('input[id="adminTrue"]').removeAttr('checked');
 			}
 

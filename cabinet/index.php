@@ -766,11 +766,11 @@ function generateInvoice($summ) {
 	$pdf->Output('invoice.pdf', 'D');
 }
 
-function writeInvoice($num, $sum) {
+function writeInvoice($num, $sum, $system = 'bank') {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres') {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "insert into invoices (invoice, uid, sum) values ({$num}, {$_SESSION['userid']}, '{$sum}')";
+		$query = "insert into invoices (invoice, uid, sum, system) values ({$num}, {$_SESSION['userid']}, '{$sum}', '{$system}')";
 		pg_query($query);
 		pg_close($db);
 	}

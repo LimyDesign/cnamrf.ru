@@ -65,6 +65,9 @@ switch ($cmd[0]) {
 	case 'deleteTariff':
 		deleteTariff($cmd[1]);
 		break;
+	case 'changeUser':
+		updateUser($cmd[1]);
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':
@@ -471,6 +474,22 @@ function getUserBalans($return = false) {
 	else
 	{
 		return $balans;
+	}
+}
+
+function updateUser($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			if ($_POST['admin'] == 't') $admin = true;
+			else $admin = false;
+			$query = "update users set is_admin = {$admin} where id = {$id}";
+			pg_query($query);
+			pg_close($db);
+			header("Location: /cabinet/admin/#users");
+		}
 	}
 }
 

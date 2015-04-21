@@ -304,7 +304,7 @@
 			modal.find('#infoUserYA').text(ya)
 			modal.find('#infoUserCompany').text(company)
 			modal.find('#infoUserTariff').text(tariff)
-			modal.find('#infoUserBalans').text(balans)
+			modal.find('#infoUserBalans').number(balans, 2, '.', ' ')
 			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/')
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })

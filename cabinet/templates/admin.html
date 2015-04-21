@@ -289,11 +289,11 @@
 			var balans = button.data('user-balans')
 
 			if (admin == 't') {
-				modal.find('input#adminTrue').attr('checked', 'checked');
-				modal.find('input#adminFalse').removeAttr('checked');
+				modal.find('input[id="adminTrue"]').attr('checked', 'checked');
+				modal.find('input[id="adminFalse"]').removeAttr('checked');
 			} else {
-				modal.find('input#adminFalse').attr('checked', 'checked');
-				modal.find('input#adminTrue').removeAttr('checked');
+				modal.find('input[id="adminFalse"]').attr('checked', 'checked');
+				modal.find('input[id="adminTrue"]').removeAttr('checked');
 			}
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)

@@ -771,6 +771,7 @@ function writeInvoice($num, $sum) {
 	if ($conf['db']['type'] == 'postgres') {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = "insert into invoices (invoice, uid, sum) values ({$num}, {$_SESSION['userid']}, '{$sum}')";
+		die($query);
 		pg_query($query);
 		pg_close($db);
 	}

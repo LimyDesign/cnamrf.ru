@@ -90,7 +90,12 @@
 					<tbody>
 						{% for invoice_data in invoices_data %}
 							<tr>
-								<td>{{ invoice_data.invoice }}</td>
+								<td>
+									{% if invoice_data.system in 'bank' %}
+										<i class="fa fa-bak"></i>
+									{% endif %} 
+									{{ invoice_data.invoice }}
+								</td>
 								<td>{{ invoice_data.company }}</td>
 								<td class="text-right" id="invoiceSum">{{ invoice_data.sum }}</td>
 								<td>{{ invoice_data.addtime }}</td>

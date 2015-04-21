@@ -636,7 +636,7 @@ function getInvoiceList($limit = 100, $offset = 0) {
 	if ($_SESSION['is_admin'] == 't') {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select invoices.id, invoices.invoice, invoices.sum, invoices.addtime, users.company, log.invoice as accept from invoices left join users on invoices.uid = users.id left join log on invoices.id = log.invoice order by addtime desc limit {$limit} offset {$offset}";
+			$query = "select invoices.id, invoices.invoice, invoices.sum, invoices.addtime, invoices.system, users.company, log.invoice as accept from invoices left join users on invoices.uid = users.id left join log on invoices.id = log.invoice order by addtime desc limit {$limit} offset {$offset}";
 			$result = pg_query($query);
 			$invoices_data = array(); $i++;
 			while ($row = pg_fetch_assoc($result)) {
@@ -644,6 +644,7 @@ function getInvoiceList($limit = 100, $offset = 0) {
 				$invoices_data[$i]['invoice'] = $row['invoice'];
 				$invoices_data[$i]['sum'] = $row['sum'];
 				$invoices_data[$i]['addtime'] = $row['addtime'];
+				$invoices_data[$i]['system'] = $row['system'];
 				$invoices_data[$i]['company'] = $row['company'];
 				$invoices_data[$i]['accept'] = $row['accept'];
 				$i++;

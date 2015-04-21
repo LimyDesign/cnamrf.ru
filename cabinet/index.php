@@ -483,10 +483,10 @@ function updateUser($id) {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			if ($_POST['admin'] == 't') $admin = true;
-			else $admin = false;
-			$query = "update users set is_admin = {$admin} where id = {$id}";
-			die($query);
+			if ($_POST['admin'] == 't') 
+				$query = "update users set is_admin = true where id = {$id}";
+			else 
+				$query = "update users set is_admin = false where id = {$id}";
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#users");

@@ -68,6 +68,9 @@ switch ($cmd[0]) {
 	case 'changeUser':
 		updateUser($cmd[1]);
 		break;
+	case 'deleteUser':
+		deleteUser($cmd[1]);
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':

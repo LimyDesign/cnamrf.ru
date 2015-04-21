@@ -309,6 +309,11 @@
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
+		$('#infoUser').on('hide.bs.modal', function (event) {
+			var modal = $(this)
+			modal.find('input[name="admin"]').removeAttr('checked');
+		})
+
 	})
 	</script>
 {% endblock %}

@@ -99,7 +99,8 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
-					'users_data' => $users_data
+					'users_data' => $users_data,
+					'error' => $cmd[1]
 					));
 				break;
 			case 'tariff':
@@ -491,6 +492,27 @@ function updateUser($id) {
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#users");
+		}
+	}
+}
+
+function deleteUser($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres') {
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select count(debet) + count(credit) from logs where uid = {$id} and modtime >= current_timestamp - interval '62 days'";
+			$result = pg_query($query);
+			$ops = pg_fetch_result($result, 0, 0);
+			pg_free_result($result);
+			if ($ops == 0) {
+				$query = "delete from users where id = {$id}";
+				pg_query($query);
+				pg_close($db);
+				header("Location: /cabinet/admin/balans-not-null/#users");
+			} else {
+				header("Location: /cabinet/admin/#users");
+			}
 		}
 	}
 }

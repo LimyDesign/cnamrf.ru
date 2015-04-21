@@ -135,8 +135,8 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
-					<a class="btn btn-danger" href="#." id="deleteUser">Удалить</a>
-					<button class="btn btn-primary" id="actionUser">Добавить</button>
+					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
+					<button class="btn btn-primary" id="action">Добавить</button>
 				</div>
 			</div>
 		</div>
@@ -211,7 +211,7 @@
 			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() })
 		})
 
-		$('#addEditTariff').on('show.bs.modal', function (event) {
+		$('#infoUser').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var modal = $(this)
 			var id = button.data('user-id')
@@ -229,6 +229,7 @@
 
 			modal.find('.modal-title').text('Информация о пользователе №' + id)
 			modal.find('infoUserEmail').text(email)
+			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
 	})
 	</script>

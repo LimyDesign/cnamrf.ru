@@ -480,7 +480,7 @@ function getUserList($limit = 100, $offset = 0) {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select users.id, users.email, users.vk, users.ok, users.fb, users.gp, users.mr, users.ya, users.company, users.is_admin, tariff.name as tariff, (select (sum(debet) - sum(credit)) as balans from log where uid = users.id) as balans from users left join tariff on users.tariffid = tariff.id order by balans desc nulls last limit {$limit} offset {$offset}";
+			$query = "select users.id, users.email, users.vk, users.ok, users.fb, users.gp, users.mr, users.ya, users.company, users.is_admin, tariff.name as tariff, (select (sum(debet) - sum(credit)) as balans from log where uid = users.id and modtime >= current_timestamp - interval '62 days') as balans from users left join tariff on users.tariffid = tariff.id order by balans desc nulls last limit {$limit} offset {$offset}";
 			$result = pg_query($query);
 			$users_data = array(); $i = 0;
 			while ($row = pg_fetch_assoc($result)) {

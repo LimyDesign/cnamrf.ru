@@ -486,7 +486,7 @@ function updateUser($id) {
 			if ($_POST['admin'] == 't') $admin = true;
 			else $admin = false;
 			$query = "update users set is_admin = {$admin} where id = {$id}";
-			die($query)
+			die($query);
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#users");

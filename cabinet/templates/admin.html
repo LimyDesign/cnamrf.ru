@@ -136,7 +136,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
 					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
-					<button class="btn btn-primary" id="action">Добавить</button>
+					<button class="btn btn-primary" id="action">Сохранить</button>
 				</div>
 			</div>
 		</div>
@@ -149,6 +149,12 @@
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
 		$('#addEditTariff').modal({
+			keyboard: false,
+			backdrop: false,
+			show: false
+		})
+
+		$('#infoUser').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
@@ -228,7 +234,7 @@
 			var balans = button.data('user-balans')
 
 			modal.find('.modal-title').text('Информация о пользователе №' + id)
-			modal.find('infoUserEmail').text(email)
+			modal.find('#infoUserEmail').text(email)
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
 	})

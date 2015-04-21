@@ -132,11 +132,23 @@
 							<div class="col-sm-6" id="infoUserEmail"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6 text-right">Вконтакте:</div>
-							<div class="col-sm-6" id="infoUserVK"></div>
+							<div class="col-sm-6 text-right">Тарифный план:</div>
+							<div class="col-sm-6" id="infoUserTariff"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-12"><h3>Привязанные социальные сервисы</h3></div>
+							<div class="col-sm-6 text-right">Текущий баланс:</div>
+							<div class="col-sm-6" id="infoUserBalans"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Компания:</div>
+							<div class="col-sm-6" id="infoUserCompany"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 text-center"><strong>Cоциальные сервисы авторизации</strong></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Вконтакте:</div>
+							<div class="col-sm-6" id="infoUserVK"></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6 text-right">Одноклассники:</div>
@@ -157,6 +169,13 @@
 						<div class="row">
 							<div class="col-sm-6 text-right">Яндекс:</div>
 							<div class="col-sm-6" id="infoUserYA"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 text-center"><strong>Расширенные привилегии</strong></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Администратор:</div>
+							<div class="col-sm-6" id=""></div>
 						</div>
 					</div>
 				</div>
@@ -262,6 +281,15 @@
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)
 			modal.find('#infoUserEmail').text(email)
+			modal.find('#infoUserVK').text(vk)
+			modal.find('#infoUserOK').text(ok)
+			modal.find('#infoUserFB').text(fb)
+			modal.find('#infoUserGP').text(gp)
+			modal.find('#infoUserMR').text(mr)
+			modal.find('#infoUserYA').text(ya)
+			modal.find('#infoUserCompany').text(company)
+			modal.find('#infoUserTariff').text(tariff)
+			modal.find('#infoUserBalans').text(balans)
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})

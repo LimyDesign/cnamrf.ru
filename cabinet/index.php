@@ -100,7 +100,6 @@ if ($_SESSION['auth'] === true)
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
 					'users_data' => $users_data,
-					'error' => $cmd[1]
 					));
 				break;
 			case 'tariff':
@@ -508,11 +507,9 @@ function deleteUser($id) {
 			if ($ops == 0) {
 				$query = "delete from users where id = {$id}";
 				pg_query($query);
-				pg_close($db);
-				header("Location: /cabinet/admin/balans-not-null/#users");
-			} else {
-				header("Location: /cabinet/admin/#users");
 			}
+			pg_close($db);
+			header("Location: /cabinet/admin/#users");
 		}
 	}
 }

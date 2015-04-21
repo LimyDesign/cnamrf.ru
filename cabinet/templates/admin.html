@@ -45,12 +45,6 @@
 			</div>
 			<div class="tab-pane" id="users" role="tabpanel">
 				<h3>Управление рабами</h3>
-				{% if error in 'balans-not-null' %}
-					<div class="alert alert-danger alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-						<strong>Ошибка удаления пользовател.</strong> У пользователя, которого вы пытались удалить имеются финасовые операции, поэтому удаление данного пользователя невозможно. {{ error }}
-					</div>
-				{% endif %}
 				<p>Если рабов много и они активно пользуются дорогими тарифами, то мы, господа, живем хорошо и возможно в Париже. Случайно не дайте права какому-нибудь рабу права господина (администратора).</p>
 				<table class="table table-hover table-responsive">
 					<thead>
@@ -298,6 +292,12 @@
 				modal.find('input[id="adminTrue"]').trigger('click');
 			} else {
 				modal.find('input[id="adminFalse"]').trigger('click');
+			}
+
+			if (balans > 0) {
+				modal.find('#delete').addClass('disabled');
+			} else {
+				modal.find('#delete').removeClass('disabled');
 			}
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)

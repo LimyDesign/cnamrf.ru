@@ -11,6 +11,9 @@
 			<li role="presentation">
 				<a href="#users" aria-controls="users" role="tab" data-toggle="tab">Пользователи</a>
 			</li>
+			<li role="presentation">
+				<a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab">Счета</a>
+			</li>
 		</ul>
 
 		<div class="tab-content">
@@ -70,6 +73,10 @@
 						{% endfor %}
 					</tbody>
 				</table>
+			</div>
+			<div class="tab-pane" id="invoices" role="tabpanel">
+				<h3>Управление счетами</h3>
+				<p>Пока не настроили автоматическое подтверждение счетов прямиком из Сбербанк Бизнес Онлайн, необходимо подтверждать оплату каждого оплаченного счета, но будьте внимательны — не подтверждайте те счета, которые вовсе не оплачены, иначе кое-кто получит на халяву, возможно, запредельную сумму.</p>
 			</div>
 		</div>
 	</div>

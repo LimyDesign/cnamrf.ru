@@ -289,9 +289,9 @@
 			var balans = button.data('user-balans')
 
 			if (admin == 't') {
-				modal.find('input[id="adminTrue"]').attr('checked', 'checked');
+				modal.find('input[id="adminTrue"]').trigger('click');
 			} else {
-				modal.find('input[id="adminFalse"]').attr('checked', 'checked');
+				modal.find('input[id="adminFalse"]').trigger('click');
 			}
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)
@@ -309,10 +309,10 @@
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
-		$('#infoUser').on('hide.bs.modal', function (event) {
-			var modal = $(this)
-			modal.find('input[name="admin"]').removeAttr('checked');
-		})
+		// $('#infoUser').on('hide.bs.modal', function (event) {
+		// 	var modal = $(this)
+		// 	modal.find('input[name="admin"]').removeAttr('checked');
+		// })
 
 	})
 	</script>

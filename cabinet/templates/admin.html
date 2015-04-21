@@ -175,7 +175,16 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-6 text-right">Администратор:</div>
-							<div class="col-sm-6" id=""></div>
+							<div class="col-sm-6">
+								<form action="/cabinet/changeUser/" class="form-inline" id="infoUserForm">
+									<label class="radio-inline">
+										<input type="radio" name="admin" value="t" id="adminTrue"> Да
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="admin" value="f" id="adminFalse"> Нет
+									</label>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -279,6 +288,12 @@
 			var tariff = button.data('user-tariff')
 			var balans = button.data('user-balans')
 
+			if (admin == 't') {
+				modal.find('input#adminTrue').attr('checked', 'checked');
+			} else {
+				modal.find('input#adminFalse').attr('checked', 'checked');
+			}
+
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)
 			modal.find('#infoUserEmail').text(email)
 			modal.find('#infoUserVK').text(vk)
@@ -290,6 +305,7 @@
 			modal.find('#infoUserCompany').text(company)
 			modal.find('#infoUserTariff').text(tariff)
 			modal.find('#infoUserBalans').text(balans)
+			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/')
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})

@@ -289,15 +289,15 @@
 			var balans = button.data('user-balans')
 
 			if (admin == 't') {
-				modal.find('input[id="adminTrue"]').trigger('click');
+				modal.find('input[id="adminTrue"]').trigger('click')
 			} else {
-				modal.find('input[id="adminFalse"]').trigger('click');
+				modal.find('input[id="adminFalse"]').trigger('click')
 			}
 
 			if (balans > 0) {
-				modal.find('#delete').addClass('disabled');
+				modal.find('#delete').addClass('disabled')
 			} else {
-				modal.find('#delete').removeClass('disabled');
+				modal.find('#delete').removeClass('disabled')
 			}
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)

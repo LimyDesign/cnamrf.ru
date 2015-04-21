@@ -749,7 +749,7 @@ function generateInvoice($summ) {
 	$sum_alt = number_format($user_sum, 2, '.', '\'');
 	$invoice_num = date('ymdHis').rand(0,9);
 	$html = $twig->render('invoice.html', array(
-		'invoice_number' => 'CNAM-'.writeInvoice($invoice_num, $_POST['invoice']),
+		'invoice_number' => 'CNAM-'.writeInvoice($invoice_num, $user_sum),
 		'invoice_date' => russian_date().' г.',
 		'client_company' => setUserCompany($_POST['company-name']),
 		'userid' => $_SESSION['userid'],
@@ -771,7 +771,6 @@ function writeInvoice($num, $sum) {
 	if ($conf['db']['type'] == 'postgres') {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$query = "insert into invoices (invoice, uid, sum) values ({$num}, {$_SESSION['userid']}, '{$sum}')";
-		die($query);
 		pg_query($query);
 		pg_close($db);
 	}

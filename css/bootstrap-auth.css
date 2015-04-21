@@ -83,9 +83,9 @@ body,input,textarea,select
   background: #1170b4;
 }
 .form-signin .btn-yandex {
-  background: #fdcc01;
-  color: #000;
+  background: #ffce55;
+  color: #664c0e;
 }
 .form-signin .btn-yandex:hover {
-  background: #caa301;
+  background: #ffbf22;
 }

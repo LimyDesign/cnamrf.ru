@@ -194,10 +194,10 @@ ol.progtrckr li.progtrckr-todo:before {
   color: #fff;
 }
 .btn-yandex {
-  background: #fdcc01;
-  color: #000;
+  background: #ffce55;
+  color: #664c0e;
 }
 .btn-yandex:hover {
-  background: #caa301;
-  color: #000;
+  background: #ffbf22;
+  color: #664c0e;
 }

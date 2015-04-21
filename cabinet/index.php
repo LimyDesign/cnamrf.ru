@@ -95,6 +95,7 @@ if ($_SESSION['auth'] === true)
 			case 'admin':
 				$tariff_datas = getTariff();
 				$users_data = getUserList();
+				$invoices_data = getInvoiceList();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
@@ -103,6 +104,7 @@ if ($_SESSION['auth'] === true)
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
 					'users_data' => $users_data,
+					'invoices_data' => $invoices_data,
 					));
 				break;
 			case 'tariff':
@@ -626,6 +628,16 @@ function getTariff() {
 		pg_free_result($result);
 		pg_close($db);
 		return $tariff_datas;
+	}
+}
+
+function getInvoiceList($limit = 100, $offset = 0) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres') {
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select ";
+		}
 	}
 }
 

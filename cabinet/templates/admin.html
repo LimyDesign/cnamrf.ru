@@ -131,6 +131,33 @@
 							<div class="col-sm-6 text-right">Электропочта:</div>
 							<div class="col-sm-6" id="infoUserEmail"></div>
 						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Вконтакте:</div>
+							<div class="col-sm-6" id="infoUserVK"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12"><h3>Привязанные социальные сервисы</h3></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Одноклассники:</div>
+							<div class="col-sm-6" id="infoUserOK"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Facebook:</div>
+							<div class="col-sm-6" id="infoUserFB"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Google+:</div>
+							<div class="col-sm-6" id="infoUserGP"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Mail.Ru:</div>
+							<div class="col-sm-6" id="infoUserMR"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Яндекс:</div>
+							<div class="col-sm-6" id="infoUserYA"></div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -233,8 +260,9 @@
 			var tariff = button.data('user-tariff')
 			var balans = button.data('user-balans')
 
-			modal.find('.modal-title').text('Информация о пользователе №' + id)
+			modal.find('.modal-title').text('Информация о пользователе № ' + id)
 			modal.find('#infoUserEmail').text(email)
+			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
 	})

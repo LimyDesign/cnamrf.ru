@@ -17,9 +17,9 @@
 			{% for data in tariff_datas %}
 				<tr>
 					<td><a href="/cabinet/tariff/info/{{data.code}}/#info" data-toggle="tooltip" title="Информация о тарифе">{{data.name}}</td>
-					<td><span id="qty">{{data.qty}}</span></td>
-					<td><span id="sum">{{data.sum}}</span> <i class="fa fa-rub"></i></td>
-					<td><span id="price">{{data.price}}</span> <i class="fa fa-rub"></i></td>
+					<td class="text-right"><span id="qty">{{data.qty}}</span></td>
+					<td class="text-right"><span id="sum">{{data.sum}}</span> <i class="fa fa-rub"></i></td>
+					<td class="text-right"><span id="price">{{data.price}}</span> <i class="fa fa-rub"></i></td>
 				</tr>
 			{% endfor %}
 		</tbody>

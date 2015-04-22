@@ -83,7 +83,7 @@
 			<p class="text-muted hidden-md hidden-lg"><strong>{{ cnam.price }} <i class="fa fa-rub"></i>/запрос</strong></p>
 			<p>{{ cnam.desc }}</p>
 		</div>
-		{% if not cnam.name in 'start' or not current %}
+		{% if not cnam.code in 'start' or not current %}
 			{% if tariff_allow %}
 				<div class="panel-footer">
 					<a href="/cabinet/tariff/set/{{ cnam.code }}/#info" class="btn btn-lg btn-success btn-block">Подключить</a>

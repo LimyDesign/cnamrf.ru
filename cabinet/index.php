@@ -239,7 +239,7 @@ if ($_SESSION['auth'] === true)
 					'progtrckr_module' => $progtrckr_module,
 					'progtrckr_balans' => $progtrckr_balans,
 					'progtrckr_tariff' => $progtrckr_tariff,
-					'cnam' => $tariff[$current];
+					'cnam' => $tariff[$current],
 					'logs_data' => $logs,
 					));
 				break;

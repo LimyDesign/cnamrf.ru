@@ -674,10 +674,11 @@ function acceptInvoice($num) {
 	if ($_SESSION['is_admin'] == 't' && is_numeric($num)) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select sum from invoices where id = {$num}";
+			$query = "select uid, sum from invoices where id = {$num}";
 			$result = pg_query($query);
+			$uid = pg_fetch_result($result, 0, 'uid');
 			$sum = pg_fetch_result($result, 0, 'sum');
-			$query = "insert into log (uid, debet, client, invoice) values ({$_SESSION['userid']}, '{$sum}', 'Банк. Счет № CNAM-', {$num})";
+			$query = "insert into log (uid, debet, client, invoice) values ({$uid}, '{$sum}', 'Банк. Счет № CNAM-', {$num})";
 			pg_query($query);
 			pg_free_result($result);
 			pg_close($db);

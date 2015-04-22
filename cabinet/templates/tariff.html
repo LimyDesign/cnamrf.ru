@@ -17,9 +17,9 @@
 			{% for data in tariff_datas %}
 				<tr>
 					<td><a href="/cabinet/tariff/info/{{data.code}}/#info" data-toggle="tooltip" title="Информация о тарифе">{{data.name}}</td>
-					<td>{{data.qty}}</td>
-					<td>{{data.sum}}</td>
-					<td>{{data.price}}</td>
+					<td><span id="qty">{{data.qty}}</span></td>
+					<td><span id="sum">{{data.sum}}</span> <i class="fa fa-rub"></i></td>
+					<td><span id="price">{{data.price}}</span> <i class="fa fa-rub"></i></td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -42,6 +42,9 @@
 <script>
 	$( document ).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip()
+		$('span[id="price"]').number(true, 2, '.', ' ')
+		$('span[id="sum"]').number(true, 2, '.', ' ')
+		$('span[id="qty"]').number(true, 2, '.', ' ')
 	})
 
 	$(window).load(function() {

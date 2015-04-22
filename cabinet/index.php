@@ -116,6 +116,7 @@ if ($_SESSION['auth'] === true)
 			case 'tariff':
 				$tariff = getTariffInfo();
 				$current = getCurrentTariff();
+				if (!$cmd[2]) $cmd[2] = $current;
 				if (getUserBalans(true) >= $tariff[$cmd[2]]['sum']) {
 					if ($tariff[$cmd[2]]['code'] != $current)
 						$tariff_allow = true;

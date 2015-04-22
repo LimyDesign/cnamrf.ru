@@ -99,7 +99,7 @@ if ($_SESSION['auth'] === true)
 		$is_admin = $_SESSION['is_admin'];
 		switch ($cmd[0]) {
 			case 'admin':
-				$tariff_datas = getTariff();
+				$tariff_datas = getTariffList();
 				$users_data = getUserList();
 				$invoices_data = getInvoiceList();
 				$time = microtime(true) - $start;
@@ -618,7 +618,7 @@ function deleteTariff($id) {
 	}
 }
 
-function getTariff() {
+function getTariffList() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
@@ -677,6 +677,19 @@ function getCurrentTariff($field = 'code') {
 		pg_close($db);
 	}
 	return $tariff;
+}
+
+function getTariffPrice($code) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select sum from tariff where code = '{$code}'";
+		$result = pg_query($query);
+		$price = pg_fetch_result($result, 0, 'sum');
+		pg_free_result($result);
+		pg_close($db);
+	}
+	return $price;
 }
 
 function acceptInvoice($num) {
@@ -774,7 +787,7 @@ function progtrckr($step) {
 	}
 	elseif ($step == 'tariff')
 	{
-		if (array_key_exists('start', selectTariff()))
+		if (array_key_exists('start', getCurrentTariff()))
 			return 'todo';
 		else
 			return 'done';
@@ -854,39 +867,6 @@ function writeInvoice($num, $sum, $system = 'bank') {
 		pg_close($db);
 	}
 	return $num;
-}
-
-function selectTariff ($tariff) {
-	global $conf;
-	if (!$tariff) {
-		if ($conf['db']['type'] == 'postgres')
-		{
-			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "SELECT tariff FROM users WHERE id = {$_SESSION['userid']}";
-			$result = pg_query($query);
-			$userTariff = pg_fetch_result($result, 0, 'tariffId');
-			pg_free_result($result);
-			pg_close($db);
-			if (!$userTariff) $tariff = array('start' => true);
-			else $tariff = array($userTariff => true);
-			return $tariff;
-		}
-	} else {
-		return array($tariff => true);
-	}
-}
-
-function getTariffPrice($code) {
-	global $conf;
-	if ($conf['db']['type'] == 'postgres') {
-		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select sum from tariff where code = '{$code}'";
-		$result = pg_query($query);
-		$price = pg_fetch_result($result, 0, 'sum');
-		pg_free_result($result);
-		pg_close($db);
-	}
-	return $price;
 }
 
 function checkProviderLink() {

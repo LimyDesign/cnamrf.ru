@@ -132,6 +132,7 @@ if ($_SESSION['auth'] === true)
 					'tariff' => true,
 					'timer' => $timer,
 					'is_admin' => $is_admin,
+					'tariff_datas' => $tariff,
 					'cnam' => $tariff[$cmd[2]],
 					'current' => $current,
 					'tariff_allow' => $tariff_allow,

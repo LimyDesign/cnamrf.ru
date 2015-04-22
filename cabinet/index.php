@@ -765,7 +765,7 @@ function progtrckr($step) {
 	}
 	elseif ($step == 'tariff')
 	{
-		if (array_key_exists('start', getCurrentTariff()))
+		if (getCurrentTariff() == 'start')
 			return 'todo';
 		else
 			return 'done';

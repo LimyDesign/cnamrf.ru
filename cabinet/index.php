@@ -228,6 +228,8 @@ if ($_SESSION['auth'] === true)
 				$progtrckr_module = progtrckr('module');
 				$progtrckr_balans = progtrckr('balans');
 				$progtrckr_tariff = progtrckr('tariff');
+				$tariff = getTariffList();
+				$current = getCurrentTariff();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('dashboard.html', array(
@@ -237,6 +239,7 @@ if ($_SESSION['auth'] === true)
 					'progtrckr_module' => $progtrckr_module,
 					'progtrckr_balans' => $progtrckr_balans,
 					'progtrckr_tariff' => $progtrckr_tariff,
+					'cnam' => $tariff[$current];
 					'logs_data' => $logs,
 					));
 				break;

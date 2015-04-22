@@ -83,6 +83,7 @@ switch ($cmd[0]) {
 	case 'tariff':
 	case 'balans':
 	case 'profile':
+	case 'phonebook':
 	case 'key':
 	case 'log':
 		check_auth();
@@ -179,6 +180,17 @@ if ($_SESSION['auth'] === true)
 					'mailru' 		=> $checkProviderLink['mr'],
 					'yandex' 		=> $checkProviderLink['ya'],
 					));
+				break;
+			case 'phonebook':
+				$phones = getPhoneList($_SESSION['userid']);
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
+				echo $twig->render('phonebook.html', array(
+					'phonebook' => true,
+					'timer' => $timer,
+					'is_admin' => $is_admin,
+					'my_phones' => $phones,
+					))
 				break;
 			case 'key':
 				$apikey = userAPIKey();
@@ -896,25 +908,36 @@ function providerUnlink ($provider) {
 
 function convertProvider ($provider) {
 	switch ($provider) {
-		case 'facebook':
-			return 'fb';
-			break;
-		case 'vkontakte':
-			return 'vk';
-			break;
-		case 'google-plus':
-			return 'gp';
-			break;
-		case 'odnoklassniki':
-			return 'ok';
-			break;
-		case 'mailru':
-			return 'mr';
-			break;
-		case 'yandex':
-			return 'ya';
-			break;
+		case 'facebook': return 'fb'; break;
+		case 'vkontakte': return 'vk'; break;
+		case 'google-plus': return 'gp'; break;
+		case 'odnoklassniki': return 'ok'; break;
+		case 'mailru': return 'mr'; break;
+		case 'yandex': return 'ya'; break;
 	}
+}
+
+function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		if ($userid)
+			$query = "select * from phonebook where uid = {$userid} order by phone asc limit {$limit} offset {$offset}";
+		else
+			$query = "select * from phonebook order by phone asc limit {$limit} offset {$offset}";
+		$result = pg_query($query);
+		$phones = array();
+		while ($row = pg_fetch_assoc($result)) {
+			$phones[$row['id']]['phone'] = $row['phone'];
+			$phones[$row['id']]['name'] = $row['name'];
+			$phones[$row['id']]['translit'] = $row['translit'];
+			$phones[$row['id']]['uid'] = $row['uid'];
+			$phones[$row['id']]['code'] = $row['code'];
+			$phones[$row['id']]['verify'] = $row['verify'];
+		}
+	}
+	return $phones;
 }
 
 function getUserLogs($limit = 100, $offset = 0) {

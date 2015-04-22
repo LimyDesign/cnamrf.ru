@@ -114,19 +114,21 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'tariff':
-				if (getUserBalans(true) >= getTariffPrice($cmd[2]))
+				$tariff = getTariffInfo();
+				if (getUserBalans(true) >= $tariff[$cmd[2]]['sum'])
 					$tariff_allow = true;
 				else
 					$tariff_allow = false;
-				$cnam = selectTariff($cmd[2]);
-				$current = selectTariff();
+				// $cnam = selectTariff($cmd[2]);
+				// $current = currentTariff();
+				$current = getCurrentTariff();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('tariff.html', array(
 					'tariff' => true,
 					'timer' => $timer,
 					'is_admin' => $is_admin,
-					'cnam' => $cnam,
+					'cnam' => $tariff[$cmd[2]],
 					'current' => $current,
 					'tariff_allow' => $tariff_allow,
 					));
@@ -633,8 +635,43 @@ function getTariff() {
 		}
 		pg_free_result($result);
 		pg_close($db);
-		return $tariff_datas;
 	}
+	return $tariff_datas;
+}
+
+function getTariffInfo() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
+		$result = pg_query($query);
+		$tariffInfo = array();
+		while ($row = pg_fetch_assoc($result)) {
+			$tariffInfo[$row['code']]['name'] = $row['name'];
+			$tariffInfo[$row['code']]['desc'] = $row['description'];
+			$tariffInfo[$row['code']]['price'] = $row['price'];
+			$tariffInfo[$row['code']]['qty'] = $row['queries'];
+			$tariffInfo[$row['code']]['sum'] = $row['sum'];
+		}
+	}
+	return $tariffInfo;
+}
+
+function getCurrentTariff($field = 'code') {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select tariff.{$field} from users left join tariff on users.tariffid = tariff.id where users.id = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		$tariff = pg_fetch_result($result, 0, $field);
+		if (!$tariff) $tariff = 'start';
+		pg_free_result($result);
+		pg_close($db);
+	}
+	return $tariff;
 }
 
 function acceptInvoice($num) {
@@ -834,18 +871,17 @@ function selectTariff ($tariff) {
 	}
 }
 
-function getTariffPrice($tariff) {
-	switch ($tariff) {
-		case 'xs': return 5000; break;
-		case 'xm': return 15000; break;
-		case 'xm3': return 20000; break;
-		case 'xm5': return 30000; break;
-		case 'xl': return 50000; break;
-		case 'xl5': return 200000; break;
-		case 'xxl': return 300000; break;
-		case 'xxl3': return 600000; break;
-		case 'xxl5': return 700000; break;
+function getTariffPrice($code) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select sum from tariff where code = '{$code}'";
+		$result = pg_query($query);
+		$price = pg_fetch_result($result, 0, 'sum');
+		pg_free_result($result);
+		pg_close($db);
 	}
+	return $price;
 }
 
 function checkProviderLink() {

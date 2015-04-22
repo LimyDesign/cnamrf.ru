@@ -212,12 +212,14 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'contract':
+				$tariff = getTariffList();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('contract.html', array(
 					'contract' => true,
 					'timer' => $timer,
 					'is_admin' => $is_admin,
+					'tariff_datas' => $tariff,
 					'accept' => $_SESSION['contract']
 					));
 				break;
@@ -561,6 +563,28 @@ function getUserList($limit = 100, $offset = 0) {
 	}
 }
 
+function getTariffList() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
+		$result = pg_query($query);
+		$tariffInfo = array();
+		while ($row = pg_fetch_assoc($result)) {
+			$tariffInfo[$row['code']]['id'] = $row['id'];
+			$tariffInfo[$row['code']]['name'] = $row['name'];
+			$tariffInfo[$row['code']]['code'] = $row['code'];
+			$tariffInfo[$row['code']]['desc'] = $row['description'];
+			$tariffInfo[$row['code']]['price'] = $row['price'];
+			$tariffInfo[$row['code']]['qty'] = $row['queries'];
+			$tariffInfo[$row['code']]['sum'] = $row['sum'];
+		}
+	}
+	return $tariffInfo;
+}
+
 function addTariff() {
 	global $conf;
 	if ($_SESSION['is_admin'] == 't') {
@@ -615,53 +639,6 @@ function deleteTariff($id) {
 			header("Location: /cabinet/admin/#tariff");
 		}
 	}
-}
-
-// function getTariffList() {
-// 	global $conf;
-// 	if ($conf['db']['type'] == 'postgres')
-// 	{
-// 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-// 		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
-// 		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
-// 		$result = pg_query($query);
-// 		$tariff_datas = array(); $i = 0;
-// 		while ($row = pg_fetch_assoc($result)) {
-// 			$tariff_datas[$i]['id'] = $row['id'];
-// 			$tariff_datas[$i]['name'] = $row['name'];
-// 			$tariff_datas[$i]['code'] = $row['code'];
-// 			$tariff_datas[$i]['desc'] = $row['description'];
-// 			$tariff_datas[$i]['price'] = $row['price'];
-// 			$tariff_datas[$i]['qty'] = $row['queries'];
-// 			$tariff_datas[$i]['sum'] = $row['sum'];
-// 			$i++;
-// 		}
-// 		pg_free_result($result);
-// 		pg_close($db);
-// 	}
-// 	return $tariff_datas;
-// }
-
-function getTariffList() {
-	global $conf;
-	if ($conf['db']['type'] == 'postgres')
-	{
-		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
-		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
-		$result = pg_query($query);
-		$tariffInfo = array();
-		while ($row = pg_fetch_assoc($result)) {
-			$tariffInfo[$row['code']]['id'] = $row['id'];
-			$tariffInfo[$row['code']]['name'] = $row['name'];
-			$tariffInfo[$row['code']]['code'] = $row['code'];
-			$tariffInfo[$row['code']]['desc'] = $row['description'];
-			$tariffInfo[$row['code']]['price'] = $row['price'];
-			$tariffInfo[$row['code']]['qty'] = $row['queries'];
-			$tariffInfo[$row['code']]['sum'] = $row['sum'];
-		}
-	}
-	return $tariffInfo;
 }
 
 function getCurrentTariff($field = 'code') {

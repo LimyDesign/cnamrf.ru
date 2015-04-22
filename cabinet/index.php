@@ -74,6 +74,9 @@ switch ($cmd[0]) {
 	case 'acceptInvoice':
 		acceptInvoice($cmd[1]);
 		break;
+	case 'withdrawInvoice':
+		withdrawInvoice($cmd[1]);
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':

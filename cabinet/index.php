@@ -652,6 +652,7 @@ function getTariffList() {
 		$result = pg_query($query);
 		$tariffInfo = array();
 		while ($row = pg_fetch_assoc($result)) {
+			$tariffInfo[$row['code']]['id'] = $row['id'];
 			$tariffInfo[$row['code']]['name'] = $row['name'];
 			$tariffInfo[$row['code']]['code'] = $row['code'];
 			$tariffInfo[$row['code']]['desc'] = $row['description'];

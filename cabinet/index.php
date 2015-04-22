@@ -659,13 +659,8 @@ function withdrawInvoice($num) {
 	if ($_SESSION['is_admin'] == 't' && is_numeric($num)) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select invoice from invoices where id = {$num}";
-			$result = pg_query($query);
-			$invoice = pg_fetch_result($result, 0, 'invoice');
-			$query = "delete from log where invoice = {$invoice}";
-			die($query);
+			$query = "delete from log where invoice = {$num}";
 			pg_query($query);
-			pg_free_result($result);
 			pg_close($db);
 			header("Location: /cabinet/admin/#invoices");
 		}

@@ -94,7 +94,7 @@
 									{% if invoice_data.system in 'bank' %}CNAM-{% endif %}{{ invoice_data.invoice }}
 								</td>
 								<td>{{ invoice_data.company }}</td>
-								<td class="text-right" id="invoiceSum">{{ invoice_data.sum }}</td>
+								<td class="text-right"><span id="invoiceSum">{{ invoice_data.sum }}</span> <i class="fa fa-rub"></i></td>
 								<td>{{ invoice_data.addtime }}</td>
 								<td class="text-center">
 									{% if not invoice_data.accept %}
@@ -260,6 +260,7 @@
 		$('span[id="qty"]').number(true, 0, '.', ' ')
 		$('span[id="sum"]').number(true, 2, '.', ' ')
 		$('span[id="balans"]').number(true, 2, '.', ' ')
+		$('span[id="invoiceSum"]').number(true, 2, '.', ' ')
 		
 		$('#tariffPrice').number(true, 2, '.', ' ')
 		$('#tariffQty').number(true, 0, '.', ' ')

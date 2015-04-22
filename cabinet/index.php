@@ -115,13 +115,16 @@ if ($_SESSION['auth'] === true)
 				break;
 			case 'tariff':
 				$tariff = getTariffInfo();
-				if (getUserBalans(true) >= $tariff[$cmd[2]]['sum'])
-					$tariff_allow = true;
-				else
+				$current = getCurrentTariff();
+				if (getUserBalans(true) >= $tariff[$cmd[2]]['sum']) {
+					if ($tariff[$cmd[2]]['code'] != $current)
+						$tariff_allow = true;
+					else
+						$tariff_allow = false;
+				} else
 					$tariff_allow = false;
 				// $cnam = selectTariff($cmd[2]);
 				// $current = currentTariff();
-				$current = getCurrentTariff();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('tariff.html', array(

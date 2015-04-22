@@ -190,7 +190,7 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'my_phones' => $phones,
-					))
+					));
 				break;
 			case 'key':
 				$apikey = userAPIKey();

@@ -4,7 +4,28 @@
 {% block content %}
 	<h1 class="page-header">Справочник личных телефонов</h1>
 	<p class="lead">Хотите добавить собственный мобильный или домашний телефон. Может быть в вашей компании используются телефоны, которые не занесены в справочник 2ГИС, но вы хотите чтобы те кто пользуется системой «CNAM РФ» видели название вашей компании? Тогда вы можете это сделать именно здесь. Добавьте номер, подтвердите его по СМС или по звонку и будьте уверены — другие клиенты системы «CNAM РФ», а также абоненты операторов партнеров узнают Вас и/или вашу компанию!</p>
-
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th>Номер</th>
+				<th>Имя по-русски</th>
+				<th>Имя в транслите</th>
+				<th>Статус</th>
+				<th>Действие</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if not my_phones %}
+				<tr>
+					<td>+7 (499) 704-69-17</td>
+					<td>CNAM РФ</td>
+					<td>CNAM RF</td>
+					<td class="text-danger"><i class="fa fa-check-square-o"></i></td>
+					<td></td>
+				</tr>
+			{% endif %}
+		</tbody>
+	</table>
 	{# <div class="tabpanel">
 		<ul class="nav nav-tabs" role="tablist" id="adminTab">
 			<li class="active" role="presentation">

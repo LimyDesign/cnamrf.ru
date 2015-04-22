@@ -71,6 +71,9 @@ switch ($cmd[0]) {
 	case 'deleteUser':
 		deleteUser($cmd[1]);
 		break;
+	case 'acceptInvoice':
+		acceptInvoice($cmd[1]);
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':
@@ -628,6 +631,23 @@ function getTariff() {
 		pg_free_result($result);
 		pg_close($db);
 		return $tariff_datas;
+	}
+}
+
+function acceptInvoice($num) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't' && is_numeric($num)) {
+		if ($conf['db']['type'] == 'postgres') {
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select sum from invoices where id = {$num}";
+			$result = pg_query($query);
+			$sum = pg_fetch_result($result, 0, 'sum');
+			$query = "insert into log (uid, debet, client, invoice) values ({$_SESSION['userid']}, '{$sum}', 'Банк. Счет № CNAM-', {$num})";
+			pg_query($query);
+			pg_free_result($result);
+			pg_close($db);
+			header("Location: /cabinet/admin/#invoices");
+		}
 	}
 }
 

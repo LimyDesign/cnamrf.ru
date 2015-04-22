@@ -661,7 +661,7 @@ function withdrawInvoice($num) {
 			$invoice = pg_fetch_result($result, 0, 'invoice');
 			$query = "delete from log where invoice = {$invoice}";
 			pg_query($query);
-			pg_free_result($result)
+			pg_free_result($result);
 			pg_close($db);
 			header("Location: /cabinet/admin/#invoices");
 		}

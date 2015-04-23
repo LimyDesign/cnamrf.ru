@@ -63,10 +63,8 @@
 					<form action="/cabinet/addPhone/" method="post" id="addPhoneForm">
 						<div class="form-group">
 							<label for="phoneNumber" class="control-label">Номер телефона:</label>
-							<div class="input-group">
-								<span class="input-group-addon">+7</span>
-								<input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
-							</div>
+							<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="7">
+							<p class="help-block" id="desc"></p>
 						</div>
 						<div class="form-group">
 							<label for="phoneName" class="control-label">Имя по-русски:</label>
@@ -117,12 +115,46 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="/js/jquery.inputmask.js"></script>
+	<script src="/js/jquery.bind-first-0.2.3.min.js"></script>
+	<script src="/js/jquery.inputmask-multi.js"></script>
 	<script>
 	$(function () {
+		var listRU = $.maskSort($.maskLoad("/js/phones-ru.json"), ['#'], /[0-9]|#/, "mask")
+		var optsRU = {
+			inputmask: {
+				definitions: {
+					'#': {
+						validator: "[0-9]",
+						cardinality: 1
+					}
+				},
+				showMaskOnHover: false,
+				autoUnmask: true
+			},
+			match: /[0-9]/,
+			replace: '#',
+			list: listRU,
+			listKey: "mask",
+			onMaskChange: function(maskObj, determined) {
+				if (determined) {
+					if (maskObj.type != "mobile") {
+						$("#desc").html(maskObj.city.toString() + " (" + maskObj.region.toString() + ")")
+					} else {
+						$("#desc").html("мобильный")
+					}
+				} else {
+					$("#desc").html()
+				}
+				$(this).attr("placeholder", $(this).inputmask("getemptymask"))
+			}
+		}
+
 		$('#addPhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var action = button.data('tariff-action')
 			var modal = $(this)
+			modal.find('#phoneNumber').inputmask(optsRU)
 			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
 		})
 	})

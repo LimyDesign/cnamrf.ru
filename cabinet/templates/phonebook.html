@@ -29,14 +29,14 @@
 						<td>{{pb_data.phone}}</td>
 						<td>{{pb_data.name}}</td>
 						<td>{{pb_data.translit}}</td>
-						<td>
+						<td class="text-center">
 							{% if pb_data.status %}
 								<i class="fa fa-check-square-o"></i>
 							{% else %}
 								<i class="fa fa-square-o"></i>
 							{% endif %}
 						</td>
-						<td>
+						<td class="text-center">
 							{% if pb_data.status %}
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#delete" data-pb-phone="{{pb_data.phone}}">Удлаить</button>
 							{% else %}

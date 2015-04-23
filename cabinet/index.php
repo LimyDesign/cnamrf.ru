@@ -957,7 +957,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		while ($row = pg_fetch_assoc($result)) {
 			$countryCode = substr($row['phone'], 0, 1);
 			$cityCode = substr($row['phone'], 1, 3);
-			$phone1 = substr($row['phone'], 4, 7);
+			$phone1 = substr($row['phone'], 4, 5);
 			$phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-';
 			die($phone);
 			$phones[$row['id']]['phone'] = $row['phone'];

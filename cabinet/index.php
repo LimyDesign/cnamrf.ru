@@ -934,7 +934,7 @@ function addPhone() {
 			$uTranslit = strip_tags($uTranslit);
 			$uName = str_replace("'", "", $uName);
 			$uTranslit = str_replace("'", "", $uTranslit);
-			$query = "insert into phonebook (phone, name, translit, uid) values ({$uPhone}, '{$uName}', '{$uTranslit}', $_SESSION['userid']";
+			$query = "insert into phonebook (phone, name, translit, uid) values ({$uPhone}, '{$uName}', '{$uTranslit}', $_SESSION['userid'])";
 			pg_query($query);
 			pg_close($db);
 		}

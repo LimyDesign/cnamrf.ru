@@ -945,6 +945,9 @@ function addPhone() {
 
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	global $conf;
+	$phones_mask = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
+	var_dump($phones_mask);
+	die();
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());

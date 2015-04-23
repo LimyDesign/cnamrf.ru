@@ -77,6 +77,10 @@ switch ($cmd[0]) {
 	case 'withdrawInvoice':
 		withdrawInvoice($cmd[1]);
 		break;
+	case 'addPhone':
+		check_auth();
+		addPhone();
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':
@@ -915,6 +919,27 @@ function convertProvider ($provider) {
 		case 'mailru': return 'mr'; break;
 		case 'yandex': return 'ya'; break;
 	}
+}
+
+function addPhone() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$uPhone = $_POST['phoneNumber'];
+		$uName = $_POST['phoneName'];
+		$uTranslit = $_POST['phoneTranslit'];
+		if (is_numeric($uPhone)) {
+			$uName = strip_tags($uName);
+			$uTranslit = strip_tags($uTranslit);
+			$uName = str_replace("'", "", $uName);
+			$uTranslit = str_replace("'", "", $uTranslit);
+			$query = "insert into phonebook (phone, name, translit, uid) values ({$uPhone}, '{$uName}', '{$uTranslit}', $_SESSION['userid']";
+			pg_query($query);
+			pg_close($db);
+		}
+	}
+	header("Location: /cabinet/phonebook/");
 }
 
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {

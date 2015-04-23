@@ -23,153 +23,57 @@
 					<td class="text-center text-muted"><i class="fa fa-check-square-o"></i></td>
 					<td class="text-center"><a href="#." class="btn btn-default btn-xs disabled">Удалить</a></td>
 				</tr>
+			{% else %}
+				{% for pb_data in pb_datas %}
+					<tr>
+						<td>{{pb_data.phone}}</td>
+						<td>{{pb_data.name}}</td>
+						<td>{{pb_data.translit}}</td>
+						<td>
+							{% if pb_data.status %}
+								<i class="fa fa-check-square-o"></i>
+							{% else %}
+								<i class="fa fa-square-o"></i>
+							{% endif %}
+						</td>
+						<td>
+							{% if pb_data.status %}
+								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#delete" data-pb-phone="{{pb_data.phone}}">Удлаить</button>
+							{% else %}
+								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirm" data-pb-phone="{{pb_data.phone}}">Подтвердить</button>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
 			{% endif %}
 		</tbody>
 	</table>
-	{# <div class="tabpanel">
-		<ul class="nav nav-tabs" role="tablist" id="adminTab">
-			<li class="active" role="presentation">
-				<a href="#tariff" aria-controls="tariff" role="tab" data-toggle="tab">Тарифы</a>
-			</li>
-			<li role="presentation">
-				<a href="#users" aria-controls="users" role="tab" data-toggle="tab">Пользователи</a>
-			</li>
-			<li role="presentation">
-				<a href="#invoices" aria-controls="invoices" role="tab" data-toggle="tab">Счета</a>
-			</li>
-		</ul>
+	<div class="text-center">
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addEditPhone" data-tariff-action="add"><i class="fa fa-plus"></i> Добавить новый номер</button>
+	</div>
 
-		<div class="tab-content">
-			<div class="tab-pane active" id="tariff" role="tabpanel">
-				<h3>Управление тарифами</h3>
-				<p>Внимание! Будь внимателен, осторожно редатируйте тарифы, т.к. изменения применяются моментально и вы своими действиями можете оставить без денег либо нас, либо клиентов.</p>
-				<table class="table table-hover table-responsive">
-					<thead>
-						<tr>
-							<th>Назавание тарифа</th>
-							<th>Цена запроса</th>
-							<th>Кол-во запросов</th>
-							<th>Цена тарифа</th>
-							<th>Действие</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for tarif_data in tariff_datas %}
-							<tr>
-								<td>{{ tarif_data.name }}</td>
-								<td><span id="price">{{ tarif_data.price }}</span> <i class="fa fa-rub"></i></td>
-								<td><span id="qty">{{ tarif_data.qty }}</span></td>
-								<td><span id="sum">{{ tarif_data.sum }}</span> <i class="fa fa-rub"></i></td>
-								<td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="{{ tarif_data.id }}" data-tariff-name="{{ tarif_data.name }}" data-tariff-code="{{ tarif_data.code }}" data-tariff-desc="{{ tarif_data.desc }}" data-tariff-price="{{ tarif_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				<div class="text-center">
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="add"><i class="fa fa-plus"></i> Добавить новый тариф</button>
-				</div>
-			</div>
-			<div class="tab-pane" id="users" role="tabpanel">
-				<h3>Управление рабами</h3>
-				<p>Если рабов много и они активно пользуются дорогими тарифами, то мы, господа, живем хорошо и возможно в Париже. Случайно не дайте права какому-нибудь рабу права господина (администратора).</p>
-				<table class="table table-hover table-responsive">
-					<thead>
-						<tr>
-							<th>E-mail</th>
-							<th>Баланс</th>
-							<th>Тариф</th>
-							<th>Компания</th>
-							<th class="text-center">Админ</th>
-							<th class="text-center">Действие</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for user_data in users_data %}
-							<tr>
-								<td>{{ user_data.email }}</td>
-								<td class="text-right"><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
-								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
-								<td>{{ user_data.company }}</td>
-								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
-								<td class="text-center"><button class="btn btn-xs btn-default" data-toggle="modal" data-target="#infoUser" data-user-id="{{ user_data.id }}" data-user-email="{{ user_data.email }}" data-user-vk="{{ user_data.vk }}" data-user-ok="{{ user_data.ok }}" data-user-fb="{{ user_data.fb }}" data-user-gp="{{ user_data.gp }}" data-user-mr="{{ user_data.mr }}" data-user-ya="{{ user_data.ya }}" data-user-company="{{ user_data.company }}" data-user-admin="{{ user_data.admin }}" data-user-tariff="{{ user_data.tariff }}" data-user-balans="{{ user_data.balans }}">Подробнее&hellip;</button></td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-			<div class="tab-pane" id="invoices" role="tabpanel">
-				<h3>Управление счетами</h3>
-				<p>Пока не настроили автоматическое подтверждение счетов прямиком из Сбербанк Бизнес Онлайн, необходимо подтверждать оплату каждого оплаченного счета, но будьте внимательны — не подтверждайте те счета, которые вовсе не оплачены, иначе кое-кто получит на халяву, возможно, запредельную сумму.</p>
-				<table class="table table-hover table-responsive">
-					<thead>
-						<tr>
-							<th>№ счета</th>
-							<th>Компания</th>
-							<th>Сумма счета</th>
-							<th>Время создания</th>
-							<th class="text-center">Действие</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for invoice_data in invoices_data %}
-							<tr>
-								<td>
-									{% if invoice_data.system in 'bank' %}CNAM-{% endif %}{{ invoice_data.invoice }}
-								</td>
-								<td>{{ invoice_data.company }}</td>
-								<td class="text-right"><span id="invoiceSum">{{ invoice_data.sum }}</span> <i class="fa fa-rub"></i></td>
-								<td>{{ invoice_data.addtime }}</td>
-								<td class="text-center">
-									{% if not invoice_data.accept %}
-										<a href="/cabinet/acceptInvoice/{{ invoice_data.id }}/">
-											<i class="fa fa-check"></i> Подтвердить оплату
-										</a>
-									{% else %}
-										<a href="/cabinet/withdrawInvoice/{{ invoice_data.id }}/">
-											<i class="fa fa-undo"></i> Отменить оплату
-										</a>
-									{% endif %}
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div> #}
-
-	<div class="modal fade" id="addEditTariff" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addEditPhone" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
+					<h4 class="modal-title" id="adminModalLabel">Добавление нового номера</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addTariff/" method="post" id="addEditTariffForm">
+					<form action="/cabinet/addPhone/" method="post" id="addEditPhoneForm">
 						<div class="form-group">
-							<label for="tariffName" class="control-label">Название тарифа (text):</label>
-							<input type="text" class="form-control" id="tariffName" name="tariffName">
+							<label for="phoneNumber" class="control-label">Номер телефона:</label>
+							<input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
 						</div>
 						<div class="form-group">
-							<label for="tariffCode" class="control-label">Код тарифа (latin):</label>
-							<input type="text" class="form-control" id="tariffCode" name="tariffCode">
+							<label for="phoneName" class="control-label">Имя по-русски:</label>
+							<input type="text" class="form-control" id="phoneName" name="phoneName">
+							<p class="help-block">Название вашей компании или ваши инициалы.</p>
 						</div>
 						<div class="form-group">
-							<label for="tariffDescription" class="control-label">Описание тарифа (html):</label>
-							<textarea name="tariffDescription" id="tariffDescription" class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="tariffPrice" class="control-label">Цена 1 запроса (numeric):</label>
-							<input type="text" class="form-control" id="tariffPrice" name="tariffPrice">
-						</div>
-						<div class="form-group">
-							<label for="tariffQty" class="control-label">Кол-во запросов в пакете (numeric):</label>
-							<input type="text" class="form-control" id="tariffQty" name="tariffQty">
-						</div>
-						<div class="form-group">
-							<label for="tariffSum" class="control-label">Стоимость тарифа (numeric):</label>
-							<input type="text" class="form-control" id="tariffSum" name="tariffSum">
+							<label for="phoneTranslit" class="control-label">Имя в транслите:</label>
+							<textarea name="phoneTranslit" id="phoneTranslit" class="form-control"></textarea>
+							<p class="help-block">Ваше же название компании или ваши инициалы в транслите. Данная информация будет использоваться для отображения на дисплеях телефонов.</p>
 						</div>
 					</form>
 				</div>
@@ -182,80 +86,28 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="infoUser" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="adminModalLabel">Информация о пользователе №</h4>
+					<h4 class="modal-title" id="adminModalLabel">Подтверждение номера</h4>
 				</div>
 				<div class="modal-body">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-sm-6 text-right">Электропочта:</div>
-							<div class="col-sm-6" id="infoUserEmail"></div>
+					<form action="/cabinet/checkConfirmPhone/" method="post" id="confirmForm">
+						<div class="form-group">
+							<label for="phoneNumber" class="control-label">Номер телефона:</label>
+							<input type="text" class="form-control input-lg text-center" id="phoneNumber" name="phoneNumber" readonly>
 						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Тарифный план:</div>
-							<div class="col-sm-6" id="infoUserTariff"></div>
+						<div class="form-group">
+							<label for="phoneCode" class="control-label">Код подтверждения:</label>
+							<input type="text" class="form-control input-lg text-center" id="phoneCode" name="phoneCode">
 						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Текущий баланс:</div>
-							<div class="col-sm-6" id="infoUserBalans"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Компания:</div>
-							<div class="col-sm-6" id="infoUserCompany"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 text-center"><h4>Cоциальные сервисы авторизации</h4></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Вконтакте:</div>
-							<div class="col-sm-6" id="infoUserVK"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Одноклассники:</div>
-							<div class="col-sm-6" id="infoUserOK"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Facebook:</div>
-							<div class="col-sm-6" id="infoUserFB"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Google+:</div>
-							<div class="col-sm-6" id="infoUserGP"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Mail.Ru:</div>
-							<div class="col-sm-6" id="infoUserMR"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Яндекс:</div>
-							<div class="col-sm-6" id="infoUserYA"></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 text-center"><h4>Расширенные привилегии</h4></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 text-right">Администратор:</div>
-							<div class="col-sm-6">
-								<form action="/cabinet/changeUser/" method="post" class="form-inline" id="infoUserForm">
-									<label class="radio-inline">
-										<input type="radio" name="admin" value="t" id="adminTrue"> Да
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="admin" value="f" id="adminFalse"> Нет
-									</label>
-								</form>
-							</div>
-						</div>
-					</div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
-					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
-					<button class="btn btn-primary" id="action">Сохранить</button>
+					<button class="btn btn-primary" id="action">Подтвержить</button>
 				</div>
 			</div>
 		</div>

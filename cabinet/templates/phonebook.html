@@ -26,7 +26,7 @@
 			{% else %}
 				{% for pb_data in my_phones %}
 					<tr>
-						<td>{{pb_data.phone}}</td>
+						<td><span id="number">{{pb_data.phone}}</span></td>
 						<td>{{pb_data.name}}</td>
 						<td>{{pb_data.translit}}</td>
 						<td class="text-center">
@@ -149,6 +149,8 @@
 				$(this).attr("placeholder", $(this).inputmask("getemptymask"))
 			}
 		}
+
+		$('span[id="number"]').inputmasks(optsRU)
 
 		$('#addPhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)

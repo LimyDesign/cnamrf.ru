@@ -958,7 +958,9 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 			$countryCode = substr($row['phone'], 0, 1);
 			$cityCode = substr($row['phone'], 1, 3);
 			$phone1 = substr($row['phone'], 4, 3);
-			$phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-';
+			$phone2 = substr($row['phone'], 7, 2);
+			$phone3 = substr($row['phone'], 9, 2);
+			$phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-'.$phone2.'-'.$phone3;
 			die($phone);
 			$phones[$row['id']]['phone'] = $row['phone'];
 			$phones[$row['id']]['name'] = $row['name'];

@@ -928,7 +928,6 @@ function addPhone() {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$uPhone = $_POST['phoneNumber'];
 		$uPhone = preg_replace('/[+()-]/', '', $uPhone);
-		die($uPhone);
 		$uName = $_POST['phoneName'];
 		$uTranslit = $_POST['phoneTranslit'];
 		if (is_numeric($uPhone)) {

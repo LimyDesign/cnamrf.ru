@@ -945,9 +945,6 @@ function addPhone() {
 
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	global $conf;
-	$phones_mask = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
-	var_dump($phones_mask);
-	die();
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
@@ -958,6 +955,11 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$result = pg_query($query);
 		$phones = array();
 		while ($row = pg_fetch_assoc($result)) {
+			$countryCode = substr($row['phone'], 0, 1);
+			$cityCode = substr($row['phone'], 1, 4);
+			$phone1 = substr($row['phone'], 4, 7);
+			$phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-';
+			die($phone);
 			$phones[$row['id']]['phone'] = $row['phone'];
 			$phones[$row['id']]['name'] = $row['name'];
 			$phones[$row['id']]['translit'] = $row['translit'];

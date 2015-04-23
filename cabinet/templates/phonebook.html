@@ -60,7 +60,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Добавление нового номера</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addPhone/" method="post" id="addEditPhoneForm">
+					<form action="/cabinet/addPhone/" method="post" id="addPhoneForm">
 						<div class="form-group">
 							<label for="phoneNumber" class="control-label">Номер телефона:</label>
 							<input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
@@ -116,7 +116,12 @@
 {% block scripts %}
 	<script>
 	$(function () {
-		
+		$('#addPhone').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var action = button.data('tariff-action')
+			var modal = $(this)
+			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
+		})
 	})
 	</script>
 {% endblock %}

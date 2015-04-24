@@ -945,6 +945,14 @@ function addPhone() {
 
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	global $conf;
+	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
+	for ($i = 0; $i <= count($phones_masks); $i++) {
+		$pattern = "/\+7\s*\((\d{3})\)\s*(###)-(##)-(##)";
+		$pattern.= "|/\+7\s*\((\d{4})\)\s*(##)-(##)-(##)";
+		$pattern.= "|/\+7\s*\((\d{5})\)\s*(#)-(##)-(##)";
+		$mask[$i] = preg_match($pattern, $phones_masks[$i]->mask);
+	}
+
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
@@ -955,12 +963,24 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$result = pg_query($query);
 		$phones = array();
 		while ($row = pg_fetch_assoc($result)) {
-			$countryCode = substr($row['phone'], 0, 1);
-			$cityCode = substr($row['phone'], 1, 3);
-			$phone1 = substr($row['phone'], 4, 3);
-			$phone2 = substr($row['phone'], 7, 2);
-			$phone3 = substr($row['phone'], 9, 2);
-			$phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-'.$phone2.'-'.$phone3;
+			for ($i = 0; $i <= count($mask); $i++) {
+				if (in_array(substr($row['phone'], 1, 5), $mask[$i][1])) {
+					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . substr($row['phone'], 7, 2) .
+						substr($row['phone'], 9, 2);
+				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][1])) {
+					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . substr($row['phone'], 7, 2) .
+						substr($row['phone'], 9, 2);
+				} else {
+					$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) .
+						substr($row['phone'], 7, 2) . substr($row['phone'], 9, 2);
+				}
+			}
+			// $countryCode = substr($row['phone'], 0, 1);
+			// $cityCode = substr($row['phone'], 1, 3);
+			// $phone1 = substr($row['phone'], 4, 3);
+			// $phone2 = substr($row['phone'], 7, 2);
+			// $phone3 = substr($row['phone'], 9, 2);
+			// $phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-'.$phone2.'-'.$phone3;
 			$phones[$row['id']]['phone'] = $phone;
 			$phones[$row['id']]['name'] = $row['name'];
 			$phones[$row['id']]['translit'] = $row['translit'];

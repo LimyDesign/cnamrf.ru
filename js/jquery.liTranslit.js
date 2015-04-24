@@ -16,7 +16,7 @@
 				elAlias: $(this),				//Элемент, в который будет записываться результат транслитерации или false
 				reg:'',							//'" "="-","ж"="zzzz"' or false or ''
 				translated: function (el, text, eventType) {},   
-				caseType: 'lower',				// lower(default), upper, inherit - регистр выходных данных
+				caseType: 'inherit',				// lower(default), upper, inherit - регистр выходных данных
 				status:true,
 				string:''						//используется для транслита строковой переменной
 			};
@@ -89,7 +89,6 @@
 					if(o.reg && o.reg != ''){
  
 						nameVal = customReg(nameVal)
-
 					}
 					inser_trans(get_trans(nameVal),e);
 				};

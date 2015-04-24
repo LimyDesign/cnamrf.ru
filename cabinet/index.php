@@ -978,6 +978,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 				}
 			}
+			$phones[$row['id']]['id'] = $row['id'];
 			$phones[$row['id']]['phone'] = $phone;
 			$phones[$row['id']]['name'] = $row['name'];
 			$phones[$row['id']]['translit'] = $row['translit'];

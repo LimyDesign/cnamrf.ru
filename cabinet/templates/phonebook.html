@@ -113,6 +113,24 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="adminModalLabel">Удаление номера</h4>
+				</div>
+				<div class="modal-body">
+					<p class="lead">Вы подтверждаете удаление номера?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
+					<button class="btn btn-danger" id="action">Удалить</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block scripts %}

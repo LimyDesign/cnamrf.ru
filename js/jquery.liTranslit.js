@@ -91,7 +91,7 @@
 						nameVal = customReg(nameVal)
 
 					}
-					// inser_trans(get_trans(nameVal),e);
+					inser_trans(get_trans(nameVal),e);
 				};
 				elName.on(o.eventType,function (e) {
 					var el = $(this);
@@ -135,7 +135,6 @@
 						'э': 'e',
 						'ю': 'ju',
 						'я': 'ja',
-						// ' ': '_',
 						'і': 'i',
 						'ї': 'i',
                         'є': 'e',
@@ -172,7 +171,6 @@
 						'Э': 'E',
 						'Ю': 'Ju',
 						'Я': 'Ja',
-						// ' ': '_',
 						'І': 'I',
 						'Ї': 'I',
                         'Є': 'E'

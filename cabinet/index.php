@@ -965,14 +965,14 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		while ($row = pg_fetch_assoc($result)) {
 			for ($i = 0; $i <= count($mask); $i++) {
 				if (in_array(substr($row['phone'], 1, 5), $mask[$i][1])) {
-					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . substr($row['phone'], 7, 2) .
-						substr($row['phone'], 9, 2);
+					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
+						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
 				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][1])) {
-					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . substr($row['phone'], 7, 2) .
-						substr($row['phone'], 9, 2);
+					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
+						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 				} else {
-					$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) .
-						substr($row['phone'], 7, 2) . substr($row['phone'], 9, 2);
+					$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) . '-' .
+						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 				}
 			}
 			// $countryCode = substr($row['phone'], 0, 1);

@@ -949,6 +949,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	for ($i = 0; $i <= count($phones_masks); $i++) {
 		$pattern = "/\((\d{3})\)|\((\d{4})\)|\((\d{5})\)/";
 		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
+		unset($mask[$i][0]);
 		echo var_dump($mask[$i])."<br>";
 	}
 	unset($phones_masks);
@@ -965,11 +966,11 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$phones = array();
 		while ($row = pg_fetch_assoc($result)) {
 			for ($i = 0; $i <= count($mask); $i++) {
-				if (in_array(substr($row['phone'], 1, 5), $mask[$i][1])) {
+				if (in_array(substr($row['phone'], 1, 5), $mask[$i][3])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
 					break;
-				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][1])) {
+				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][2])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 					break;

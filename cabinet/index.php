@@ -934,7 +934,9 @@ function addPhone() {
 			$uName = strip_tags($uName);
 			$uTranslit = strip_tags($uTranslit);
 			$uName = str_replace("'", "", $uName);
+			$uName = pg_escape_string($uName);
 			$uTranslit = str_replace("'", "", $uTranslit);
+			$uTranslit = pg_escape_string($uTranslit);
 			$query = "insert into phonebook (phone, name, translit, uid) values ({$uPhone}, '{$uName}', '{$uTranslit}', {$_SESSION['userid']})";
 			pg_query($query);
 			pg_close($db);
@@ -946,7 +948,7 @@ function addPhone() {
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	global $conf;
 	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
-	for ($i = 0; $i <= count($phones_masks); $i++) {
+	for ($i = 0; $i < count($phones_masks); $i++) {
 		$pattern = "/\((\d{4})\)|\((\d{5})\)/";
 		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
 		unset($mask[$i][0]);
@@ -963,8 +965,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$result = pg_query($query);
 		$phones = array();
 		while ($row = pg_fetch_assoc($result)) {
-			for ($i = 0; $i <= count($mask); $i++) {
-				// echo substr($row['phone'], 1, 4) . " | " . $mask[$i][1] . "<br>";
+			for ($i = 0; $i < count($mask); $i++) {
 				if (substr($row['phone'], 1, 5) == $mask[$i][2]) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
@@ -978,12 +979,6 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 				}
 			}
-			// $countryCode = substr($row['phone'], 0, 1);
-			// $cityCode = substr($row['phone'], 1, 3);
-			// $phone1 = substr($row['phone'], 4, 3);
-			// $phone2 = substr($row['phone'], 7, 2);
-			// $phone3 = substr($row['phone'], 9, 2);
-			// $phone = '+'.$countryCode.' ('.$cityCode.') '.$phone1.'-'.$phone2.'-'.$phone3;
 			$phones[$row['id']]['phone'] = $phone;
 			$phones[$row['id']]['name'] = $row['name'];
 			$phones[$row['id']]['translit'] = $row['translit'];
@@ -991,7 +986,6 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 			$phones[$row['id']]['code'] = $row['code'];
 			$phones[$row['id']]['verify'] = $row['verify'];
 		}
-		// die();
 	}
 	return $phones;
 }

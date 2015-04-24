@@ -930,6 +930,7 @@ function addPhone() {
 		$uPhone = preg_replace('/[+()-]/', '', $uPhone);
 		$uName = $_POST['phoneName'];
 		$uTranslit = $_POST['phoneTranslit'];
+		die($uName);
 		if (is_numeric($uPhone)) {
 			$uName = strip_tags($uName);
 			$uName = pg_escape_string($uName);

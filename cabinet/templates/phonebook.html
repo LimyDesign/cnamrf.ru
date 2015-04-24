@@ -118,6 +118,7 @@
 	<script src="/js/jquery.inputmask.js"></script>
 	<script src="/js/jquery.bind-first-0.2.3.min.js"></script>
 	<script src="/js/jquery.inputmask-multi.js"></script>
+	<script src="/js/jquery.liTranslit.js"></script>
 	<script>
 	$(function () {
 		var listRU = $.masksSort($.masksLoad("/js/phones-ru.json"), ['#'], /[0-9]|#/, "mask")
@@ -164,7 +165,10 @@
 			var action = button.data('tariff-action')
 			var modal = $(this)
 			modal.find('#phoneNumber').inputmasks(optsRU)
-			modal.find('#phoneTranslit').inputmask(optsTranslit);
+			modal.find('#phoneName').liTranslit({
+				elAlias: modal.find('#phoneTranslit')
+			})
+			modal.find('#phoneTranslit').inputmask(optsTranslit)
 			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
 		})
 	})

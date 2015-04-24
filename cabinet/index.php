@@ -950,7 +950,6 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$pattern = "/\((\d{4})\)|\((\d{5})\)/";
 		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
 		unset($mask[$i][0]);
-		echo var_dump($mask[$i])."<br>";
 	}
 	unset($phones_masks);
 	die();

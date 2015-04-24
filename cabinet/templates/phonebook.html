@@ -73,7 +73,7 @@
 						</div>
 						<div class="form-group">
 							<label for="phoneTranslit" class="control-label">Имя в транслите:</label>
-							<input type="text" class="form-control" id="phoneTranslit" name="phoneTranslit" data-inputmask-regex="[a-zA-Z0-9]">
+							<input type="text" class="form-control" id="phoneTranslit" name="phoneTranslit">
 							<p class="help-block">Ваше же название компании или ваши инициалы в транслите. Данная информация будет использоваться для отображения на дисплеях телефонов.</p>
 						</div>
 					</form>
@@ -163,7 +163,7 @@
 			var action = button.data('tariff-action')
 			var modal = $(this)
 			modal.find('#phoneNumber').inputmasks(optsRU)
-			modal.find('#phoneTranslit').inputmask("Regex");
+			modal.find('#phoneTranslit').inputmask(optsTranslit);
 			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
 		})
 	})

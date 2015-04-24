@@ -948,7 +948,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
 	for ($i = 0; $i <= count($phones_masks); $i++) {
 		$pattern = "/\((\d{3})\)|\((\d{4})\)|\((\d{5})\)/";
-		$mask[$i] = preg_match($pattern, $phones_masks[$i]->mask);
+		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
 		echo var_dump($mask[$i])."<br>";
 	}
 	unset($phones_masks);

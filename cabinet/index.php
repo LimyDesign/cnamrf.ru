@@ -952,7 +952,6 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		unset($mask[$i][0]);
 	}
 	unset($phones_masks);
-	die();
 
 	if ($conf['db']['type'] == 'postgres')
 	{

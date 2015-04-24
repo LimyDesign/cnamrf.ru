@@ -91,7 +91,7 @@
 						nameVal = customReg(nameVal)
 
 					}
-					inser_trans(get_trans(nameVal),e);
+					// inser_trans(get_trans(nameVal),e);
 				};
 				elName.on(o.eventType,function (e) {
 					var el = $(this);
@@ -179,7 +179,7 @@
 					};
 					
   
-					nameVal = trim(nameVal);
+					// nameVal = trim(nameVal);
 					nameVal = nameVal.split("");
                     
 					var trans = new String();

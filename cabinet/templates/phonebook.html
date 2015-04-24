@@ -149,6 +149,14 @@
 				$(this).attr("placeholder", $(this).inputmask("getemptymask"))
 			}
 		}
+		var optsTranslit = {
+			definitions: {
+				"*": {
+					validator: "[0-9A-Za-z]",
+					cardinality: 1
+				}
+			}
+		}
 
 		$('#addPhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)

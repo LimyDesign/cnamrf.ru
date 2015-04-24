@@ -951,6 +951,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
 		unset($mask[$i][0]);
 	}
+	rsort($mask, SORT_NUMERIC);
 	unset($phones_masks);
 
 	if ($conf['db']['type'] == 'postgres')

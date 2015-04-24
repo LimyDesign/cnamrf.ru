@@ -964,11 +964,11 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		$phones = array();
 		while ($row = pg_fetch_assoc($result)) {
 			for ($i = 0; $i <= count($mask); $i++) {
-				echo substr($row['phone'], 1, 4) . " | " . $mask[$i][2] . "<br>";
-				if (in_array(substr($row['phone'], 1, 5), $mask[$i][3])) {
+				echo substr($row['phone'], 1, 4) . " | " . $mask[$i][1] . "<br>";
+				if (in_array(substr($row['phone'], 1, 5), $mask[$i][2])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
-				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][2])) {
+				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][1])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 				} else {

@@ -968,18 +968,14 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 				if (in_array(substr($row['phone'], 1, 5), $mask[$i][3])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
-					break;
 				} elseif (in_array(substr($row['phone'], 1, 4), $mask[$i][2])) {
 					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
-					break;
 				} else {
 					$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) . '-' .
 						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
-					break;
 				}
 			}
-			die();
 			// $countryCode = substr($row['phone'], 0, 1);
 			// $cityCode = substr($row['phone'], 1, 3);
 			// $phone1 = substr($row['phone'], 4, 3);
@@ -993,6 +989,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 			$phones[$row['id']]['code'] = $row['code'];
 			$phones[$row['id']]['verify'] = $row['verify'];
 		}
+		die();
 	}
 	return $phones;
 }

@@ -932,12 +932,11 @@ function addPhone() {
 		$uTranslit = $_POST['phoneTranslit'];
 		if (is_numeric($uPhone)) {
 			$uName = strip_tags($uName);
-			$uTranslit = strip_tags($uTranslit);
-			$uName = str_replace("'", "", $uName);
 			$uName = pg_escape_string($uName);
-			$uTranslit = str_replace("'", "", $uTranslit);
+			$uTranslit = strip_tags($uTranslit);
 			$uTranslit = pg_escape_string($uTranslit);
 			$query = "insert into phonebook (phone, name, translit, uid) values ({$uPhone}, '{$uName}', '{$uTranslit}', {$_SESSION['userid']})";
+			die($query);
 			pg_query($query);
 			pg_close($db);
 		}

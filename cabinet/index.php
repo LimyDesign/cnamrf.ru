@@ -966,7 +966,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 		while ($row = pg_fetch_assoc($result)) {
 			for ($i = 0; $i < count($mask); $i++) {
 				if (substr($row['phone'], 1, 5) == $mask[$i][2]) {
-					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 6, 1) . '-' . 
+					$phone = '+7 (' . $mask[$i][2] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
 					break;
 				} elseif (substr($row['phone'], 1, 4) == $mask[$i][1]) {

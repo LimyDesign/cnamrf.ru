@@ -208,10 +208,10 @@
 		})
 
 		$('#deletePhoneForm').submit(function(e) {
-			var form = $('#deletePhone')
+			var form = $(this)
 			var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val().replace(/[+()-\s]/g, '')
 			var inputPhone = form.find('input[name="phoneNumber"]').val()
-			if (deletedPhoneNumber == inputPhone) {
+			if (deletedPhone == inputPhone) {
 				return true
 			} else {
 				form.find('input[name="phoneNumber"]').shakeit(3,7,800)

@@ -221,6 +221,7 @@
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
 			modal.find('#phoneCode').inputmask('99 99')
+			modal.find('#callme').removeAttr('disabled')
 			modal.find('#callme').click(function(e) {
 				var btn = $(this)
 				var btn_text = btn.html()
@@ -260,7 +261,7 @@
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 
-		$('#confirmPhone').on('show.bs.modal', function (event) {
+		$('#confirmPhone').on('hide.bs.modal', function (event) {
 			var modal = $(this)
 			modal.find('#smsme-status').removeClass('text-success text-danger')
 			modal.find('#callme-status').removeClass('text-success text-danger')

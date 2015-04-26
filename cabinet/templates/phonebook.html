@@ -226,6 +226,7 @@
 					// if (data == '200') 
 				}).done(function() {
 					btn.removeAttr('disabled')
+					btn.html(btn_text)
 				})
 			})
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })

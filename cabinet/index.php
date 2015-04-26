@@ -960,29 +960,43 @@ function confirmPhone($cmd) {
 		if ($cmd == 'sendSMS') {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
-			$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and sms + (30 * interval '1 minute') < now()";
-			$result = pg_query($query);
-			$code = pg_fetch_result($result, 0, 'code');
-			if ($code) {
-				$message = array(
-					array(
-						'clientId' => '1',
-						'phone' => $uPhone,
-						'text' => $code,
-						'sender' => 'CNAM RF'
-					)
-				);
-				$result = $sms->send($message, 'cnamQueue');
-				if ($result['status'] == 'ok') {
-					$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
-					echo '200';
+			if (is_numeric($uPhone)) {
+				$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and sms + (30 * interval '1 minute') < now()";
+				$result = pg_query($query);
+				$code = pg_fetch_result($result, 0, 'code');
+				pg_free_result($result);
+				if ($code) {
+					$message = array(
+						array(
+							'clientId' => '1',
+							'phone' => $uPhone,
+							'text' => $code,
+							'sender' => 'CNAM RF'
+						)
+					);
+					$result = $sms->send($message, 'cnamQueue');
+					if ($result['status'] == 'ok') {
+						$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+						pg_query($query);
+						echo '200';
+					} else {
+						echo '500';
+					}
 				} else {
 					echo '500';
 				}
-			} else {
-				echo '500';
 			}
+			pg_close($db);
 			exit();
+		} elseif ($cmd == 'checkCode') {
+			$uCode = $_POST['phoneCode'];
+			$uCode = preg_replace('/[\s]/', '', $uCode);
+			if (is_numeric($uCode)) {
+				$query = "update phonebook set verify = true where code = $uCode and uid = {$_SESSION['userid']}";
+				pg_query($query);
+			}
+			pg_close($db);
+			header("Location: /cabinet/phonebook/");
 		}
 	}
 }

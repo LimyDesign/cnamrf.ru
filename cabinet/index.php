@@ -1004,7 +1004,7 @@ function confirmPhone($cmd) {
 					$voximplant.= "&api_key=" . $conf['voximplant']['api_key'];
 					$voximplant.= "&rule_id=292118";
 					$voximplant.= "&script_custom_data={$uPhone}:{$code}";
-					var_dump($voximplant);
+					// var_dump($voximplant);
 					$result = json_decode(file_get_contents($voximplant));
 					var_dump($result);
 				}

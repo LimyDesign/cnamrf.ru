@@ -219,7 +219,8 @@
 			modal.find('#smsme').click(function(e) {
 				$(this).attr('disabled', 'disabled');
 				$.post('/cabinet/confirmPhone/sendSMS/', { phoneNumber: phone }, function(data) {
-					if (data == '200') 
+					alert(data)
+					// if (data == '200') 
 				})
 			})
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })

@@ -123,6 +123,12 @@
 				</div>
 				<div class="modal-body">
 					<p class="lead">Если вы подтверждаете удаление данного номера, то введите его в форму ниже и нажмите кнопку «Удалить».</p>
+					<form action="/cabinet/deletePhone/" method="post" id="deleteForm">
+						<div class="form-group">
+							<label for="phoneNumber" class="control-label">Номер телефона:</label>
+							<input type="text" class="form-control input-lg text-center" id="phoneNumber" name="phoneNumber">
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>

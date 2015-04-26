@@ -53,7 +53,7 @@
 		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPhone" data-tariff-action="add"><i class="fa fa-plus"></i> Добавить новый номер</button>
 	</div>
 
-	<div class="well" style="margin-top: 40px;">Внимание! Стомость подтверждения платное, каждая смс стоит 2 рубля, каждый звонок — 1 рубль/минута. Подтверждение номеров не доступно подаренными деньгами от сервиса «CNAM РФ», для того, чтобы внести свои номера в справочник необходимо внести соразмерные средства на лицевой счет.</div>
+	<div class="well" style="margin-top: 40px;">Внимание! Стомость подтверждения платное, каждая смс стоит 2 рубля, каждый звонок — от 1 рубля/минута (зависит от конкретного города и оператора). Подтверждение номеров не доступно подаренными деньгами от сервиса «CNAM РФ», для того, чтобы внести свои номера в справочник необходимо внести соразмерные средства на лицевой счет.</div>
 
 	<div class="modal fade" id="addPhone" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -228,7 +228,6 @@
 				btn.attr('disabled', 'disabled')
 				btn.html('<i class="fa fa-spinner fa-pulse"></i> Дозваниваемся...')
 				$.post('/cabinet/confirmPhone/callPSTN/', { phoneNumber: phone }, function(data) {
-					alert(data);
 					if (data == '200') {
 						$('#callme-status').text('Выполняется звонок на этот номер.')
 						$('#callme-status').addClass('text-success')

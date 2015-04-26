@@ -212,7 +212,6 @@
 			var form = $(this)
 			var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val().replace(/[+()-\s]/g, '')
 			var inputPhone = form.find('input[name="phoneNumber"]').val()
-			alert(deletedPhone + "\n" + inputPhone)
 			if (deletedPhoneNumber == inputPhone) {
 				return true
 			} else {

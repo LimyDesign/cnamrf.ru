@@ -130,7 +130,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Удаление номера</h4>
 				</div>
 				<div class="modal-body">
-					<p class="lead">Если вы подтверждаете удаление данного номера, то введите его в форму ниже и нажмите кнопку «Удалить».</p>
+					<p class="lead text-justify">Если вы подтверждаете удаление данного номера, то введите его в форму ниже и нажмите кнопку «Удалить».</p>
 					<form action="/cabinet/deletePhone/" method="post" id="deletePhoneForm">
 						<input type="hidden" name="deletedPhoneNumber" value="7">
 						<div class="form-group">
@@ -213,6 +213,15 @@
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
 			modal.find('#phoneCode').inputmask('999 999')
+			modal.find('#callme').click(function(e) {
+				/* Act on the event */
+			})
+			modal.find('#smsme').click(function(e) {
+				alert(phone);
+				// $.post('/cabinet/smsme/', { phone: phone }, function(data) {
+				// 	$()
+				// })
+			})
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 

@@ -943,6 +943,22 @@ function addPhone() {
 	header("Location: /cabinet/phonebook/");
 }
 
+function deletePhone() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$uPhone = $_POST['phoneNumber'];
+		$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
+		if (is_numeric($uPhone)) {
+			$query = "delete from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+			pg_query($query);
+			pg_close($db);
+		}
+	}
+	header("Location: /cabinet/phonebook/");
+}
+
 function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	global $conf;
 	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));

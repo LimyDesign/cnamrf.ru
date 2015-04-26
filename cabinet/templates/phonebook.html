@@ -124,6 +124,7 @@
 				<div class="modal-body">
 					<p class="lead">Если вы подтверждаете удаление данного номера, то введите его в форму ниже и нажмите кнопку «Удалить».</p>
 					<form action="/cabinet/deletePhone/" method="post" id="deletePhoneForm">
+						<input type="hidden" name="deletedPhoneNumber" value="7">
 						<div class="form-group">
 							<label for="phoneNumber" class="control-label">Номер телефона:</label>
 							<input type="text" class="form-control input-lg" id="phoneNumber" name="phoneNumber" value="7">
@@ -198,9 +199,20 @@
 		})
 		$('#deletePhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
+			var phone = button.data('pb-phone')
 			var modal = $(this)
+			modal.find('input[name="deletedPhoneNumber"]').val(phone)
 			modal.find('#phoneNumber').inputmasks(optsRU)
-			modal.find('#action').click(function() { $('form#deletePhoneForm').submit() })
+			modal.find('#action').click(function() { $('form#deletePhoneForm').submit(function(e) {
+					var form = $(this)
+					var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val();
+					var inputPhone = form.find('input[name="phoneNumber"]').val();
+					if (deletedPhoneNumber == inputPhone)
+						return true
+					else
+						return false
+				})
+			})
 		})
 	})
 	</script>

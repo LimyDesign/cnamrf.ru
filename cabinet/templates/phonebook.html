@@ -220,7 +220,19 @@
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
 			modal.find('#phoneCode').inputmask('99 99')
 			modal.find('#callme').click(function(e) {
-				/* Act on the event */
+				var btn = $(this)
+				var btn_text = btn.html()
+				btn.attr('disabled', 'disabled')
+				btn.html('<i class="fa fa-spinner fa-pulse"></i> Дозваниваемся...')
+				$.post('/cabinet/confirmPhone/callPSTN/', { phoneNumber: phone }, function(data) {
+					if (data == '200') {
+						$('#callme-status').text('Выполняется звонок на этот номер.')
+						$('#callme-status').addClass('text-success')
+					} else {
+						$('#callme-status').text('Дозвониться не удалось.')
+						$('#callme-status').addClass('text-danger')
+					}
+				})
 			})
 			modal.find('#smsme').removeAttr('disabled')
 			modal.find('#smsme').click(function(e) {

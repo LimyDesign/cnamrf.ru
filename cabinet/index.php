@@ -965,6 +965,7 @@ function confirmPhone($cmd) {
 				$result = pg_query($query);
 				$code = pg_fetch_result($result, 0, 'code');
 				pg_free_result($result);
+				die($code);
 				if ($code) {
 					$message = array(
 						array(
@@ -992,7 +993,7 @@ function confirmPhone($cmd) {
 			$uCode = $_POST['phoneCode'];
 			$uCode = preg_replace('/[\s]/', '', $uCode);
 			if (is_numeric($uCode)) {
-				$query = "update phonebook set verify = true where code = $uCode and uid = {$_SESSION['userid']}";
+				$query = "update phonebook set verify = true where code = {$uCode} and uid = {$_SESSION['userid']}";
 				pg_query($query);
 			}
 			pg_close($db);

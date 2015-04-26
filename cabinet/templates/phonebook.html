@@ -233,6 +233,8 @@
 						$('#callme-status').text('Дозвониться не удалось.')
 						$('#callme-status').addClass('text-danger')
 					}
+				}).done(function() {
+					btn.html(btn_text)
 				})
 			})
 			modal.find('#smsme').removeAttr('disabled')
@@ -256,7 +258,7 @@
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 
-		$('#confirmPhone').on('show.bs.modal', function (event) {
+		$('#confirmPhone').on('hide.bs.modal', function (event) {
 			var modal = $(this)
 			modal.find('#smsme-status').removeClass('text-success text-danger')
 			modal.find('#callme-status').removeClass('text-success text-danger')

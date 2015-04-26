@@ -224,6 +224,7 @@
 			modal.find('#callme').click(function(e) {
 				/* Act on the event */
 			})
+			modal.find('#smsme').removeAttr('disabled')
 			modal.find('#smsme').click(function(e) {
 				var btn = $(this)
 				var btn_text = btn.html()
@@ -239,7 +240,6 @@
 						$('#smsme-status').addClass('text-danger')
 					}
 				}).done(function() {
-					btn.removeAttr('disabled')
 					btn.html(btn_text)
 				})
 			})

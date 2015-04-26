@@ -965,7 +965,6 @@ function confirmPhone($cmd) {
 				$result = pg_query($query);
 				$code = pg_fetch_result($result, 0, 'code');
 				pg_free_result($result);
-				die($query);
 				if ($code) {
 					$message = array(
 						array(

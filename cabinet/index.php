@@ -974,6 +974,7 @@ function confirmPhone($cmd) {
 						'sender' => 'CNAM RF'
 					)
 				);
+				$result = $sms->send($message, 'cnamQueue');
 				if ($result['status'] == 'ok') {
 					$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
 					echo '200';

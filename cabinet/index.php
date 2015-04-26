@@ -988,6 +988,29 @@ function confirmPhone($cmd) {
 			}
 			pg_close($db);
 			exit();
+		} elseif ($cmd == 'callPSTN') {
+			$uPhone = $_POST['phoneNumber'];
+			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
+			if (is_numeric($uPhone)) {
+				$query = "select code from phonebook where phone {$uPhone} and uid = {$_SESSION['userid']} and pstn + (30 * interval '1 minute') < now()";
+				$result = pg_query($query);
+				$code = pg_fetch_result($result, 0, 'code');
+				pg_free_result($result);
+				if ($code) {
+					$query = "update phonebook set pstn = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+					pg_query($query);
+					$voximplant = "https://api.voximplant.com/platform_api/StartScenarios/?";
+					$voximplant.= "account_id=" . $conf['voximplant']['account_id'];
+					$voximplant.= "api_key=" . $conf['voximplant']['api_key'];
+					$voximplant.= "rule_id=292118";
+					$voximplant.= "script_custom_data={$uPhone}:{$code}";
+					$result = json_decode(file_get_contents($voximplant))
+					var_dump($result);
+				}
+
+			}
+			pg_close($db);
+			exit();
 		} elseif ($cmd == 'checkCode') {
 			$uCode = $_POST['phoneCode'];
 			$uCode = preg_replace('/[\s]/', '', $uCode);

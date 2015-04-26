@@ -225,6 +225,7 @@
 				btn.attr('disabled', 'disabled')
 				btn.html('<i class="fa fa-spinner fa-pulse"></i> Дозваниваемся...')
 				$.post('/cabinet/confirmPhone/callPSTN/', { phoneNumber: phone }, function(data) {
+					alert(data);
 					if (data == '200') {
 						$('#callme-status').text('Выполняется звонок на этот номер.')
 						$('#callme-status').addClass('text-success')

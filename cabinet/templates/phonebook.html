@@ -260,7 +260,7 @@
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 
-		$('#confirmPhone').on('hide.bs.modal', function (event) {
+		$('#confirmPhone').on('show.bs.modal', function (event) {
 			var modal = $(this)
 			modal.find('#smsme-status').removeClass('text-success text-danger')
 			modal.find('#callme-status').removeClass('text-success text-danger')

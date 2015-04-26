@@ -123,7 +123,7 @@
 				</div>
 				<div class="modal-body">
 					<p class="lead">Если вы подтверждаете удаление данного номера, то введите его в форму ниже и нажмите кнопку «Удалить».</p>
-					<form action="/cabinet/deletePhone/" method="post" id="deleteForm">
+					<form action="/cabinet/deletePhone/" method="post" id="deletePhoneForm">
 						<div class="form-group">
 							<label for="phoneNumber" class="control-label">Номер телефона:</label>
 							<input type="text" class="form-control input-lg text-center" id="phoneNumber" name="phoneNumber">
@@ -195,6 +195,12 @@
 			})
 			modal.find('#phoneTranslit').inputmask(optsTranslit)
 			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
+		})
+		$('#deletePhone').on('show,bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var modal = $(this)
+			modal.find('#phoneNumber').inputmasks(optsRU)
+			modal.find('#action').click(function() { $('form#deletePhoneForm').submit() })
 		})
 	})
 	</script>

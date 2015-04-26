@@ -248,8 +248,8 @@
 			var modal = $(this)
 			modal.find('#smsme-status').removeClass('text-success text-danger')
 			modal.find('#callme-status').removeClass('text-success text-danger')
-			modal.find('#smsme-status').html()
-			modal.find('#callme-status').html()
+			modal.find('#smsme-status').empty()
+			modal.find('#callme-status').empty()
 		})
 
 		$('#deletePhone').on('show.bs.modal', function (event) {

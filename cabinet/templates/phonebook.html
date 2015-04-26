@@ -87,7 +87,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+	<div class="modal fade" id="confirmPhone" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -95,7 +95,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Подтверждение номера</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/checkConfirmPhone/" method="post" id="confirmForm">
+					<form action="/cabinet/checkConfirmPhone/" method="post" id="confirmPhoneForm">
 						<div class="form-group">
 							<label for="phoneNumber" class="control-label">Номер телефона:</label>
 							<input type="text" class="form-control input-lg text-center" id="phoneNumber" name="phoneNumber" readonly>
@@ -198,6 +198,15 @@
 			modal.find('#phoneTranslit').inputmask(optsTranslit)
 			modal.find('#action').click(function() { $('#addPhoneForm').submit() })
 		})
+
+		$('#confirmPhone').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var phone = button.data('pb-phone')
+			var modal = $(this)
+			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
+			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
+		})
+
 		$('#deletePhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var phone = button.data('pb-phone')

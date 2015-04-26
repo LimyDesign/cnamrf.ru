@@ -100,7 +100,9 @@
 						<div class="row">
 							<div class="col-sm-6 col-sm-offset-3">
 								<button class="btn btn-default btn-block" id="callme"><i class="fa fa-phone"></i>&emsp;Позвонить на этот номер</button>
+								<small id="callme-status"></small>
 								<button class="btn btn-default btn-block" id="smsme"><i class="fa fa-mobile"></i>&emsp;Отправить код по SMS</button>
+								<small id="smsme-status"></small>
 							</div>
 						</div>
 					</div>
@@ -212,6 +214,8 @@
 			var phone = button.data('pb-phone')
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
+			modal.find('#smsme-status').removeClass('text-success text-danger').text()
+			modal.find('#callme-status').removeClass('text-success text-danger').text()
 			modal.find('#phoneCode').inputmask('999 999')
 			modal.find('#callme').click(function(e) {
 				/* Act on the event */
@@ -223,7 +227,13 @@
 				btn.html('<i class="fa fa-spinner fa-pulse"></i> Отправка смс сообщения...')
 				$.post('/cabinet/confirmPhone/sendSMS/', { phoneNumber: phone }, function(data) {
 					alert(data)
-					// if (data == '200') 
+					if (data == '200') {
+						$('#smsme-status').text('Код отправлен на указанный телефон.')
+						$('#smsme-status').addClass('text-success')
+					} else {
+						$('#smsme-status').text('На данный номер смс отправить не удалось.')
+						$('#smsme-status').addClass('text-danger')
+					}
 				}).done(function() {
 					btn.removeAttr('disabled')
 					btn.html(btn_text)

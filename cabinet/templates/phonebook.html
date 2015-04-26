@@ -196,7 +196,7 @@
 			modal.find('#phoneTranslit').inputmask(optsTranslit)
 			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
 		})
-		$('#deletePhone').on('show,bs.modal', function (event) {
+		$('#deletePhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var modal = $(this)
 			modal.find('#phoneNumber').inputmasks(optsRU)

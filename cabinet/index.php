@@ -975,7 +975,7 @@ function confirmPhone($cmd) {
 				var_dump($sms->send($message, 'cnamQueue'));
 				var_dump($sms->status($message));
 				var_dump($sms->statusQueue('cnamQueue', 10));
-				die();
+				exit();
 			}
 		}
 	}

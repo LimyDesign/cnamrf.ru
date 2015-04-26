@@ -992,8 +992,7 @@ function confirmPhone($cmd) {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
 			if (is_numeric($uPhone)) {
-				$query = "select code from phonebook where phone {$uPhone} and uid = {$_SESSION['userid']} and pstn + (30 * interval '1 minute') < now()";
-				var_dump($query);
+				$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and pstn + (30 * interval '1 minute') < now()";
 				$result = pg_query($query);
 				$code = pg_fetch_result($result, 0, 'code');
 				pg_free_result($result);

@@ -30,14 +30,14 @@
 						<td>{{pb_data.name}}</td>
 						<td>{{pb_data.translit}}</td>
 						<td class="text-center">
-							{% if pb_data.status %}
+							{% if pb_data.verify in 't' %}
 								<i class="fa fa-check-square-o"></i>
 							{% else %}
 								<i class="fa fa-square-o"></i>
 							{% endif %}
 						</td>
 						<td class="text-center">
-							{% if pb_data.status %}
+							{% if pb_data.verify in 't' %}
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deletePhone" data-pb-phone="{{pb_data.phone}}"><i class="fa fa-trash-o"></i>&emsp;Удлаить</button>
 							{% else %}
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#deletePhone" data-pb-phone="{{pb_data.phone}}"><i class="fa fa-trash-o"></i>&emsp;Удлаить</button>

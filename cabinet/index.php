@@ -999,11 +999,11 @@ function confirmPhone($cmd) {
 				if ($code) {
 					// $query = "update phonebook set pstn = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
 					// pg_query($query);
-					$voximplant = "https://api.voximplant.com/platform_api/StartScenarios/?";
-					$voximplant.= "account_id=" . $conf['voximplant']['account_id'];
-					$voximplant.= "api_key=" . $conf['voximplant']['api_key'];
-					$voximplant.= "rule_id=292118";
-					$voximplant.= "script_custom_data={$uPhone}:{$code}";
+					$voximplant = "https://api.voximplant.com/platform_api/StartScenarios/";
+					$voximplant.= "?account_id=" . $conf['voximplant']['account_id'];
+					$voximplant.= "&api_key=" . $conf['voximplant']['api_key'];
+					$voximplant.= "&rule_id=292118";
+					$voximplant.= "&script_custom_data={$uPhone}:{$code}";
 					var_dump($voximplant);
 					$result = json_decode(file_get_contents($voximplant));
 					var_dump($result);

@@ -141,6 +141,7 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="//yastatic.net/jquery-ui/1.11.2/jquery-ui.min.js"></script>
 	<script src="/js/jquery.inputmask.js"></script>
 	<script src="/js/jquery.bind-first-0.2.3.min.js"></script>
 	<script src="/js/jquery.inputmask-multi.js"></script>
@@ -210,8 +211,10 @@
 					var inputPhone = form.find('input[name="phoneNumber"]').val()
 					if (deletedPhoneNumber == inputPhone)
 						return true
-					else
+					else {
+						form.find('input[name="phoneNumber"]').effect( "shake" )
 						return false
+					}
 				})
 			})
 		})

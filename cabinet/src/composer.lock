@@ -4,8 +4,52 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6fc4b9b34b111f697d27ac3923179363",
+    "hash": "e0167c8e19ec1ee1fb7c60981e5aea8e",
     "packages": [
+        {
+            "name": "arsen-bespalov/iqsms_json",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArsenBespalov/iqsms_json.git",
+                "reference": "f281a4dc41d32dd92dc3d66325c8b56d566bc7b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ArsenBespalov/iqsms_json/zipball/f281a4dc41d32dd92dc3d66325c8b56d566bc7b0",
+                "reference": "f281a4dc41d32dd92dc3d66325c8b56d566bc7b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "iqsms_json.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Arsen Bespalov",
+                    "email": "bespalov@arsen.pw",
+                    "homepage": "http://www.arsen.pw"
+                }
+            ],
+            "description": "JSON API class for iqsms.ru. Send sms, get current balans, get current list signature, get receiving status, get queue status.",
+            "homepage": "http://www.iqsms.ru/",
+            "keywords": [
+                "iqsms",
+                "iqsms.ru",
+                "json api",
+                "sms"
+            ],
+            "time": "2015-04-26 11:34:38"
+        },
         {
             "name": "tecnick.com/tcpdf",
             "version": "6.2.6",

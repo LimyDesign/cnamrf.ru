@@ -20,4 +20,5 @@ return array(
     'TCPDF_IMPORT' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_import.php',
     'TCPDF_PARSER' => $vendorDir . '/tecnick.com/tcpdf/tcpdf_parser.php',
     'TCPDF_STATIC' => $vendorDir . '/tecnick.com/tcpdf/include/tcpdf_static.php',
+    'iqsms_json' => $vendorDir . '/arsen-bespalov/iqsms_json/iqsms_json.php',
 );

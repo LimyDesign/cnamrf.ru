@@ -122,5 +122,51 @@
             "pdf417",
             "qrcode"
         ]
+    },
+    {
+        "name": "arsen-bespalov/iqsms_json",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ArsenBespalov/iqsms_json.git",
+            "reference": "f281a4dc41d32dd92dc3d66325c8b56d566bc7b0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ArsenBespalov/iqsms_json/zipball/f281a4dc41d32dd92dc3d66325c8b56d566bc7b0",
+            "reference": "f281a4dc41d32dd92dc3d66325c8b56d566bc7b0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.4"
+        },
+        "time": "2015-04-26 11:34:38",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "iqsms_json.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPLv2"
+        ],
+        "authors": [
+            {
+                "name": "Arsen Bespalov",
+                "email": "bespalov@arsen.pw",
+                "homepage": "http://www.arsen.pw"
+            }
+        ],
+        "description": "JSON API class for iqsms.ru. Send sms, get current balans, get current list signature, get receiving status, get queue status.",
+        "homepage": "http://www.iqsms.ru/",
+        "keywords": [
+            "iqsms",
+            "iqsms.ru",
+            "json api",
+            "sms"
+        ]
     }
 ]

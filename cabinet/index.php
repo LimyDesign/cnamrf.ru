@@ -7,14 +7,15 @@ $start = microtime(true);
 // автозагрузчик классов
 require_once __DIR__.'/src/vendor/autoload.php';
 
+$conf = json_decode(file_get_contents(__DIR__.'/config.json'), true);
+
 $loader = new Twig_Loader_Filesystem(__DIR__.'/templates');
 $twig = new Twig_Environment($loader, array(
 	'cache' => __DIR__.'/cache',
 	'auto_reload' => true,
 ));
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
-
-$conf = json_decode(file_get_contents(__DIR__.'/config.json'), true);
+$sms = new iqsms_json($conf['iqsms']['login'], $conf['iqsms']['password']);
 
 $requestURI = explode('/',$_SERVER['REQUEST_URI']);
 $scriptName = explode('/',$_SERVER['SCRIPT_NAME']);
@@ -80,6 +81,10 @@ switch ($cmd[0]) {
 	case 'addPhone':
 		check_auth();
 		addPhone();
+		break;
+	case 'confirmPhone':
+		check_auth();
+		confirmPhone($cmd[1]);
 		break;
 	case 'deletePhone':
 		check_auth();
@@ -945,6 +950,35 @@ function addPhone() {
 		}
 	}
 	header("Location: /cabinet/phonebook/");
+}
+
+function confirmPhone($cmd) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		if ($cmd == 'sendSMS') {
+			$uPhone = $_POST['phoneNumber'];
+			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
+			$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+			$result = pg_query($query);
+			$code = pg_fetch_result($result, 0, 'code');
+			if ($code) {
+				$message = array(
+					array(
+						'clientId' => '1',
+						'phone' => $uPhone,
+						'text' => $code,
+						'sender' => 'CNAM RF'
+					)
+				);
+				var_dump($sms->send($message, 'cnamQueue'));
+				var_dump($sms->status($message));
+				var_dump($sms->statusQueue('cnamQueue', 10));
+				die()
+			}
+		}
+	}
 }
 
 function deletePhone() {

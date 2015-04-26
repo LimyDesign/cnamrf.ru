@@ -100,14 +100,14 @@
 						<div class="row">
 							<div class="col-sm-6 col-sm-offset-3">
 								<button class="btn btn-default btn-block" id="callme"><i class="fa fa-phone"></i>&emsp;Позвонить на этот номер</button>
-								<button class="btn btn-default btn-block" id="smsme"><i class="fa fa-mobile"></i>&emsp;Отправить код по СМС</button>
+								<button class="btn btn-default btn-block" id="smsme"><i class="fa fa-mobile"></i>&emsp;Отправить код по SMS</button>
 							</div>
 						</div>
 					</div>
 					<p class="center-text">
 						
 					</p>
-					<form action="/cabinet/checkConfirmPhone/" method="post" id="confirmPhoneForm">
+					<form action="/cabinet/confirmPhone/checkCode/" method="post" id="confirmPhoneForm">
 						<div class="form-group">
 							<label for="phoneCode" class="control-label">Код подтверждения:</label>
 							<input type="text" class="form-control input-lg text-center" id="phoneCode" name="phoneCode">
@@ -217,10 +217,9 @@
 				/* Act on the event */
 			})
 			modal.find('#smsme').click(function(e) {
-				alert(phone);
-				// $.post('/cabinet/smsme/', { phone: phone }, function(data) {
-				// 	$()
-				// })
+				$.post('/cabinet/confirmPhone/sendSMS/', { phoneNumber: phone }, function(data) {
+					if ()
+				})
 			})
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})

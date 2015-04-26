@@ -218,10 +218,6 @@
 			var phone = button.data('pb-phone')
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
-			modal.find('#smsme-status').removeClass('text-success text-danger')
-			modal.find('#callme-status').removeClass('text-success text-danger')
-			modal.find('#smsme-status').html()
-			modal.find('#callme-status').html()
 			modal.find('#phoneCode').inputmask('999 999')
 			modal.find('#callme').click(function(e) {
 				/* Act on the event */
@@ -246,6 +242,14 @@
 				})
 			})
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
+		})
+
+		$('#confirmPhone').on('show.bs.modal', function (event) {
+			var modal = $(this)
+			modal.find('#smsme-status').removeClass('text-success text-danger')
+			modal.find('#callme-status').removeClass('text-success text-danger')
+			modal.find('#smsme-status').html()
+			modal.find('#callme-status').html()
 		})
 
 		$('#deletePhone').on('show.bs.modal', function (event) {

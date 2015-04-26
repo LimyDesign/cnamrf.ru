@@ -963,8 +963,6 @@ function confirmPhone($cmd) {
 			$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and sms + (30 * interval '1 minute') < now()";
 			$result = pg_query($query);
 			$code = pg_fetch_result($result, 0, 'code');
-			var_dump($sms->credits());
-			die();
 			if ($code) {
 				$message = array(
 					array(
@@ -978,12 +976,13 @@ function confirmPhone($cmd) {
 				if ($result['status'] == 'ok') {
 					$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
 					echo '200';
-				}
-				else {
+				} else {
 					echo '500';
 				}
-				exit();
+			} else {
+				echo '500';
 			}
+			exit();
 		}
 	}
 }

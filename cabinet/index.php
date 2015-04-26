@@ -991,6 +991,7 @@ function confirmPhone($cmd) {
 		} elseif ($cmd == 'callPSTN') {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
+			var_dump($uPhone);
 			if (is_numeric($uPhone)) {
 				$query = "select code from phonebook where phone {$uPhone} and uid = {$_SESSION['userid']} and pstn + (30 * interval '1 minute') < now()";
 				$result = pg_query($query);

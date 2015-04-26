@@ -953,7 +953,7 @@ function addPhone() {
 }
 
 function confirmPhone($cmd) {
-	global $conf;
+	global $conf, $sms;
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());

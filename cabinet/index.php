@@ -81,6 +81,10 @@ switch ($cmd[0]) {
 		check_auth();
 		addPhone();
 		break;
+	case 'deletePhone':
+		check_auth();
+		deletePhone();
+		break;
 	case 'admin':
 		check_admin();
 	case 'dashboard':

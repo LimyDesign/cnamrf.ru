@@ -960,10 +960,12 @@ function confirmPhone($cmd) {
 		if ($cmd == 'sendSMS') {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
-			$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+			$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and sms + (30 * interval '1 minute') < now()";
 			$result = pg_query($query);
 			$code = pg_fetch_result($result, 0, 'code');
 			if ($code) {
+				var_dump($sms->credits());
+				die();
 				$message = array(
 					array(
 						'clientId' => '1',
@@ -972,9 +974,13 @@ function confirmPhone($cmd) {
 						'sender' => 'CNAM RF'
 					)
 				);
-				var_dump($sms->send($message, 'cnamQueue'));
-				var_dump($sms->status($message));
-				var_dump($sms->statusQueue('cnamQueue', 10));
+				$result = $sms->send($message, 'cnamQueue'));
+				if ($result['status'] == 'ok') {
+					$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+					echo '200';
+				}
+				else
+					echo '500';
 				exit();
 			}
 		}

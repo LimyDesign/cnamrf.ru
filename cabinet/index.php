@@ -997,8 +997,8 @@ function confirmPhone($cmd) {
 				$code = pg_fetch_result($result, 0, 'code');
 				pg_free_result($result);
 				if ($code) {
-					$query = "update phonebook set pstn = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
-					pg_query($query);
+					// $query = "update phonebook set pstn = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+					// pg_query($query);
 					$voximplant = "https://api.voximplant.com/platform_api/StartScenarios/?";
 					$voximplant.= "account_id=" . $conf['voximplant']['account_id'];
 					$voximplant.= "api_key=" . $conf['voximplant']['api_key'];

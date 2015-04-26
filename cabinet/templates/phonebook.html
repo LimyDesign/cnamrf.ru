@@ -210,7 +210,7 @@
 
 		$('#deletePhoneForm').submit(function(e) {
 			var form = $(this)
-			var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val()
+			var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val().replace(/[+()-\s]/, '')
 			var inputPhone = form.find('input[name="phoneNumber"]').val()
 			alert(deletedPhone + "\n" + inputPhone)
 			if (deletedPhoneNumber == inputPhone) {

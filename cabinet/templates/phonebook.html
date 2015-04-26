@@ -201,12 +201,13 @@
 			var button = $(event.relatedTarget)
 			var phone = button.data('pb-phone')
 			var modal = $(this)
+			modal.find('#adminModalLabel').text('Удаление номера ' + phone)
 			modal.find('input[name="deletedPhoneNumber"]').val(phone)
 			modal.find('#phoneNumber').inputmasks(optsRU)
 			modal.find('#action').click(function() { $('form#deletePhoneForm').submit(function(e) {
 					var form = $(this)
-					var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val();
-					var inputPhone = form.find('input[name="phoneNumber"]').val();
+					var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val()
+					var inputPhone = form.find('input[name="phoneNumber"]').val()
 					if (deletedPhoneNumber == inputPhone)
 						return true
 					else

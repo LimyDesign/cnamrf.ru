@@ -233,7 +233,7 @@
 						$('#callme-status').text('Выполняется звонок на этот номер.')
 						$('#callme-status').addClass('text-success')
 					} else {
-						$('#callme-status').text('Дозвониться не удалось.')
+						$('#callme-status').text('Дозвониться не удалось. Возможно указан неверный телефон или вы уже ранее выполняли вызов на данный номер. Звонить можно не чаще 1 раза в 30 минут.')
 						$('#callme-status').addClass('text-danger')
 					}
 				}).done(function() {

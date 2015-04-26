@@ -204,6 +204,7 @@
 			var phone = button.data('pb-phone')
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
+			modal.find('#phoneNumber').val(phone)
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 

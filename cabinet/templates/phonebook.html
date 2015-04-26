@@ -196,7 +196,7 @@
 				elAlias: modal.find('#phoneTranslit')
 			})
 			modal.find('#phoneTranslit').inputmask(optsTranslit)
-			modal.find('#action').click(function() { $('form#addPhoneForm').submit() })
+			modal.find('#action').click(function() { $('#addPhoneForm').submit() })
 		})
 		$('#deletePhone').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
@@ -205,17 +205,7 @@
 			modal.find('#adminModalLabel').text('Удаление номера ' + phone)
 			modal.find('input[name="deletedPhoneNumber"]').val(phone)
 			modal.find('#phoneNumber').inputmasks(optsRU)
-			modal.find('#action').click(function() { $('form#deletePhoneForm').submit(function(e) {
-					var form = $(this)
-					var deletedPhone = form.find('input[name="deletedPhoneNumber"]').val()
-					var inputPhone = form.find('input[name="phoneNumber"]').val()
-					if (deletedPhoneNumber == inputPhone)
-						return true
-					else {
-						form.find('input[name="phoneNumber"]').effect( "shake" )
-						return false
-					}
-				})
+			modal.find('#action').click(function() { $('#deletePhoneForm').submit()
 			})
 		})
 	})

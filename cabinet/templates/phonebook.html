@@ -95,11 +95,12 @@
 					<h4 class="modal-title" id="adminModalLabel">Подтверждение номера</h4>
 				</div>
 				<div class="modal-body">
+					<p class="lead">Для того, чтобы подтвердить право на данный номер телефона, необходимо подготовить вашу мини АТС таким образом, чтобы все входящие звонки приходили прямо на ваш внутренний номер, если конечно используется мини АТС. После этого нажмите кнопку «Позвонить на этот номер». В том случае, если вы подтверждаете мобильный телефон, нажмите кнопку «Отправить код по СМС».</p>
+					<div class="center-text">
+						<button class="btn btn-default" id="callme">Позвонить на этот номер</button>
+						<button class="btn btn-default" id="smsme">Отправить код по СМС</button>
+					</div>
 					<form action="/cabinet/checkConfirmPhone/" method="post" id="confirmPhoneForm">
-						<div class="form-group">
-							<label for="phoneNumber" class="control-label">Номер телефона:</label>
-							<input type="text" class="form-control input-lg text-center" id="phoneNumber" name="phoneNumber" readonly>
-						</div>
 						<div class="form-group">
 							<label for="phoneCode" class="control-label">Код подтверждения:</label>
 							<input type="text" class="form-control input-lg text-center" id="phoneCode" name="phoneCode">
@@ -204,7 +205,6 @@
 			var phone = button.data('pb-phone')
 			var modal = $(this)
 			modal.find('#adminModalLabel').text('Подтверждение номера ' + phone)
-			modal.find('#phoneNumber').val(phone)
 			modal.find('#action').click(function() { $('#confirmPhoneForm').submit() })
 		})
 

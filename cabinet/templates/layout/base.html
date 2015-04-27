@@ -93,8 +93,8 @@
 		<script>
 			$( document ).ready(function() {
 				$.post('/cabinet/getUserBalans/', function (data) {
-					$('#balans').number(data.balans, 2, '.', ' ');
-					$('#qty').number(data.qty, 0, '.', ' ');
+					$('#balans').number(data.balans, 2, '.', ' ')
+					$('#qty').number(data.qty, 0, '.', ' ')
 				}, 'json')
 			})
 		</script>

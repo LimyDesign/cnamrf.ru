@@ -32,6 +32,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/cabinet/balans/">Баланс <span id="balans">0.00</span> <i class="fa fa-rub"></i></a></li>
+						<li><a href="/cabinet/tariff/">Остаток запросов <span id="qty">0</span></a></li>
 						{% if is_admin in 't' %}
 							<li{% if admin %}{{ active }}{% endif %}><a href="/cabinet/admin/"><i class="fa fa-cogs"></i> Администраторам</a></li>
 						{% endif %}
@@ -92,8 +93,9 @@
 		<script>
 			$( document ).ready(function() {
 				$.post('/cabinet/getUserBalans/', function (data) {
-					$('#balans').number(data, 2, '.', ' ');
-				})
+					$('#balans').number(data.balans, 2, '.', ' ');
+					$('#qty').number(data.qty, 0, '.', ' ');
+				}, 'json')
 			})
 		</script>
 		{% block scripts %}{% endblock %}

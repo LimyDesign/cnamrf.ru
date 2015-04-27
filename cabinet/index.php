@@ -530,12 +530,16 @@ function getUserBalans($return = false) {
 		$result = pg_query($query);
 		$balans = pg_fetch_result($result, 0, 'balans');
 		$balans = $balans ? $balans : '0';
+		$query = "select qty from users where uid = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		$qty = pg_fetch_result($result, 0, 'qty');
 		pg_free_result($result);
 		pg_close($db);
 	}
 	if (!$return)
 	{
-		echo $balans;
+		$return = array('balans' => $balans, 'qty' => $qty);
+		echo json_encode($return);
 		exit();
 	}
 	else

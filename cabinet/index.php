@@ -1098,6 +1098,15 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 
 function getUserLogs($limit = 100, $offset = 0) {
 	global $conf;
+	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
+	for ($i = 0; $i < count($phones_masks); $i++) {
+		$pattern = "/\((\d{4})\)|\((\d{5})\)/";
+		preg_match($pattern, $phones_masks[$i]->mask, $mask[$i]);
+		unset($mask[$i][0]);
+	}
+	rsort($mask, SORT_NUMERIC);
+	unset($phones_masks);
+
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
@@ -1107,7 +1116,21 @@ function getUserLogs($limit = 100, $offset = 0) {
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))
 		{
-			$logs_data[$i]['phone'] = $row['phone'];
+			for ($i = 0; $i < count($mask); $i++) {
+				if (substr($row['phone'], 1, 5) == $mask[$i][2]) {
+					$phone = '+7 (' . $mask[$i][2] . ') ' . substr($row['phone'], 6, 1) . '-' . 
+						substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
+					break;
+				} elseif (substr($row['phone'], 1, 4) == $mask[$i][1]) {
+					$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
+						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
+					break;
+				} else {
+					$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) . '-' .
+						substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
+				}
+			}
+			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));

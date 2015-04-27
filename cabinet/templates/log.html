@@ -20,12 +20,14 @@
 				<tr>
 					<td>{{ log_data.phone }}</td>
 					<td class="text-success text-right">
-						{% if not log_data.debet in '0.00' %}
+						{% if log_data.debet in '0.00' %}
+						{% else %}
 							+{{ log_data.debet }}
 						{% endif %}
 					</td>
 					<td class="text-danger text-right">
 						{% if not log_data.credit in '0.00' %}
+						{% else %}
 							-{{ log_data.credit }}
 						{% endif %}
 					</td>

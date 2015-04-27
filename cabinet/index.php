@@ -1102,7 +1102,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
-		$query = "select log.phone, log.debet, log.credit, log.modtime, (log.client || invoices.invoice) as new_client, log.ip from log left join invoices on log.invoice = invoices.id where log.uid = {$userid} order by log.modtime desc limit {$limit} offset {$offset}";
+		$query = "select log.phone, log.debet, log.credit, log.modtime, coalesce(log.client || invoices.invoice, log.client) as new_client, log.ip from log left join invoices on log.invoice = invoices.id where log.uid = {$userid} order by log.modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))

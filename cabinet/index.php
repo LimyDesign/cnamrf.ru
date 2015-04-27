@@ -103,6 +103,7 @@ switch ($cmd[0]) {
 	case 'phonebook':
 	case 'key':
 	case 'log':
+	case 'about':
 		check_auth();
 		break;
 	case 'logout':
@@ -250,6 +251,15 @@ if ($_SESSION['auth'] === true)
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff,
 					'accept' => $_SESSION['contract']
+					));
+				break;
+			case 'about':
+				$time = microtime(true) - $start;
+				$timer = sprintf('%.4F', $time);
+				echo $twig->render('about.html', array(
+					'about' => true,
+					'timer' => $timer,
+					'is_admin' => $is_admin
 					));
 				break;
 			default:

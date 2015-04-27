@@ -954,13 +954,14 @@ function addPhone() {
 
 function confirmPhone($cmd) {
 	global $conf, $sms;
+	$balans = getUserBalans(true);
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		if ($cmd == 'sendSMS') {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
-			if (is_numeric($uPhone)) {
+			if (is_numeric($uPhone) && $balans > 2) {
 				$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and sms + (30 * interval '1 minute') < now()";
 				$result = pg_query($query);
 				$code = pg_fetch_result($result, 0, 'code');
@@ -991,7 +992,7 @@ function confirmPhone($cmd) {
 		} elseif ($cmd == 'callPSTN') {
 			$uPhone = $_POST['phoneNumber'];
 			$uPhone = preg_replace('/[+()-\s]/', '', $uPhone);
-			if (is_numeric($uPhone)) {
+			if (is_numeric($uPhone) && $balans > 2) {
 				$query = "select code from phonebook where phone = {$uPhone} and uid = {$_SESSION['userid']} and pstn + (30 * interval '1 minute') < now()";
 				$result = pg_query($query);
 				$code = pg_fetch_result($result, 0, 'code');

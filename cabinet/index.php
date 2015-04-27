@@ -979,6 +979,8 @@ function confirmPhone($cmd) {
 					if ($result['status'] == 'ok') {
 						$query = "update phonebook set sms = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
 						pg_query($query);
+						$query = "insert into log (uid, phone, credit, client) values ({$_SESSION['userid']}, {$uPhone}, 2, 'Подтверждение номера по СМС')";
+						pg_query($query);
 						echo '200';
 					} else {
 						echo '500';
@@ -1007,6 +1009,8 @@ function confirmPhone($cmd) {
 					$result = json_decode(file_get_contents($voximplant));
 					if ($result->result) {
 						$query = "update phonebook set pstn = now() where phone = {$uPhone} and uid = {$_SESSION['userid']}";
+						pg_query($query);
+						$query = "insert into log (uid, phone, credit, client) values ({$_SESSION['userid']}, {$uPhone}, 2, 'Подтверждение номера по звонку')";
 						pg_query($query);
 						echo '200';
 					} else {

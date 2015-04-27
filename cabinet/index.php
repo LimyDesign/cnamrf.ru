@@ -506,7 +506,17 @@ function auth_db ($id, $email, $provider) {
 }
 
 function setTariff($tariff) {
-	
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		if (is_numeric($tariff)) {
+			$query = "update users set tariffid = {$tariff} where id = {$_SESSION['userid']} and ";
+			pg_query($query);
+			pg_close($db);
+		}
+	}
+	header("Location: /cabinet/tariff/#info");
 }
 
 function getUserBalans($return = false) {

@@ -34,6 +34,10 @@ switch ($cmd[0]) {
 		check_auth();
 		providerUnlink($cmd[1]);
 		break;
+	case 'setTariff':
+		check_auth();
+		setTariff($cmd[1]);
+		break;
 	case 'newkey':
 		check_auth();
 		newAPIKey();
@@ -499,6 +503,10 @@ function auth_db ($id, $email, $provider) {
 			header("Location: /cabinet/dashboard/");
 		}
 	}
+}
+
+function setTariff($tariff) {
+	
 }
 
 function getUserBalans($return = false) {

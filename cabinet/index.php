@@ -1131,7 +1131,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 							substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 					}
 				}
-			}
+			} else $phone = '';
 			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');

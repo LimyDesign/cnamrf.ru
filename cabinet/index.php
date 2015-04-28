@@ -813,7 +813,7 @@ function yandexPayments($cmd) {
 			$_POST['orderSumBankPaycash'],
 			$shopId,
 			$invoiceId,
-			$_SESSION['userid'],
+			$_POST['customerNumber'],
 			$shopPassword);
 		$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
 		file_put_contents('yamoney.log', $md5 . "\n" . implode(';', $checkOrderStr) . "\n", FILE_APPEND);

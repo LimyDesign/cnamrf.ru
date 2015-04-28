@@ -809,17 +809,7 @@ function yandexPayments($cmd) {
 	$yaShopId = $_POST['shopId'];
 	$yaInvoiceId = $_POST['invoiceId'];
 	$yaCustomerNumber = $_POST['customerNumber'];
-
-	$checkOrderStr = array(
-		$yaAction,
-		$yaOrderSumAmount,
-		$yaOrderSumCurrencyPaycash,
-		$yaOrderSumBankPaycash,
-		$shopId,
-		$yaInvoiceId,
-		$yaCustomerNumber,
-		$shopPassword);
-	$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
+	$yaMD5 = $_POST['md5'];
 
 	switch ($_POST['paymentType']) {
 		case 'PC':
@@ -856,15 +846,25 @@ function yandexPayments($cmd) {
 
 	if ($cmd == 'check')
 	{
-		
-		if ($md5 != $_POST['md5']) {
+		$checkOrderStr = array(
+			$yaAction,
+			$yaOrderSumAmount,
+			$yaOrderSumCurrencyPaycash,
+			$yaOrderSumBankPaycash,
+			$shopId,
+			$yaInvoiceId,
+			$yaCustomerNumber,
+			$shopPassword);
+		$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
+
+		if ($md5 != $yaMD5) {
 			$code = '100';
 		} else {
 			$code = '0';
 			if ($conf['db']['type'] == 'postgres') {
 				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 				$system = 'yamoney:'.$_POST['paymentType'];
-				$query = "insert into invoices (invoice, uid, sum, system) values ({$yaInvoiceId}, {$yaCustomerNumber}, {$yaOrderSumAmount}, '{$system}') returning id";
+				$query = "insert into invoices (invoice, uid, sum, system) values ({$yaInvoiceId}, {$yaCustomerNumber}, {$yaOrderSumAmount}, '{$system}')";
 				$result = pg_query($query);
 				$iid = pg_fetch_result($result, 0, 'id');
 				pg_free_result($result);
@@ -882,13 +882,37 @@ function yandexPayments($cmd) {
 	} 
 	elseif ($cmd == 'aviso') 
 	{
-		if ($md5 != $_POST['md5']) {
-			$code = '1';
-		} else {
-			$code = '0';
+		if ($conf['db']['type'] == 'postgres') {
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select id, uid, invoice, sum from invoices where uid = {$yaCustomerNumber} and invoice = {$yaInvoiceId} and sum = {$yaOrderSumAmount}";
+			$result = pg_query($query);
+			$iid = pg_fetch_result($result, 0, 'id');
+			$uid = pg_fetch_result($result, 0, 'uid');
+			$invoice = pg_fetch_result($result, 0, 'invoice');
+			$sum = pg_fetch_result($result, 0, 'sum');
+			pg_free_result($result)
+			if ($iid) {
+				$checkOrderStr = array(
+					$yaAction,
+					$sum,
+					$yaOrderSumCurrencyPaycash,
+					$yaOrderSumBankPaycash,
+					$shopId,
+					$invoice,
+					$uid,
+					$shopPassword);
+				$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
+				if ($md5 != $yaMD5) {
+					$code = '1';
+				} else {
+					$code = '0';
+					$query = "insert into log (uid, debet, client, invoice) values ({$uid}, {$sum}, '{$client}', {$iid}";
+					pg_query($query);
+				}
+			}
+			pg_close($db);
 		}
-
-		$response .= "<paymentAvisoResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$shopId}\"/>";
+		$response .= "<paymentAvisoResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$yaInvoiceId}\" shopId=\"{$yaShopId}\"/>";
 	}
 	echo $response;
 	exit();

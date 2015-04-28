@@ -1255,13 +1255,13 @@ function getUserLogs($limit = 100, $offset = 0) {
 		while ($row = pg_fetch_assoc($result))
 		{
 			if ($row['phone']) {
-				for ($i = 0; $i < count($mask); $i++) {
-					if (substr($row['phone'], 1, 5) == $mask[$i][2]) {
-						$phone = '+7 (' . $mask[$i][2] . ') ' . substr($row['phone'], 6, 1) . '-' . 
+				for ($x = 0; $x < count($mask); $x++) {
+					if (substr($row['phone'], 1, 5) == $mask[$x][2]) {
+						$phone = '+7 (' . $mask[$x][2] . ') ' . substr($row['phone'], 6, 1) . '-' . 
 							substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
 						break;
-					} elseif (substr($row['phone'], 1, 4) == $mask[$i][1]) {
-						$phone = '+7 (' . $mask[$i][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
+					} elseif (substr($row['phone'], 1, 4) == $mask[$x][1]) {
+						$phone = '+7 (' . $mask[$x][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
 							substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 						break;
 					} else {

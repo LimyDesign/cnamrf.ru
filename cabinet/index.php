@@ -888,6 +888,7 @@ function yandexPayments($cmd) {
 			if ($yaPaymentType != 'PC') 
 				$yaInvoiceId = $yaInvoiceId - 1;
 			$query = "select id, uid, invoice, sum from invoices where uid = {$yaCustomerNumber} and invoice = {$yaInvoiceId} and sum = {$yaOrderSumAmount}";
+			file_put_contents('query.log', $query);
 			$result = pg_query($query);
 			$iid = pg_fetch_result($result, 0, 'id');
 			$uid = pg_fetch_result($result, 0, 'uid');

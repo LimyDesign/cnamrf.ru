@@ -210,3 +210,10 @@ ol.progtrckr li.progtrckr-todo:before {
   background: #ffbf22;
   color: #664c0e;
 }
+
+/**
+ * Исправление бага связанное с некорректным позиционирование адаптивных изображений
+ */
+.img-responsive {
+  margin: 0 auto;
+}

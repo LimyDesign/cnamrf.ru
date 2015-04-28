@@ -807,7 +807,7 @@ function yandexPayments($cmd) {
 		$techMessage = 'Вернитесь назад и попробуйте снова. Возможно на этапе проведения платежа потерялось часть данных.';
 
 		$checkOrderStr = array(
-			'checkOrder',
+			$_POST['action'],
 			$_POST['orderSumAmount'],
 			$_POST['orderSumCurrencyPaycash'],
 			$_POST['orderSumBankPaycash'],
@@ -819,7 +819,7 @@ function yandexPayments($cmd) {
 
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		
-		if ($shopId != $_POST['invoiceId'] || $md5 != $_POST['md5']) {
+		if ($shopId != $_POST['shopId'] || $md5 != $_POST['md5']) {
 			$code = '100';
 		} else {
 			$code = '0';

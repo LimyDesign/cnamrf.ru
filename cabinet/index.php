@@ -894,7 +894,7 @@ function yandexPayments($cmd) {
 			if ($iid) {
 				$checkOrderStr = array(
 					$yaAction,
-					$sum,
+					number_format($sum, 2, '.', ''),
 					$yaOrderSumCurrencyPaycash,
 					$yaOrderSumBankPaycash,
 					$shopId,

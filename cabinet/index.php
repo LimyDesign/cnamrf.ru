@@ -521,8 +521,10 @@ function setTariff($tariff) {
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		if (is_numeric($tariff)) {
-			$query = "update users set tariffid = {$tariff}, qty = qty + (select queries from tariff where id = {$tariff}) where id = {$_SESSION['userid']} and (select (sum(debet) - sum(credit)) from log where uid = {$_SESSION['userid']}) >= (select sum from tariff where id = {$tariff})";
-			pg_query($query);
+			$query = "update users set tariffid = {$tariff}, qty = qty + (select queries from tariff where id = {$tariff}) where id = {$_SESSION['userid']} and (select (sum(debet) - sum(credit)) from log where uid = {$_SESSION['userid']}) >= (select sum from tariff where id = {$tariff}) returning id";
+			$result = pg_query($query);
+			$uid = pg_fetch_result($result, 0, 'id');
+			die($uid);
 			$query = "insert into log (uid, credit, client) values ({$_SESSION['userid']}, (select sum from tariff where id = {$tariff}), 'Активания тарифа ' || (select name from tariff where id = {$tariff}))";
 			pg_query($query);
 			pg_close($db);

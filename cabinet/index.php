@@ -1275,7 +1275,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));
 			$logs_data[$i]['client'] = $row['new_client'];
-			$logs_data[$i]['ip'] = $row['ip'];
+			$logs_data[$i]['ip'] = long2ip($row['ip']);
 			$i++;
 		}
 		pg_free_result($result);

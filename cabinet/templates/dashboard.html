@@ -49,21 +49,21 @@
 						{% for log_data in logs_data %}
 							<tr>
 								<td nowrap>{{ log_data.phone }}</td>
-								<td class="text-success text-right">
+								<td nowrap class="text-success text-right">
 									{% if log_data.debet in '0.00' %}
 									{% else %}
 										+{{ log_data.debet }}
 									{% endif %}
 								</td>
-								<td class="text-danger text-right">
+								<td nowrap class="text-danger text-right">
 									{% if log_data.credit in '0.00' %}
 									{% else %}
 										-{{ log_data.credit }}
 									{% endif %}
 								</td>
 								<td>{{ log_data.client }}</td>
-								<td>{{ log_data.ip }}</td>
-								<td>{{ log_data.modtime }}</td>
+								<td nowrap>{{ log_data.ip }}</td>
+								<td nowrap>{{ log_data.modtime }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>

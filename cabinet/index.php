@@ -1257,15 +1257,15 @@ function getUserLogs($limit = 100, $offset = 0) {
 			if ($row['phone']) {
 				for ($x = 0; $x < count($mask); $x++) {
 					if (substr($row['phone'], 1, 5) == $mask[$x][2]) {
-						$phone = '+7 (' . $mask[$x][2] . ') ' . substr($row['phone'], 6, 1) . '-' . 
+						$phone = '+7&nbsp;(' . $mask[$x][2] . ')&nbsp;' . substr($row['phone'], 6, 1) . '-' . 
 							substr($row['phone'], 7, 2) . '-'. substr($row['phone'], 9, 2);
 						break;
 					} elseif (substr($row['phone'], 1, 4) == $mask[$x][1]) {
-						$phone = '+7 (' . $mask[$x][1] . ') ' . substr($row['phone'], 5, 2) . '-' . 
+						$phone = '+7&nbsp;(' . $mask[$x][1] . ')&nbsp;' . substr($row['phone'], 5, 2) . '-' . 
 							substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 						break;
 					} else {
-						$phone = '+7 (' . substr($row['phone'], 1, 3) . ') ' . substr($row['phone'], 4, 3) . '-' .
+						$phone = '+7&nbsp;(' . substr($row['phone'], 1, 3) . ')&nbsp;' . substr($row['phone'], 4, 3) . '-' .
 							substr($row['phone'], 7, 2) . '-' . substr($row['phone'], 9, 2);
 					}
 				}

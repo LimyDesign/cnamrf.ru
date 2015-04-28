@@ -816,7 +816,7 @@ function yandexPayments($cmd) {
 			$_SESSION['userid'],
 			$shopPassword);
 		$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
-		file_put_contents('yamoney.log', $md5, FILE_APPEND);
+		file_put_contents('yamoney.log', $md5 . "\n" . implode(';', $checkOrderStr) . "\n", FILE_APPEND);
 
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		

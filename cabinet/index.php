@@ -810,8 +810,9 @@ function yandexPayments($cmd) {
 	$yaInvoiceId = $_POST['invoiceId'];
 	$yaCustomerNumber = $_POST['customerNumber'];
 	$yaMD5 = $_POST['md5'];
+	$yaPaymentType = $_POST['paymentType'];
 
-	switch ($_POST['paymentType']) {
+	switch ($yaPaymentType) {
 		case 'PC':
 			$client = 'Яндекс.Деньги: Счет № ';
 			break;
@@ -884,8 +885,9 @@ function yandexPayments($cmd) {
 	{
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			if ($yaPaymentType != 'PC') 
+				$yaInvoiceId = $yaInvoiceId - 1;
 			$query = "select id, uid, invoice, sum from invoices where uid = {$yaCustomerNumber} and invoice = {$yaInvoiceId} and sum = {$yaOrderSumAmount}";
-			file_put_contents('query.log', $query);
 			$result = pg_query($query);
 			$iid = pg_fetch_result($result, 0, 'id');
 			$uid = pg_fetch_result($result, 0, 'uid');
@@ -905,11 +907,9 @@ function yandexPayments($cmd) {
 				$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
 				if ($md5 != $yaMD5) {
 					$code = '1';
-					file_put_contents('aviso.log', $md5 . ' ' . $yaMD5 . "\n" . implode(';', $checkOrderStr) . "\n");
 				} else {
 					$code = '0';
 					$query = "insert into log (uid, debet, client, invoice) values ({$uid}, {$sum}, '{$client}', {$iid})";
-					file_put_contents('aviso_1.log', $query);
 					pg_query($query);
 				}
 			} else {

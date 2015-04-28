@@ -795,6 +795,8 @@ function yandexPayments($cmd) {
 	global $conf;
 	if ($cmd == 'check')
 	{
+		$yamoney_data = print_r($_POST, true);
+		file_put_contents('yamoney.log', $yamoney_data);
 		header('Content-Type: application/xml');
 		
 		$performedDatetime = date(DATE_W3C);

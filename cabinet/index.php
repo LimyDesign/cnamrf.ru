@@ -904,7 +904,7 @@ function yandexPayments($cmd) {
 				$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
 				if ($md5 != $yaMD5) {
 					$code = '1';
-					file_put_contents('aviso_1.log', $md5 . "\n" . $checkOrderStr . "\n");
+					file_put_contents('aviso_1.log', $md5 . "\n" . implode(';', $checkOrderStr) . "\n");
 				} else {
 					$code = '0';
 					$query = "insert into log (uid, debet, client, invoice) values ({$uid}, {$sum}, '{$client}', {$iid}";

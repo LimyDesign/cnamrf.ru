@@ -793,46 +793,104 @@ function getInvoiceList($limit = 100, $offset = 0) {
 
 function yandexPayments($cmd) {
 	global $conf;
+	
+	$performedDatetime = date(DATE_W3C);
+
+	$message = 'Что-то пошло не так!';
+	$techMessage = 'Вернитесь назад и попробуйте снова. Возможно на этапе проведения платежа потерялось часть данных.';
+	
+	$shopId = $conf['payments']['ShopID'];
+	$shopPassword = $conf['payments']['ShopPassword'];
+
+	$yaAction = $_POST['action'];
+	$yaOrderSumAmount = $_POST['orderSumAmount'];
+	$yaOrderSumCurrencyPaycash = $_POST['orderSumCurrencyPaycash'];
+	$yaOrderSumBankPaycash = $_POST['orderSumBankPaycash'];
+	$yaShopId = $_POST['shopId'];
+	$yaInvoiceId = $_POST['invoiceId'];
+	$yaCustomerNumber = $_POST['customerNumber'];
+
+	$checkOrderStr = array(
+		$yaAction,
+		$yaOrderSumAmount,
+		$yaOrderSumCurrencyPaycash,
+		$yaOrderSumBankPaycash,
+		$shopId,
+		$yaInvoiceId,
+		$yaCustomerNumber,
+		$shopPassword);
+	$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
+
+	switch ($_POST['paymentType']) {
+		case 'PC':
+			$client = 'Оплата из кошелька в Яндекс.Деньгах.';
+			break;
+		case 'AC':
+			$client = 'Оплата с произвольной банковской карты.';
+			break;
+		case 'MC':
+			$client = 'Платеж со счета мобильного телефона.';
+			break;
+		case 'GP':
+			$client = 'Оплата наличными через кассы и терминалы.';
+			break;
+		case 'WM':
+			$client = 'Оплата из кошелька в системе WebMoney.';
+			break;
+		case 'SB':
+			$client = 'Оплата через Сбербанк: оплата по SMS или Сбербанк Онлайн.';
+			break;
+		case 'AB':
+			$client = 'Оплата через Альфа-Клик.';
+			break;
+		case 'МА':
+			$client = 'Оплата через MasterPass.';
+			break;
+		case 'PB':
+			$client = 'Оплата через Промсвязьбанк.';
+			break;
+	}
+
+	header('Content-Type: application/xml');
+	$response = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+
 	if ($cmd == 'check')
 	{
-		header('Content-Type: application/xml');
 		
-		$performedDatetime = date(DATE_W3C);
-		$shopId = $conf['payments']['ShopID'];
-		$shopPassword = $conf['payments']['ShopPassword'];
-		$invoiceId = $_POST['invoiceId'];
-		$message = 'Что-то пошло не так!';
-		$techMessage = 'Вернитесь назад и попробуйте снова. Возможно на этапе проведения платежа потерялось часть данных.';
-
-		$checkOrderStr = array(
-			$_POST['action'],
-			$_POST['orderSumAmount'],
-			$_POST['orderSumCurrencyPaycash'],
-			$_POST['orderSumBankPaycash'],
-			$shopId,
-			$invoiceId,
-			$_POST['customerNumber'],
-			$shopPassword);
-		$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
-
-		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		
-		if ($shopId != $_POST['shopId'] || $md5 != $_POST['md5']) {
+		if ($md5 != $_POST['md5']) {
 			$code = '100';
 		} else {
 			$code = '0';
+			if ($conf['db']['type'] == 'postgres') {
+				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+				$system = 'yamoney:'.$_POST['paymentType'];
+				$query = "insert into invoices (invoice, uid, sum, system) values ({$yaInvoiceId}, {$yaCustomerNumber}, {$yaOrderSumAmount}, '{$system}') returning id";
+				$result = pg_query($query);
+				$iid = pg_fetch_result($result, 0, 'id');
+				pg_free_result($result);
+				$query = "insert into log (uid, debet, client, invoice) values ({$yaInvoiceId}, {$yaOrderSumAmount}, '{$client}', {$iid})";
+				pg_query($query);
+				pg_close($db);
+			}
 		}
 
 		if ($code) {
 			$error_msg = "message=\"{$message}\" techMessage=\"{$techMessage}\"";
 		}
 
-		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" $error_msg />";
-		echo $response;
-	} elseif ($cmd == 'aviso') {
-		$yamoney_data = print_r($_POST, true);
-		file_put_contents('aviso.log', $yamoney_data);
+		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$yaInvoiceId}\" shopId=\"{$yaShopId}\" {$error_msg} />";
+	} 
+	elseif ($cmd == 'aviso') 
+	{
+		if ($md5 != $_POST['md5']) {
+			$code = '1';
+		} else {
+			$code = '0';
+		}
+
+		$response .= "<paymentAvisoResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$shopId}\"/>";
 	}
+	echo $response;
 	exit();
 }
 

@@ -1280,8 +1280,6 @@ function getUserLogs($limit = 100, $offset = 0) {
 		}
 		pg_free_result($result);
 		pg_close($db);
-		print_r($logs_data);
-		die();
 		return $logs_data;
 	}
 }

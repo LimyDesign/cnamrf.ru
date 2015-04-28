@@ -813,31 +813,31 @@ function yandexPayments($cmd) {
 
 	switch ($_POST['paymentType']) {
 		case 'PC':
-			$client = 'Оплата из кошелька в Яндекс.Деньгах.';
+			$client = 'Яндекс.Деньги: Счет № ';
 			break;
 		case 'AC':
-			$client = 'Оплата с произвольной банковской карты.';
+			$client = 'Банковская карта: Счет № ';
 			break;
 		case 'MC':
-			$client = 'Платеж со счета мобильного телефона.';
+			$client = 'Мобильный телефон: Счет № ';
 			break;
 		case 'GP':
-			$client = 'Оплата наличными через кассы и терминалы.';
+			$client = 'Наличные: Счет № ';
 			break;
 		case 'WM':
-			$client = 'Оплата из кошелька в системе WebMoney.';
+			$client = 'WebMoney: Счет № ';
 			break;
 		case 'SB':
-			$client = 'Оплата через Сбербанк: оплата по SMS или Сбербанк Онлайн.';
+			$client = 'Сбербанк: Счет № ';
 			break;
 		case 'AB':
-			$client = 'Оплата через Альфа-Клик.';
+			$client = 'Альфа-Клик: Счет № ';
 			break;
 		case 'МА':
-			$client = 'Оплата через MasterPass.';
+			$client = 'MasterPass: Счет № ';
 			break;
 		case 'PB':
-			$client = 'Оплата через Промсвязьбанк.';
+			$client = 'Промсвязьбанк: Счет № ';
 			break;
 	}
 

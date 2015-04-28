@@ -800,10 +800,13 @@ function yandexPayments($cmd) {
 		$performedDatetime = date(DATE_W3C);
 		$shopId = $conf['payments']['ShopID'];
 		$shopPassword = $conf['payments']['ShopPassword'];
-		if ($shopId != $_POST['invoiceId'])
+		if ($shopId != $_POST['invoiceId']) {
 			$code = '100';
-		else 
+			$message = 'Что-то пошло не так!';
+			$techMessage = 'Вернитесь назад и попробуйте снова. Возможно на этапе проведения платежа потерялось часть данных.';
+		} else {
 			$code = '0';
+		}
 		$invoiceId = $_POST['invoiceId'];
 
 		$checkOrderStr = array(
@@ -818,7 +821,12 @@ function yandexPayments($cmd) {
 		$md5 = md5(implode(';', $checkOrderStr));
 
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" message=\"Нам денег не надо!\" techMessage=\"Идите гуляйте! Хватит задродствовать! А мы и так справимся, без твоих денег!\"/>";
+		
+		if ($code) {
+			$error_msg = "message=\"{$message}\" techMessage=\"{$techMessage}\"";
+		}
+
+		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" $error_msg />";
 		echo $response;
 	}
 	exit();

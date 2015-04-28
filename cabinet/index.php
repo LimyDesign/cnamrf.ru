@@ -829,7 +829,7 @@ function yandexPayments($cmd) {
 
 		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" $error_msg />";
 		echo $response;
-	} elseif ($cmd == 'check') {
+	} elseif ($cmd == 'aviso') {
 		$yamoney_data = print_r($_POST, true);
 		file_put_contents('aviso.log', $yamoney_data);
 	}

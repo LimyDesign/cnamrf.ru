@@ -890,7 +890,7 @@ function yandexPayments($cmd) {
 			$uid = pg_fetch_result($result, 0, 'uid');
 			$invoice = pg_fetch_result($result, 0, 'invoice');
 			$sum = pg_fetch_result($result, 0, 'sum');
-			pg_free_result($result)
+			pg_free_result($result);
 			if ($iid) {
 				$checkOrderStr = array(
 					$yaAction,

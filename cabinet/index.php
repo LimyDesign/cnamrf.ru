@@ -909,6 +909,8 @@ function yandexPayments($cmd) {
 					$query = "insert into log (uid, debet, client, invoice) values ({$uid}, {$sum}, '{$client}', {$iid}";
 					pg_query($query);
 				}
+			} else {
+				$code = '200';
 			}
 			pg_close($db);
 		}

@@ -795,8 +795,6 @@ function yandexPayments($cmd) {
 	global $conf;
 	if ($cmd == 'check')
 	{
-		$yamoney_data = print_r($_POST, true);
-		file_put_contents('yamoney.log', $yamoney_data);
 		header('Content-Type: application/xml');
 		
 		$performedDatetime = date(DATE_W3C);
@@ -816,7 +814,6 @@ function yandexPayments($cmd) {
 			$_POST['customerNumber'],
 			$shopPassword);
 		$md5 = strtoupper(md5(implode(';', $checkOrderStr)));
-		file_put_contents('yamoney.log', $md5 . "\n" . implode(';', $checkOrderStr) . "\n", FILE_APPEND);
 
 		$response .= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 		
@@ -832,6 +829,9 @@ function yandexPayments($cmd) {
 
 		$response .= "<checkOrderResponse performedDatetime=\"{$performedDatetime}\" code=\"{$code}\" invoiceId=\"{$invoiceId}\" shopId=\"{$_POST['shopId']}\" $error_msg />";
 		echo $response;
+	} elseif ($cmd == 'check') {
+		$yamoney_data = print_r($_POST, true);
+		file_put_contents('aviso.log', $yamoney_data);
 	}
 	exit();
 }

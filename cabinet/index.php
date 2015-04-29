@@ -771,7 +771,7 @@ function getInvoiceList($limit = 100, $offset = 0) {
 	if ($_SESSION['is_admin'] == 't') {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select invoices.id, invoices.invoice, invoices.sum, invoices.addtime, invoices.system, users.company, log.invoice as accept from invoices left join users on invoices.uid = users.id left join log on invoices.id = log.invoice order by addtime desc limit {$limit} offset {$offset}";
+			$query = "select invoices.id, invoices.invoice, invoices.sum, invoices.addtime, invoices.system, users.company, log.invoice as accept from invoices left join users on invoices.uid = users.id left join log on invoices.id = log.invoice where system = 'bank' order by addtime desc limit {$limit} offset {$offset}";
 			$result = pg_query($query);
 			$invoices_data = array(); $i++;
 			while ($row = pg_fetch_assoc($result)) {

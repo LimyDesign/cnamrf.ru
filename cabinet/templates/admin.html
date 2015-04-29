@@ -122,11 +122,22 @@
 					<a href="/cabinet/updateCityBase" class="btn btn-lg btn-primary">Актуализировать справочник</a>
 				</div>
 				<table class="table table-responsive table-hover">
-					<tr>
-						<th>№</th>
-						<th>Город</th>
-						<th>Дата добавления</th>
-					</tr>
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Город</th>
+							<th>Дата добавления</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for city in city_datas %}
+							<tr>
+								<td>{{city|keys}}</td>
+								<td>{{city.name}}</td>
+								<td>{{city.date}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
 				</table>
 			</div>
 		</div>

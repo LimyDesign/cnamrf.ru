@@ -121,6 +121,7 @@ if ($_SESSION['auth'] === true)
 				$tariff_datas = getTariffList();
 				$users_data = getUserList();
 				$invoices_data = getInvoiceList();
+				$city_datas = getCityList();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
@@ -130,6 +131,7 @@ if ($_SESSION['auth'] === true)
 					'tariff_datas' => $tariff_datas,
 					'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
+					'city_datas' => $city_datas,
 					));
 				break;
 			case 'tariff':
@@ -733,6 +735,23 @@ function getTariffPrice($code) {
 		pg_close($db);
 	}
 	return $price;
+}
+
+function getCityList() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select * from cities";
+		$result = pg_query($query);
+		$cities = array(); $i = 1;
+		while ($row = pg_fetch_assoc($result)) {
+			$cities[$i]['id'] = $row['id'];
+			$cities[$i]['name'] = $row['name'];
+			$cities[$i]['date'] = $row['modtime'];
+			$i++;
+		}
+	}
+	return $cities;
 }
 
 function acceptInvoice($num) {

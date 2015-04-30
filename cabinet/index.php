@@ -758,7 +758,7 @@ function getCityList() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres') {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select * from cities";
+		$query = "select * from cities order by name asc";
 		$result = pg_query($query);
 		$cities = array(); $i = 1;
 		while ($row = pg_fetch_assoc($result)) {

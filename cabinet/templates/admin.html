@@ -137,9 +137,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for city in city_datas %}
+						{% for key, city in city_datas %}
 							<tr>
-								<td>{{city.index}}</td>
+								<td>{{key}}</td>
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
 							</tr>

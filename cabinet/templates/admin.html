@@ -117,9 +117,16 @@
 			</div>
 			<div class="tab-pane" id="2gis-city" role="tabpanel">
 				<h3>Города присутствия 2ГИС</h3>
+				{% if total_import and total_insert %}
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+						Итого получено из спрвочника 2ГИС: <span class="badge">{{total_import}}</span><br>
+						Итого внесено новых в базу CNAM РФ: <span class="badge">{{total_insert}}</span>
+					</div>
+				{% endif %}
 				<p>В сязи с тем, что 2ГИС считает все обращения к своему справочнику, то для сокращения росходов нашей компании необходимо поддерживать актуальный список городов присутствия справочника 2ГИС. Этот список не редактируемый, его можно только актуализировать. Актуализация разрешена только в том случае, когда справочник официально объявит о добавлении нового города! Не тыкайте кнопку «Актуализировать справочник», если вы не уверены в том, что справочник действительно был расширен компанией 2ГИС.</p>
 				<div class="well text-center">
-					<a href="/cabinet/updateCityBase" class="btn btn-lg btn-primary">Актуализировать справочник</a>
+					<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary">Актуализировать справочник</a>
 				</div>
 				<table class="table table-responsive table-hover">
 					<thead>
@@ -132,7 +139,7 @@
 					<tbody>
 						{% for city in city_datas %}
 							<tr>
-								<td>{{city|keys}}</td>
+								<td>{{city.index}}</td>
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
 							</tr>

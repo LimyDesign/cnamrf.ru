@@ -82,6 +82,9 @@ switch ($cmd[0]) {
 	case 'withdrawInvoice':
 		withdrawInvoice($cmd[1]);
 		break;
+	case 'updateCityBase':
+		getCityFrom2GIS();
+		break;
 	case 'addPhone':
 		check_auth();
 		addPhone();
@@ -132,6 +135,8 @@ if ($_SESSION['auth'] === true)
 					'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
 					'city_datas' => $city_datas,
+					'total_import' => $_GET['total'],
+					'total_insert' => $_GET['total_insert']
 					));
 				break;
 			case 'tariff':
@@ -735,6 +740,18 @@ function getTariffPrice($code) {
 		pg_close($db);
 	}
 	return $price;
+}
+
+function getCityFrom2GIS() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select apikey from users where id = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		$apikey = pg_fetch_result($result, 0, 0);
+		$result = json_decode(file_get_contents('http://api.cnamrf.ru/get2GisCities/?apikey='.$apikey));
+	}
+	header("Location: /cabinet/admin/?total={$result->total}&total_insert={$result->total_insert}#2gis-city");
 }
 
 function getCityList() {

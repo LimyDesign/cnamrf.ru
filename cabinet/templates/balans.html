@@ -7,8 +7,7 @@
 	<div class="panel panel-warning">
 		<div class="panel-heading">Физическим лицам</div>
 		<div class="panel-body">
-			{# <form action="https://money.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform"> #}
-			<form action="https://demomoney.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform">
+			<form action="https://money.yandex.ru/eshop.xml" method="post" class="form-horizontal" id="yapayform">
 				{% if fail %}
 					<div class="alert alert-danger alert-dismissible" role="alert">
 						<button class="close" type="button" data-dismiss="alert" aria-label="Закрыть">
@@ -150,7 +149,7 @@
 		$('#invoice').number(true, 2, '.', ' ')
 		$('#yapayform').submit(function(e){
 			$('#sum').number(true, 2, '.', '')
-			if ($('#sum').val() >= 100)
+			if ($('#sum').val() >= 1)
 			{
 				return true
 			}

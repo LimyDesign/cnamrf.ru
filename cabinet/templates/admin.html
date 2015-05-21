@@ -155,34 +155,17 @@
 				<h3>Асоциативный массив рубрик</h3>
 				<p>Т.к. в CMR Битрикс24 довольно ограниченный список сфер деятельности компаний, а в 2ГИС довольно широкий список рубрик, то для заполнения карточки компании требуется некоторая человеческая составляющая. Для того, чтобы система автоматически выбирала нужную сферу деятельности компации, необходимо проставить наиболее подходящие сферы деятельности для ключевых рубрик 2ГИС. Обычно их не много для каждого города. Выбирайте город и выбирайте нужную сферу деятельности.</p>
 				<div class="well text-center">
-					<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary">Актуализировать справочник</a>
-					<br><br>В базе городов 2ГИС: <span class="badge">{{city_datas|length}}</span>
+					<form action="/updateRubricsList/" class="form-inline" method="post">
+						<div class="form-group">
+							<label for="selectCityRubrics" class="sr-only">Город</label>
+							<select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
+								{% for city in city_datas %}
+									<option value="{{city.id}}">{{city.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</form>
 				</div>
-				{% if total_import %}
-					<div class="alert alert-warning alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-						Итого получено из спрвочника 2ГИС: <span class="badge">{{total_import}}</span><br>
-						Итого внесено новых в базу CNAM РФ: <span class="badge">{{total_insert}}</span>
-					</div>
-				{% endif %}
-				<table class="table table-responsive table-hover">
-					<thead>
-						<tr>
-							<th>№</th>
-							<th>Город</th>
-							<th>Дата добавления</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for key, city in city_datas %}
-							<tr>
-								<td>{{key}}</td>
-								<td>{{city.name}}</td>
-								<td>{{city.date}}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
 			</div>
 		</div>
 	</div>

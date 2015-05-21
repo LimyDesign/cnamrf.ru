@@ -774,10 +774,10 @@ function getCityList() {
 	return $cities;
 }
 
-function getRubricList($city_id) {
+function getRubricList($city_id = 0) {
 	global $conf;
 	$rubrics = array();
-	if ($city_id) {
+	if ($city_id > 0) {
 		if (is_numeric($city_id)) {
 			if ($conf['db']['type'] == 'postgres') {
 				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());

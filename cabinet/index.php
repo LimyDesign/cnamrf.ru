@@ -783,10 +783,9 @@ function getRubricList($city_id) {
 			$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id}";
 			$result = pg_query($query);
 			while ($row = pg_fetch_assoc($result)) {
-				$rubrics['id'][] = $row['id'];
-				$rubrics['name'][] = $row['name'];
-				$rubrics['industry'][] = $row['industry'];
-				$rubrics['code'][] = $row['code'];
+				$rubrics[$row['id']]['name'] = $row['name'];
+				$rubrics[$row['id']]['industry'] = $row['industry'];
+				$rubrics[$row['id']]['code'] = $row['code'];
 			}
 		}
 	}

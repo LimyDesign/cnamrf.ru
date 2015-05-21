@@ -327,7 +327,7 @@
 			$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 				$('#tableRubrics tbody').find('tr').remove()
 				var industry_select = ''
-				data.industry.forEach(function(entry) {
+				data.industries.forEach(function(entry) {
 					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 				})
 				data.rubrics.forEach(function(entry) {

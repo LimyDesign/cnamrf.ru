@@ -774,29 +774,12 @@ function getCityList() {
 	return $cities;
 }
 
-function getRubricList($city_id = 0) {
+function getRubricList($city_id) {
 	global $conf;
 	$rubrics = array();
-	if ($city_id > 0) {
-		if (is_numeric($city_id)) {
-			if ($conf['db']['type'] == 'postgres') {
-				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-				$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id}";
-				$result = pg_query($query);
-				while ($row = pg_fetch_assoc($result)) {
-					$rubrics[]['id'] = $row['id'];
-					$rubrics[]['name'] = $row['name'];
-					$rubrics[]['industry'] = $row['industry'];
-					$rubrics[]['code'] = $row['code'];
-				}
-			}
-		}
-	} else {
+	if (is_numeric($city_id)) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select id from cities order by name asc limit 1";
-			$result = pg_query($query);
-			$city_id = pg_fetch_result($result, 0, 'id');
 			$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id}";
 			$result = pg_query($query);
 			while ($row = pg_fetch_assoc($result)) {

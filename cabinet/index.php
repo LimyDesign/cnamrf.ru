@@ -782,10 +782,13 @@ function getRubricList($city_id) {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id}";
 			$result = pg_query($query);
+			$i = 0;
 			while ($row = pg_fetch_assoc($result)) {
-				$rubrics[$row['id']]['name'] = $row['name'];
-				$rubrics[$row['id']]['industry'] = $row['industry'];
-				$rubrics[$row['id']]['code'] = $row['code'];
+				$rubrics[$i]['id'] = $row['id'];
+				$rubrics[$i]['name'] = $row['name'];
+				$rubrics[$i]['industry'] = $row['industry'];
+				$rubrics[$i]['code'] = $row['code'];
+				$i++;
 			}
 		}
 	}

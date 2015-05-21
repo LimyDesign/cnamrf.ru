@@ -164,7 +164,9 @@
 								{% endfor %}
 							</select>
 						</div>
-						<button class="btn btn-primary">Импортировать из 2ГИС</button>
+						{% if rubrics %}
+							<button class="btn btn-primary">Импортировать из 2ГИС</button>
+						{% endif %}
 					</form>
 				</div>
 			</div>

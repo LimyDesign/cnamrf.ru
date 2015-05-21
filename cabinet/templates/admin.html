@@ -314,12 +314,10 @@
 			var city_id = $(this).val()
 			if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
-					console.log('data:',data);
 					$('#tableRubrics tbody').find('tr').remove()
 					data.result.forEach(function(entry) {
-						console.log(entry)
+						$('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>'+data.industry+'</td>')
 					})
-					// $('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
 				})
 			}
 		})
@@ -329,9 +327,8 @@
 			$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 				$('#tableRubrics tbody').find('tr').remove()
 				data.result.forEach(function(entry) {
-					console.log(entry)
+					$('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>'+data.industry+'</td>')
 				})
-				// $('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
 			})
 		})
 

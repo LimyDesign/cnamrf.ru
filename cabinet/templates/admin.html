@@ -17,6 +17,9 @@
 			<li role="presentation">
 				<a href="#2gis-city" aria-controls="2gis-city" role="tab" data-toggle="tab">Города 2ГИС</a>
 			</li>
+			<li role="presentation">
+				<a href="#2gis-rubrics" aria-controls="2gis-rubrics" role="tab" data-toggle="tab">Рубрики</a>
+			</li>
 		</ul>
 
 		<div class="tab-content">
@@ -118,6 +121,39 @@
 			<div class="tab-pane" id="2gis-city" role="tabpanel">
 				<h3>Города присутствия 2ГИС</h3>
 				<p>В сязи с тем, что 2ГИС считает все обращения к своему справочнику, то для сокращения росходов нашей компании необходимо поддерживать актуальный список городов присутствия справочника 2ГИС. Этот список не редактируемый, его можно только актуализировать. Актуализация разрешена только в том случае, когда справочник официально объявит о добавлении нового города! Не тыкайте кнопку «Актуализировать справочник», если вы не уверены в том, что справочник действительно был расширен компанией 2ГИС.</p>
+				<div class="well text-center">
+					<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary">Актуализировать справочник</a>
+					<br><br>В базе городов 2ГИС: <span class="badge">{{city_datas|length}}</span>
+				</div>
+				{% if total_import %}
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+						Итого получено из спрвочника 2ГИС: <span class="badge">{{total_import}}</span><br>
+						Итого внесено новых в базу CNAM РФ: <span class="badge">{{total_insert}}</span>
+					</div>
+				{% endif %}
+				<table class="table table-responsive table-hover">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Город</th>
+							<th>Дата добавления</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for key, city in city_datas %}
+							<tr>
+								<td>{{key}}</td>
+								<td>{{city.name}}</td>
+								<td>{{city.date}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="tab-pane" id="2gis-rubrics" role="tabpanel">
+				<h3>Асоциативный массив рубрик</h3>
+				<p>Т.к. в CMR Битрикс24 довольно ограниченный список сфер деятельности компаний, а в 2ГИС довольно широкий список рубрик, то для заполнения карточки компании требуется некоторая человеческая составляющая. Для того, чтобы система автоматически выбирала нужную сферу деятельности компации, необходимо проставить наиболее подходящие сферы деятельности для ключевых рубрик 2ГИС. Обычно их не много для каждого города. Выбирайте город и выбирайте нужную сферу деятельности.</p>
 				<div class="well text-center">
 					<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary">Актуализировать справочник</a>
 					<br><br>В базе городов 2ГИС: <span class="badge">{{city_datas|length}}</span>

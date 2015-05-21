@@ -311,7 +311,7 @@
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
 		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-			console.log(e.target)
+			console.log(e.relatedTarget)
 		})
 
 		$('#selectCityRubrics').change(function() {

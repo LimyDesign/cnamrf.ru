@@ -310,7 +310,7 @@
 		var hash = window.location.hash
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
-		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			console.log(e.target)
 		})
 

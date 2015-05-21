@@ -164,11 +164,19 @@
 								{% endfor %}
 							</select>
 						</div>
-						{% if not rubrics %}
-							<button class="btn btn-primary">Импортировать из 2ГИС</button>
-						{% endif %}
+						<button class="btn btn-primary">Импортировать из 2ГИС</button>
 					</form>
 				</div>
+				<table class="table table-responsive table-hover" id="tableRubrics">
+					<thead>
+						<tr>
+							<th>Родительская рубрика 2ГИС</th>
+							<th>Сфера деятельности в CRM Битрикс24</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -302,6 +310,18 @@
 		var hash = window.location.hash
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			console.log(e.target)
+		})
+
+		$('#selectCityRubrics').change(function() {
+			var city_id = $(this).val()
+			$.get('/getRubricList/'+city_id+'/', function(data) {
+				$('#tableRubrics').find('tbody').remove();
+				$('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td>')
+			})
+		})
+
 		$('#addEditTariff').modal({
 			keyboard: false,
 			backdrop: false,
@@ -415,7 +435,6 @@
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
 		})
-
 	})
 	</script>
 {% endblock %}

@@ -790,10 +790,21 @@ function getRubricList($city_id) {
 				$rubrics[$i]['code'] = $row['code'];
 				$i++;
 			}
+			$query = "select * from industry";
+			$result = pg_query($query);
+			$i = 0;
+			while ($row = pg_fetch_assoc($result)) {
+				$industries[$i]['id'] = $row['id'];
+				$industries[$i]['name'] = $row['name'];
+				$industries[$i]['code'] = $row['code'];
+				$i++;
+			}
+			pg_free_result($result);
+			pg_close($db);
 		}
 	}
 	header("Content-Type: text/json");
-	echo json_encode(array('result' => $rubrics));
+	echo json_encode(array('rubrics' => $rubrics, 'industries' => $industries));
 	exit();
 }
 

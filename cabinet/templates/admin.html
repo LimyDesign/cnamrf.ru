@@ -314,8 +314,11 @@
 			var city_id = $(this).val()
 			if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/getRubricList/', function(data) {
-					$('#tableRubrics').find('tbody').remove()
-					$('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
+					$('#tableRubrics tbody').find('tr').remove()
+					data.result.forEach(function(entry) {
+						console.log(entry)
+					})
+					// $('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
 				})
 			}
 		})
@@ -323,8 +326,11 @@
 		$('#selectCityRubrics').change(function() {
 			var city_id = $(this).val()
 			$.get('/getRubricList/'+city_id+'/', function(data) {
-				$('#tableRubrics').find('tbody').remove()
-				$('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
+				$('#tableRubrics tbody').find('tr').remove()
+				data.result.forEach(function(entry) {
+					console.log(entry)
+				})
+				// $('#tableRubrics').find('tbody').append('<tr><td>'+data.name+'</td><td>1</td>')
 			})
 		})
 

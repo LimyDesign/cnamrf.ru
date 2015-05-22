@@ -337,10 +337,7 @@
 				rubric_id: id,
 				industry_id: code
 			}
-			console.log(formData)
-			$.post('/cabinet/updateRubric/', formData, function(data) {
-				console.log(data)
-			}).done(function() {
+			$.post('/cabinet/updateRubric/', formData).done(function() {
 				$this.parent().parent().find('#btn-name').text(text)
 			})
 		})

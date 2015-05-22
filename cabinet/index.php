@@ -808,9 +808,14 @@ function updateRubric($rubric_id, $industry_id) {
 	if ($_SESSION['is_admin'] == 't' && is_numeric($rubric_id) && is_numeric($industry_id)) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "update rubrics set industry_id = {$industry_id} where name = (select name from rubrics where id = {$rubric_id});";
+			$query = "select name from rubrics where id = {$rubric_id}";
+			$result = pg_query($query);
+			$name = pg_fetch_result($result, 0, 'name');
+			$query = "update rubrics set industry_id = {$industry_id} where name = '{$name}'";
 			$result = pg_query($query);
 			$return = pg_fetch_result($result, 0, 0);
+			pg_free_result($result);
+			pg_close($db);
 			echo $return;
 		}
 	}

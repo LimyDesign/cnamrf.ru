@@ -355,7 +355,7 @@
 				$('#tableRubrics tbody').find('tr').remove();
 				var industry_select = ''
 				data.industries.forEach(function(entry) {
-					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
+					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>'
 				})
 				data.rubrics.forEach(function(entry, index) {
 					index++;
@@ -373,7 +373,7 @@
 				$('#tableRubrics tbody').find('tr').remove()
 				var industry_select = ''
 				data.industries.forEach(function(entry) {
-					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
+					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>'
 				})
 				data.rubrics.forEach(function(entry, index) {
 					index++;

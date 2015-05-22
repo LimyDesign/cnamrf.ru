@@ -329,7 +329,11 @@
 		})
 
 		$('#tableRubrics').on('click', 'ul[role="menu"]', function() {
-			console.log($(this).attr('id'))
+			var id = $(this).attr('id');
+			$(this).on('click', 'li', function() {
+				var code = $(this).attr('id')
+				console.log(id + ': ' + code)
+			})
 		})
 
 		$('#updateRubricsForm').submit(function(e) {

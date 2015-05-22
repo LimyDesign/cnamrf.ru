@@ -809,6 +809,7 @@ function updateRubric($rubric_id, $industry_id) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$query = "update rubrics set industry_id = {$industry_id} where name = '(select name from rubrics where id = {$rubric_id})'";
+			echo $query; die();
 			pg_query($query);
 		}
 	}

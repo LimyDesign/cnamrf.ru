@@ -85,6 +85,9 @@ switch ($cmd[0]) {
 	case 'updateCityBase':
 		getCityFrom2GIS();
 		break;
+	case 'updateRubricsList':
+		updateRubricsList($cmd[1]);
+		break;
 	case 'getRubricList':
 		getRubricList($cmd[1]);
 		break;
@@ -772,6 +775,27 @@ function getCityList() {
 		}
 	}
 	return $cities;
+}
+
+function updateRubricsList($city_id) {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select apikey from users where id = {$_SESSION['userid']}";
+		$result = pg_query($query);
+		$apikey = pg_fetch_result($result, 0, 0);
+		$url = 'http://api.cnamrf.ru/get2GisRubrics/?';
+		$uri = http_build_query(array(
+			'apikey' => $apikey,
+			'city' => $city_id));
+		$result = json_decode(file_get_contents($url.$uri));
+		if (!$result->error) {
+			exec("psql {$conf['db']['database']} < /tmp/{$result->sql_dump_created}", $result_import, $result_exec);
+			if (!$result_exec) {
+				getRubricList($city_id);
+			}
+		}
+	}
 }
 
 function getRubricList($city_id) {

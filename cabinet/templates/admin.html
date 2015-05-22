@@ -155,7 +155,7 @@
 				<h3>Асоциативный массив рубрик</h3>
 				<p>Так как в CMR Битрикс24 довольно ограниченный список сфер деятельности компаний, а в 2ГИС довольно широкий список рубрик, то для заполнения карточки компании требуется некоторая человеческая составляющая. Для того, чтобы система автоматически выбирала нужную сферу деятельности компации, необходимо проставить наиболее подходящие сферы деятельности для ключевых рубрик 2ГИС. Обычно их не много для каждого города. Выбирайте город и выбирайте нужную сферу деятельности. Если по текущему городу не представлен список рубрик, то смело получайте список на выбранный город.</p>
 				<div class="well text-center">
-					<form action="/updateRubricsList/" class="form-inline" method="post">
+					<form action="/cabinet/updateRubricsList/" class="form-inline" method="post" id="updateRubricsForm">
 						<div class="form-group">
 							<label for="selectCityRubrics" class="sr-only">Город</label>
 							<select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
@@ -315,11 +315,31 @@
 			if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove()
-					data.result.forEach(function(entry) {
-						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td>'+entry.industry+'</td>')
+					var industry_select = ''
+					data.industries.forEach(function(entry) {
+						industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
+					})
+					data.rubrics.forEach(function(entry) {
+						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 					})
 				})
 			}
+		})
+
+		$('#updateRubricsForm').submit(function(e) {
+			e.preventDefault();
+			var city_id = $(this).find('#selectCityRubrics').val();
+			var action = $(this).attr('action');
+			$.get(action+city_id+'/', function(data) {
+				$('#tableRubrics tbody').find('tr').remove();
+				var industry_select = ''
+				data.industries.forEach(function(entry) {
+					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
+				})
+				data.rubrics.forEach(function(entry) {
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+				})
+			})
 		})
 
 		$('#selectCityRubrics').change(function() {

@@ -821,7 +821,7 @@ function getRubricList($city_id) {
 	if (is_numeric($city_id)) {
 		if ($conf['db']['type'] == 'postgres') {
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id}";
+			$query = "select rubrics.id, rubrics.name, industry.name as industry, industry.code from rubrics left join industry on rubrics.industry_id = industry.id where rubrics.parent_id = 0 and rubrics.city_id = {$city_id} order by rubrics.name asc";
 			$result = pg_query($query);
 			$i = 0;
 			while ($row = pg_fetch_assoc($result)) {

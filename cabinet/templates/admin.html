@@ -342,8 +342,8 @@
 					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			}).always(function() {
-				$(this).find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
-				$(this).find('select').removeAttr('disabled')
+				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
+				$('#updateRubricsForm').find('select').removeAttr('disabled')
 			})
 		})
 

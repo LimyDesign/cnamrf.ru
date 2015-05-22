@@ -311,7 +311,7 @@
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-			var city_id = $(this).val()
+			var city_id = $('#selectCityRubrics').val()
 			if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove()

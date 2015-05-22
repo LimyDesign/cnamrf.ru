@@ -329,10 +329,17 @@
 		})
 
 		$('#tableRubrics').on('click', 'li', function() {
+			var $this = $(this)
 			var id = $(this).parent().attr('id')
 			var code = $(this).children().attr('id')
 			var text = $(this).children().text()
-			$(this).parent().parent().find('#btn-name').text(text)
+			var formData = {
+				rubric_id: id,
+				industry_id: code
+			}
+			$.post('/cabinet/updateRubric/', formData).done(function() {
+				$this.parent().parent().find('#btn-name').text(text)
+			})
 		})
 
 		$('#updateRubricsForm').submit(function(e) {

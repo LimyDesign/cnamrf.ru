@@ -88,6 +88,9 @@ switch ($cmd[0]) {
 	case 'updateRubricsList':
 		updateRubricsList($cmd[1]);
 		break;
+	case 'updateRubric':
+		updateRubric($_REQUEST['rubric_id'], $_REQUEST['industry_id']);
+		break;
 	case 'getRubricList':
 		getRubricList($cmd[1]);
 		break;
@@ -784,6 +787,8 @@ function updateRubricsList($city_id) {
 		$query = "select apikey from users where id = {$_SESSION['userid']}";
 		$result = pg_query($query);
 		$apikey = pg_fetch_result($result, 0, 0);
+		pg_free_result($result);
+		pg_close($db);
 		$url = 'http://api.cnamrf.ru/get2GisRubrics/?';
 		$uri = http_build_query(array(
 			'apikey' => $apikey,
@@ -794,6 +799,17 @@ function updateRubricsList($city_id) {
 			if (!$result_exec) {
 				getRubricList($city_id);
 			}
+		}
+	}
+}
+
+function updateRubric($rubric_id, $industry_id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't' && is_numeric($rubric_id) && is_numeric($industry_id)) {
+		if ($conf['db']['type'] == 'postgres') {
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "update rubrics set industry_id = {$industry_id} where name = '(select name from rubrics where id = {$rubric_id})'";
+			pg_query($query);
 		}
 	}
 }

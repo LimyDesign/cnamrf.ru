@@ -811,7 +811,7 @@ function updateRubric($rubric_id, $industry_id) {
 			$query = "update rubrics set industry_id = {$industry_id} where name = (select name from rubrics where id = {$rubric_id}) returning *";
 			$result = pg_query($query);
 			$return = pg_fetch_result($result, 0, 0);
-			echo $return;
+			echo $query;
 		}
 	}
 	exit();

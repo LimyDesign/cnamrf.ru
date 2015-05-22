@@ -328,6 +328,10 @@
 			}
 		})
 
+		$('#tableRubrics').on('click', 'ul[role="menu"]', function() {
+			console.log($(this).attr('id'))
+		})
+
 		$('#updateRubricsForm').submit(function(e) {
 			e.preventDefault();
 			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled')

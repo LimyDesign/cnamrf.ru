@@ -322,7 +322,7 @@
 					})
 					data.rubrics.forEach(function(entry, index) {
 						index++;
-						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 					})
 				})
 			}
@@ -331,7 +331,8 @@
 		$('#tableRubrics').on('click', 'li', function() {
 			var id = $(this).parent().attr('id')
 			var code = $(this).children().attr('id')
-			console.log(id + ': ' + code)
+			var text = $(this).children().text()
+			$(this).parent().parent().find('#btn-name').text(text)
 		})
 
 		$('#updateRubricsForm').submit(function(e) {
@@ -348,7 +349,7 @@
 				})
 				data.rubrics.forEach(function(entry, index) {
 					index++;
-					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			}).always(function() {
 				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
@@ -366,7 +367,7 @@
 				})
 				data.rubrics.forEach(function(entry, index) {
 					index++;
-					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			})
 		})

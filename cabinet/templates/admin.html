@@ -321,6 +321,7 @@
 						industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 					})
 					data.rubrics.forEach(function(entry, index) {
+						index++;
 						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 					})
 				})
@@ -340,6 +341,7 @@
 					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 				})
 				data.rubrics.forEach(function(entry, index) {
+					index++;
 					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			}).always(function() {
@@ -357,6 +359,7 @@
 					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 				})
 				data.rubrics.forEach(function(entry, index) {
+					index++;
 					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			})

@@ -170,6 +170,7 @@
 				<table class="table table-responsive table-hover" id="tableRubrics">
 					<thead>
 						<tr>
+							<th>№</th>
 							<th>Родительская рубрика 2ГИС</th>
 							<th>Сфера деятельности в CRM Битрикс24</th>
 						</tr>
@@ -319,8 +320,8 @@
 					data.industries.forEach(function(entry) {
 						industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 					})
-					data.rubrics.forEach(function(entry) {
-						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+					data.rubrics.forEach(function(entry, index) {
+						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 					})
 				})
 			}
@@ -338,8 +339,8 @@
 				data.industries.forEach(function(entry) {
 					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 				})
-				data.rubrics.forEach(function(entry) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+				data.rubrics.forEach(function(entry, index) {
+					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			}).always(function() {
 				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
@@ -355,8 +356,8 @@
 				data.industries.forEach(function(entry) {
 					industry_select = industry_select + '<li><a href="#." id="'+entry.code+'">'+entry.name+'</a></li>'
 				})
-				data.rubrics.forEach(function(entry) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
+				data.rubrics.forEach(function(entry, index) {
+					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
 			})
 		})

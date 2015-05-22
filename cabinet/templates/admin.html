@@ -313,6 +313,7 @@
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var city_id = $(this).val()
 			if ($(e.target).attr('href') == '#2gis-rubrics') {
+				alert('Hoy!')
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove()
 					var industry_select = ''
@@ -328,8 +329,10 @@
 
 		$('#updateRubricsForm').submit(function(e) {
 			e.preventDefault();
-			var city_id = $(this).find('#selectCityRubrics').val();
-			var action = $(this).attr('action');
+			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled')
+			$(this).find('select').attr('disabled', 'disabled')
+			var city_id = $(this).find('#selectCityRubrics').val()
+			var action = $(this).attr('action')
 			$.get(action+city_id+'/', function(data) {
 				$('#tableRubrics tbody').find('tr').remove();
 				var industry_select = ''
@@ -339,6 +342,9 @@
 				data.rubrics.forEach(function(entry) {
 					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
 				})
+			}).done(function() {
+				$(this).find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
+				$(this).find('select').removeAttr('disabled')
 			})
 		})
 

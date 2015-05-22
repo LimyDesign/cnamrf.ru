@@ -814,6 +814,7 @@ function updateRubric($rubric_id, $industry_id) {
 			echo $return;
 		}
 	}
+	exit();
 }
 
 function getRubricList($city_id) {

@@ -1075,7 +1075,7 @@ function getModuleConnect() {
 			$count = pg_fetch_result($result, 0, 0);
 			if ($count) {
 				$return = true;
-				break();
+				break;
 			}
 		}
 	}

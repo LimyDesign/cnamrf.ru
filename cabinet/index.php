@@ -1042,7 +1042,10 @@ function yandexPayments($cmd) {
 function progtrckr($step) {
 	if ($step == 'module')
 	{
-		return 'todo';
+		if (getModuleConnect())
+			return 'done';
+		else
+			return 'todo';
 	}
 	elseif ($step == 'tariff')
 	{
@@ -1058,6 +1061,25 @@ function progtrckr($step) {
 		else
 			return 'todo';
 	}
+}
+
+function getModuleConnect() {
+	global $conf;
+	$officialModules = array('FreePBX', 'Lead4CRM');
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		foreach ($officialModules as $module) {
+			$query = "select count(client) from log where uid = {$_SESSION['userid']} and client = '{$module}'";
+			$result = pg_query($query);
+			$count = pg_fetch_result($result, 0, 0);
+			if ($count) {
+				$return = true;
+				break();
+			}
+		}
+	}
+	return $return ? $return : false;
 }
 
 function setUserCompany($company) {

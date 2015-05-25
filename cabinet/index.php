@@ -1386,7 +1386,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$userid = $_SESSION['userid'];
-		$query = "select log.phone, log.debet, log.credit, log.modtime, coalesce(log.client || invoices.invoice, log.client) as new_client, log.ip from log left join invoices on log.invoice = invoices.id where log.uid = {$userid} order by log.modtime desc limit {$limit} offset {$offset}";
+		$query = "select log.phone, log.text, log.debet, log.credit, log.modtime, coalesce(log.client || invoices.invoice, log.client) as new_client, log.ip from log left join invoices on log.invoice = invoices.id where log.uid = {$userid} order by log.modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))
@@ -1408,6 +1408,7 @@ function getUserLogs($limit = 100, $offset = 0) {
 				}
 			} else $phone = '';
 			$logs_data[$i]['phone'] = $phone;
+			$logs_data[$i]['query'] = $row['text'];
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));

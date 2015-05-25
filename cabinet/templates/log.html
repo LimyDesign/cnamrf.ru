@@ -7,7 +7,7 @@
 	<table class="table table-hover table-responsive">
 		<thead>
 			<tr>
-				<th>Номер телефона</th>
+				<th>Запрос</th>
 				<th>Дебет</th>
 				<th>Кредит</th>
 				<th>Клиентская система</th>
@@ -18,7 +18,7 @@
 		<tbody>
 			{% for log_data in logs_data %}
 				<tr>
-					<td nowrap>{{ log_data.phone }}</td>
+					<td nowrap>{{ log_data.phone }}{{ log_data.query }}</td>
 					<td nowrap class="text-success text-right">
 						{% if log_data.debet in '0.00' %}
 						{% else %}

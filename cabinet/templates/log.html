@@ -35,4 +35,15 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	{% if pages.totalPage > 1 %}
+		<nav>
+			<ul class="pagination">
+				{% for page in 1..pages.totalPages %}
+					<li{{page == pages.currentPage ? ' class="active"'}}>
+						<a href="/cabinet/log/{{page}}">{{page}}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	{% endif %}
 {% endblock %}

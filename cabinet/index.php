@@ -238,14 +238,17 @@ if ($_SESSION['auth'] === true)
 					));
 				break;
 			case 'log':
-				$logs = getUserLogs();
+				$userSelectPage = filter_var($cmd[1], FILTER_VALIDATE_INT);
+				$logs = getUserLogs(100, ($userSelectPage ? 100 * ($userSelectPage + 1) : 0));
+				$pages = getLogsPages();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('log.html', array(
 					'log' => true,
 					'timer' => $timer,
 					'is_admin' => $is_admin,
-					'logs_data' => $logs
+					'logs_data' => $logs,
+					'pages' => array('totalPages' => $pages, 'currentPage' => $userSelectPage)
 					));
 				break;
 			case 'support':
@@ -1420,6 +1423,21 @@ function getUserLogs($limit = 100, $offset = 0) {
 		pg_close($db);
 		return $logs_data;
 	}
+}
+
+function getLogsPages() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres')
+	{
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$userid = $_SESSION['userid'];
+		$query = "select count(uid) where uid = {$userid}";
+		$result = pg_query($query);
+		$countRows = pg_fetch_result($result, 0, 0);
+	}
+	pg_free_result($result);
+	pg_close($db);
+	return round($countRows / 100);
 }
 
 function newAPIKey() {

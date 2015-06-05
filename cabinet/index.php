@@ -654,6 +654,7 @@ function getTariffList() {
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 		$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+		$domain = preg_replace('/^www\./', '', $domain);
 		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
 		$result = pg_query($query);
 		$tariffInfo = array();

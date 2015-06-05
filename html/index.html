@@ -1,3 +1,4 @@
+{% spaceless %}
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -14,6 +15,12 @@
 		</noscript>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<script src="//yastatic.net/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/js/jquery.scrolly.min.js"></script>
+		<script src="/js/jquery.scrollzer.min.js"></script>
+		<script src="/js/skel.min.js"></script>
+		<script src="/js/skel-layers.min.js"></script>
+		<script src="/js/init.js"></script>
 	</head>
 	<body>
 
@@ -45,7 +52,7 @@
 
 					<!-- Social Icons -->
 						<ul class="icons">
-							<li><a href="https://cnamrf.ru/cabinet/" class="icon fa-sign-in" id="sidebarEnter"><span class="label">Вход</span></a></li>
+							<li><a href="/cabinet/" class="icon fa-sign-in" id="sidebarEnter"><span class="label">Вход</span></a></li>
 							<li><a href="mailto:hello@cnamrf.ru" class="icon fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 				
@@ -66,7 +73,7 @@
 							</header>
 							
 							<footer>
-								<a href="https://cnamrf.ru/cabinet/" class="button" id="mainEnter">Регистрация / Авторизация</a>
+								<a href="/cabinet/" class="button" id="mainEnter">Регистрация / Авторизация</a>
 							</footer>
 
 						</div>
@@ -245,10 +252,5 @@
 				<!-- Yandex.Metrika informer --><a href="https://metrika.yandex.ru/stat/?id=29833764&amp;from=informer" target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/29833764/3_1_FFFFFFFF_EFEFEFFF_0_pageviews" style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:29833764,lang:'ru'});return false}catch(e){}"/></a><!-- /Yandex.Metrika informer --><!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter29833764 = new Ya.Metrika({id:29833764, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/29833764" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 			</div>
 	</body>
-	<script src="//yastatic.net/jquery/1.11.1/jquery.min.js"></script>
-	<script src="js/jquery.scrolly.min.js"></script>
-	<script src="js/jquery.scrollzer.min.js"></script>
-	<script src="js/skel.min.js"></script>
-	<script src="js/skel-layers.min.js"></script>
-	<script src="js/init.js"></script>
 </html>
+{% endspaceless %}

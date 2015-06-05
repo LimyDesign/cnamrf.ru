@@ -12,7 +12,7 @@ function run() {
 	}
 	$config = json_decode(file_get_contents($config_filename), true);
 
-	$postBody = $_POST['payload'];
+	$postBody = $_POST['payload'] ?: $argv[1];
 	$payload = json_decode($postBody);
 
 	if (isset($config['email'])) {

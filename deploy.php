@@ -28,7 +28,7 @@ function run() {
 	$first_ip = sprintf("%u", $ips_data['first_host']);
 	$last_ip = sprintf("%u", $ips_data['last_host']);
 	$webhook_ip = sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']));
-	if ($last_ip > $webhook_ip && $webhook_ip > $first_ip) {
+	// if ($last_ip > $webhook_ip && $webhook_ip > $first_ip) {
 		foreach ($config['endpoints'] as $endpoint) {
 			// check if the push came from the right repository and branch
 			if ($payload->repository->url == 'https://github.com/'.$endpoint['repo'] &&
@@ -54,9 +54,9 @@ function run() {
 				return $output;
 			}
 		}
-	} else {
-		throw new Exception("This does not appear to be a valid requests from Github. Webhook from IP: " . $_SERVER['REMOTE_ADDR'], 2);
-	}
+	// } else {
+	// 	throw new Exception("This does not appear to be a valid requests from Github. Webhook from IP: " . $_SERVER['REMOTE_ADDR'], 2);
+	// }
 }
 
 function v4CIDRtoMask($cidr) {

@@ -327,7 +327,7 @@
 
 		$('#changeDomain').change(function() {
 			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
-				console.dir(data);
+				console.log(data);
 			});
 		});
 

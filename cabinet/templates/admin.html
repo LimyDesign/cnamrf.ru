@@ -565,15 +565,17 @@
 
 		$('#addManualCity').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
-			var action = button.data('tariff-action')
+			var action = button.data('city-action')
 			var modal = $(this)
 			if (action == 'edit')
 			{
-
+				var id = button.data('city-id')
+				var name = button.data('city-name')
 			}
 			else
 			{
 				modal.find('.modal-title').text('Добавление нового города')
+				modal.find('.modal-body input#cityName').val('')
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/addTariff/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')

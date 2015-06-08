@@ -572,7 +572,7 @@
 				var id = button.data('city-id')
 				var name = button.data('city-name')
 				modal.find('.modal-title').text('Редактирование города «' + name + '»')
-				modal.find('.modal-body input#cityName').val(name).attr('autofocus','true')
+				modal.find('.modal-body input#cityName').val(name).attr('autofocus','autofocus')
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeCity/' + id + '/')
 				modal.find('#action').text('Сохранить')
 				modal.find('#delete').attr('href', '/cabinet/deleteCity/' + id + '/')
@@ -581,7 +581,7 @@
 			else
 			{
 				modal.find('.modal-title').text('Добавление нового города')
-				modal.find('.modal-body input#cityName').val('').attr('autofocus','true')
+				modal.find('.modal-body input#cityName').val('').attr('autofocus','autofocus')
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')

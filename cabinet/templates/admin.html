@@ -591,6 +591,10 @@
 		})
 	})
 
+	$('#addManualCity').on('shown.bs.modal', function() {
+		$(this).find('.modal-body input#cityName').focus()
+	})
+
 	function forEachTariff(data, callback) {
 		for (var key in data) {
 			if (data.hasOwnProperty(key)) {

@@ -781,6 +781,7 @@ function getCityList() {
 			$cities[$i]['id'] = $row['id'];
 			$cities[$i]['name'] = $row['name'];
 			$cities[$i]['date'] = $row['modtime'];
+			$cities[$i]['manual'] = $row['manual'];
 			$i++;
 		}
 	}

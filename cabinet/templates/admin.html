@@ -155,6 +155,7 @@
 							<th>№</th>
 							<th>Город</th>
 							<th>Дата добавления</th>
+							<ht></ht>
 						</tr>
 					</thead>
 					<tbody>
@@ -163,6 +164,11 @@
 								<td>{{key}}</td>
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
+								<td>
+									{% if city.manual in 't' %}
+										<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
+									{% endif %}
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -327,33 +333,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
+					<h4 class="modal-title" id="adminModalLabel">Добавление нового города</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addTariff/" method="post" id="addEditTariffForm">
+					<form action="/cabinet/addManualCity/" method="post" id="addManualCityForm">
 						<div class="form-group">
-							<label for="tariffName" class="control-label">Название тарифа (text):</label>
-							<input type="text" class="form-control" id="tariffName" name="tariffName">
-						</div>
-						<div class="form-group">
-							<label for="tariffCode" class="control-label">Код тарифа (latin):</label>
-							<input type="text" class="form-control" id="tariffCode" name="tariffCode">
-						</div>
-						<div class="form-group">
-							<label for="tariffDescription" class="control-label">Описание тарифа (html):</label>
-							<textarea name="tariffDescription" id="tariffDescription" class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="tariffPrice" class="control-label">Цена 1 запроса (numeric):</label>
-							<input type="text" class="form-control" id="tariffPrice" name="tariffPrice">
-						</div>
-						<div class="form-group">
-							<label for="tariffQty" class="control-label">Кол-во запросов в пакете (numeric):</label>
-							<input type="text" class="form-control" id="tariffQty" name="tariffQty">
-						</div>
-						<div class="form-group">
-							<label for="tariffSum" class="control-label">Стоимость тарифа (numeric):</label>
-							<input type="text" class="form-control" id="tariffSum" name="tariffSum">
+							<label for="cityName" class="control-label">Название города (text):</label>
+							<input type="text" class="form-control" id="cityName" name="cityName">
 						</div>
 					</form>
 				</div>

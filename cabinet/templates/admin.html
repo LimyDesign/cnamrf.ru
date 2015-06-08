@@ -336,7 +336,7 @@
 					<h4 class="modal-title" id="adminModalLabel">Добавление нового города</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/cabinet/addManualCity/" method="post" id="addManualCityForm">
+					<form method="post" id="addManualCityForm">
 						<div class="form-group">
 							<label for="cityName" class="control-label">Название города (text):</label>
 							<input type="text" class="form-control" id="cityName" name="cityName">
@@ -511,7 +511,7 @@
 				modal.find('.modal-body input#tariffPrice').val('')
 				modal.find('.modal-body input#tariffQty').val('')
 				modal.find('.modal-body input#tariffSum').val('')
-				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/')
+				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addManualCity/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')
 				modal.find('#delete').hide()
@@ -561,6 +561,25 @@
 			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/')
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
 			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
+		})
+
+		$('#addManualCity').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var action = button.data('tariff-action')
+			var modal = $(this)
+			if (action == 'edit')
+			{
+
+			}
+			else
+			{
+				modal.find('.modal-title').text('Добавление нового города')
+				modal.find('form#addManualCityForm').attr('action', '/cabinet/addTariff/')
+				modal.find('#action').text('Добавить')
+				modal.find('#delete').attr('href', '#.')
+				modal.find('#delete').hide()
+			}
+			modal.find('#action').click(function() { $('form#addManualCityForm').submit() })
 		})
 	})
 

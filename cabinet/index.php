@@ -804,7 +804,7 @@ function addCity() {
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$name = pg_escape_string($_POST['cityName']);
-			$query = "insert into cities (name) values ('{$name}')";
+			$query = "insert into cities (name, manual) values ('{$name}', true)";
 			pg_query($query);
 			pg_close($db);
 		}

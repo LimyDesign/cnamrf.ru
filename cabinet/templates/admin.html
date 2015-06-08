@@ -511,7 +511,7 @@
 				modal.find('.modal-body input#tariffPrice').val('')
 				modal.find('.modal-body input#tariffQty').val('')
 				modal.find('.modal-body input#tariffSum').val('')
-				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addManualCity/')
+				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')
 				modal.find('#delete').hide()
@@ -573,7 +573,7 @@
 				var name = button.data('city-name')
 				modal.find('.modal-title').text('Редактирование города «' + name + '»')
 				modal.find('.modal-body input#cityName').val(name)
-				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeManualCity/' + id + '/')
+				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeCity/' + id + '/')
 				modal.find('#action').text('Сохранить')
 				modal.find('#delete').attr('href', '/cabinet/deleteCity/' + id + '/')
 				modal.find('#delete').show();
@@ -582,7 +582,7 @@
 			{
 				modal.find('.modal-title').text('Добавление нового города')
 				modal.find('.modal-body input#cityName').val('')
-				modal.find('form#addManualCityForm').attr('action', '/cabinet/addManualCity/')
+				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')
 				modal.find('#delete').hide()

@@ -88,6 +88,15 @@ switch ($cmd[0]) {
 	case 'updateCityBase':
 		getCityFrom2GIS();
 		break;
+	case 'addCity':
+		addCity();
+		break;
+	case 'changeCity':
+		updateCity($cmd[1]);
+		break;
+	case 'deleteCity':
+		deleteCity($cmd[1]);
+		break;
 	case 'updateRubricsList':
 		updateRubricsList($cmd[1]);
 		break;
@@ -680,7 +689,7 @@ function addTariff() {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+			$domain = pg_escape_string($_POST['tariffDomain']);
 			$name = pg_escape_string($_POST['tariffName']);
 			$price = pg_escape_string($_POST['tariffPrice']);
 			$qty = pg_escape_string($_POST['tariffQty']);
@@ -690,8 +699,8 @@ function addTariff() {
 			$query = "insert into tariff (domain, name, price, queries, sum, code, description) values ('{$domain}', '{$name}', '{$price}', '{$qty}', '{$sum}', '{$code}', '{$desc}')";
 			pg_query($query);
 			pg_close($db);
-			header("Location: /cabinet/admin/#tariff");
 		}
+		header("Location: /cabinet/admin/#tariff");
 	}
 }
 
@@ -701,7 +710,7 @@ function updateTariff($id) {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$domain = pg_escape_string($_SERVER['SERVER_NAME']);
+			$domain = pg_escape_string($_POST['tariffDomain']);
 			$name = pg_escape_string($_POST['tariffName']);
 			$price = pg_escape_string($_POST['tariffPrice']);
 			$qty = pg_escape_string($_POST['tariffQty']);
@@ -786,6 +795,50 @@ function getCityList() {
 		}
 	}
 	return $cities;
+}
+
+function addCity() {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$name = pg_escape_string($_POST['cityName']);
+			$query = "insert into cities (name) values ('{$name}')";
+			pg_query($query);
+			pg_close($db);
+		}
+		header("Location: /cabinet/admin/#2gis-city");
+	}
+}
+
+function updateCity($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$name = pg_escape_string($_POST['cityName']);
+			$query = "update cities set name = '{$name}' where id = {$id} and manual = true";
+			pg_query($query);
+			pg_close($db);
+		}
+		header("Location: /cabinet/admin/#2gis-city");
+	}
+}
+
+function deleteCity($id) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "delete from cities where id = {$id} and manual = true";
+			pg_query($query);
+			pg_close($db);
+			header("Location: /cabinet/admin/#2gis-city");
+		}
+	}
 }
 
 function updateRubricsList($city_id) {

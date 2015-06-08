@@ -35,6 +35,7 @@
 								<option value="lead4crm.ru">lead4crm.ru</option>
 							</select>
 						</div>
+						<p id="statusLoadTariff" class="hide"><i class="fa fa-fw fa-spinner fa-pulse"></i> Получение данных&hellip;</p>
 					</form>
 				</div>
 				<table class="table table-hover table-responsive" id="tariffInfoTable">
@@ -326,6 +327,7 @@
 		$('#adminTab a[href="'+hash+'"]').tab('show')
 
 		$('#changeDomain').change(function() {
+			$('#statusLoadTariff').removeClass('hide');
 			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
 				$('#tariffInfoTable').find('tbody').empty();
 				forEachTariff(data, function(key, val) {
@@ -335,6 +337,7 @@
 				$('span[id="price"]').number(true, 2, '.', ' ');
 				$('span[id="qty"]').number(true, 0, '.', ' ');
 				$('span[id="sum"]').number(true, 2, '.', ' ');
+				$('#statusLoadTariff').addClass('hide');
 			});
 		});
 

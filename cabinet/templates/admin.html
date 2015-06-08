@@ -37,7 +37,7 @@
 						</div>
 					</form>
 				</div>
-				<table class="table table-hover table-responsive">
+				<table class="table table-hover table-responsive" id="tariffInfoTable">
 					<thead>
 						<tr>
 							<th>Назавание тарифа</th>
@@ -324,6 +324,12 @@
 	$(function () {
 		var hash = window.location.hash
 		$('#adminTab a[href="'+hash+'"]').tab('show')
+
+		$('#changeDomain').change(function() {
+			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
+				console.dir(data);
+			});
+		});
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var city_id = $('#selectCityRubrics').val()

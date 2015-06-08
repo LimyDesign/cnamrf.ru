@@ -41,9 +41,9 @@
 					<thead>
 						<tr>
 							<th>Назавание тарифа</th>
-							<th>Цена запроса</th>
-							<th>Кол-во запросов</th>
-							<th>Цена тарифа</th>
+							<th class="text-right">Цена запроса</th>
+							<th class="text-right">Кол-во запросов</th>
+							<th class="text-right">Цена тарифа</th>
 							<th>Действие</th>
 						</tr>
 					</thead>
@@ -51,9 +51,9 @@
 						{% for tarif_data in tariff_datas %}
 							<tr>
 								<td>{{ tarif_data.name }}</td>
-								<td><span id="price">{{ tarif_data.price }}</span> <i class="fa fa-rub"></i></td>
-								<td><span id="qty">{{ tarif_data.qty }}</span></td>
-								<td><span id="sum">{{ tarif_data.sum }}</span> <i class="fa fa-rub"></i></td>
+								<td class="text-right"><span id="price">{{ tarif_data.price }}</span> <i class="fa fa-rub"></i></td>
+								<td class="text-right"><span id="qty">{{ tarif_data.qty }}</span></td>
+								<td class="text-right"><span id="sum">{{ tarif_data.sum }}</span> <i class="fa fa-rub"></i></td>
 								<td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="{{ tarif_data.id }}" data-tariff-name="{{ tarif_data.name }}" data-tariff-code="{{ tarif_data.code }}" data-tariff-desc="{{ tarif_data.desc }}" data-tariff-price="{{ tarif_data.price }}" data-tariff-qty="{{ tarif_data.qty }}" data-tariff-summ="{{ tarif_data.sum }}"><i class="fa fa-pencil"></i> Редактировать</button></td>
 							</tr>
 						{% endfor %}

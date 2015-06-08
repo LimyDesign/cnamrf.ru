@@ -137,8 +137,8 @@
 				<p>В сязи с тем, что 2ГИС считает все обращения к своему справочнику, то для сокращения росходов нашей компании необходимо поддерживать актуальный список городов присутствия справочника 2ГИС. Этот список не редактируемый, его можно только актуализировать. Актуализация разрешена только в том случае, когда справочник официально объявит о добавлении нового города! Не тыкайте кнопку «Актуализировать справочник», если вы не уверены в том, что справочник действительно был расширен компанией 2ГИС.</p>
 				<div class="well text-center">
 					<div class="btn-group">
-						<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary">Актуализировать справочник</a>
-						<a href="#addCityManual" class="btn btn-lg btn-primary">Добавить город в ручную</a>
+						<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary"><i class="fa fa-cloud-download fa-fw"></i> Актуализировать справочник</a>
+						<a href="#addManualCity" data-toggle="modal" class="btn btn-lg btn-primary"><i class="fa fa-fw fa-plus"></i> Добавить город в ручную</a>
 					</div>
 					<br><br>В базе городов 2ГИС: <span class="badge">{{city_datas|length}}</span>
 				</div>
@@ -317,6 +317,50 @@
 					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
 					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
 					<button class="btn btn-primary" id="action">Сохранить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addManualCity" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="adminModalLabel">Добавление нового тарифного плана</h4>
+				</div>
+				<div class="modal-body">
+					<form action="/cabinet/addTariff/" method="post" id="addEditTariffForm">
+						<div class="form-group">
+							<label for="tariffName" class="control-label">Название тарифа (text):</label>
+							<input type="text" class="form-control" id="tariffName" name="tariffName">
+						</div>
+						<div class="form-group">
+							<label for="tariffCode" class="control-label">Код тарифа (latin):</label>
+							<input type="text" class="form-control" id="tariffCode" name="tariffCode">
+						</div>
+						<div class="form-group">
+							<label for="tariffDescription" class="control-label">Описание тарифа (html):</label>
+							<textarea name="tariffDescription" id="tariffDescription" class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tariffPrice" class="control-label">Цена 1 запроса (numeric):</label>
+							<input type="text" class="form-control" id="tariffPrice" name="tariffPrice">
+						</div>
+						<div class="form-group">
+							<label for="tariffQty" class="control-label">Кол-во запросов в пакете (numeric):</label>
+							<input type="text" class="form-control" id="tariffQty" name="tariffQty">
+						</div>
+						<div class="form-group">
+							<label for="tariffSum" class="control-label">Стоимость тарифа (numeric):</label>
+							<input type="text" class="form-control" id="tariffSum" name="tariffSum">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">Отменить</button>
+					<a class="btn btn-danger" href="#." id="delete">Удалить</a>
+					<button class="btn btn-primary" id="action">Добавить</button>
 				</div>
 			</div>
 		</div>

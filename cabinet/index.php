@@ -62,7 +62,7 @@ switch ($cmd[0]) {
 		yandexPayments($cmd[1]);
 		break;
 	case 'getTariffForDomain':
-		echo getTariffList($_REQUEST['domain']);
+		echo json_encode(getTariffList($_REQUEST['domain']));
 		exit();
 	case 'addTariff':
 		addTariff();

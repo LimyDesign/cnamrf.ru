@@ -329,7 +329,10 @@
 			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
 				$('#tariffInfoTable').find('tbody').empty();
 				forEachTariff(data, function(key, val) {
-					$('#tariffInfoTable').find('tbody').append('<tr><td>'+val.name+'</td><td><span id="price">'+val.price+'</span> <i class="fa fa-rub"></i></td><td><span id="qty">'+val.qty+'</span></td><td><span id="sum">'+val.sum+'</span> <i class="fa fa-rub"></i></td><td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="'+val.id+'" data-tariff-name="'+val.name+'" data-tariff-code="'+val.code+'" data-tariff-desc="'+val.desc+'" data-tariff-price="'+val.price+'" data-tariff-qty="'+val.qty+'" data-tariff-summ="'+val.sum+'"><i class="fa fa-pencil"></i> Редактировать</button></td>');
+					var price = number(val.price, 2, '.', ' ');
+					var qty = number(val.qty, 2, '.', ' ');
+					var sum = number(val.sum, 2, '.', ' ');
+					$('#tariffInfoTable').find('tbody').append('<tr><td>'+val.name+'</td><td><span id="price">'+price+'</span> <i class="fa fa-rub"></i></td><td><span id="qty">'+qty+'</span></td><td><span id="sum">'+sum+'</span> <i class="fa fa-rub"></i></td><td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="'+val.id+'" data-tariff-name="'+val.name+'" data-tariff-code="'+val.code+'" data-tariff-desc="'+val.desc+'" data-tariff-price="'+val.price+'" data-tariff-qty="'+val.qty+'" data-tariff-summ="'+val.sum+'"><i class="fa fa-pencil"></i> Редактировать</button></td>');
 				});
 			}, 'json');
 		});

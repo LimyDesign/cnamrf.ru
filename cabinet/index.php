@@ -660,16 +660,15 @@ function getTariffList($domain = 'cnamrf.ru') {
 		// $domain = preg_replace('/^www\./', '', $domain);
 		$query = "select * from tariff where domain = '{$domain}' order by sum asc";
 		$result = pg_query($query);
-		$tariffInfo = array(); $i = 0;
+		$tariffInfo = array();
 		while ($row = pg_fetch_assoc($result)) {
-			$tariffInfo[$i]['id'] = $row['id'];
-			$tariffInfo[$i]['name'] = $row['name'];
-			$tariffInfo[$i]['code'] = $row['code'];
-			$tariffInfo[$i]['desc'] = $row['description'];
-			$tariffInfo[$i]['price'] = $row['price'];
-			$tariffInfo[$i]['qty'] = $row['queries'];
-			$tariffInfo[$i]['sum'] = $row['sum'];
-			$i++;
+			$tariffInfo[$row['code']]['id'] = $row['id'];
+			$tariffInfo[$row['code']]['name'] = $row['name'];
+			$tariffInfo[$row['code']]['code'] = $row['code'];
+			$tariffInfo[$row['code']]['desc'] = $row['description'];
+			$tariffInfo[$row['code']]['price'] = $row['price'];
+			$tariffInfo[$row['code']]['qty'] = $row['queries'];
+			$tariffInfo[$row['code']]['sum'] = $row['sum'];
 		}
 	}
 	return $tariffInfo;

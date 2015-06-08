@@ -327,7 +327,10 @@
 
 		$('#changeDomain').change(function() {
 			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
-				console.log(data);
+				$('#tariffInfoTable').find('tbody').empty();
+				data.forEach(function(entry, tariff) {
+					$('#tariffInfoTable').find('tbody').append('<tr><td>'+tariff.name+'</td><td><span id="price">'+tariff.price+'</span> <i class="fa fa-rub"></i></td><td><span id="qty">'+tariff.qty+'</span></td><td><span id="sum">'+tariff.sum+'</span> <i class="fa fa-rub"></i></td><td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="'+tariff.id+'" data-tariff-name="'+tariff.name+'" data-tariff-code="'+entry+'" data-tariff-desc="'+tariff.desc+'" data-tariff-price="'+tariff.price+'" data-tariff-qty="'+tariff.qty+'" data-tariff-summ="'+tariff.sum+'"><i class="fa fa-pencil"></i> Редактировать</button></td>');
+				});
 			});
 		});
 

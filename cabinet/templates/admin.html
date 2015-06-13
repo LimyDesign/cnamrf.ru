@@ -544,7 +544,7 @@
 			var mr_domain = email.substr(email.indexOf('@')+1);
 			var mr_domains = ["mail.ru", "inbox.ru", "bk.ru", "list.ru"];
 			var mr_uri = '';
-			if (mr_domains.indexOf(mr_domain) > 0)
+			if (mr_domains.indexOf(mr_domain) > -1)
 				mr_uri = mr_domain + '/' + email.substr(0, email.indexOf('@')) + '/'
 			console.log(mr_domains.indexOf(mr_domain))
 			var ya = button.data('user-ya')

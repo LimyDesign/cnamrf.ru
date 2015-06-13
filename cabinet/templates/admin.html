@@ -371,7 +371,7 @@
 			$.post('/cabinet/getTariffForDomain/', { domain: $(this).val() }, function(data) {
 				$('#tariffInfoTable').find('tbody').empty();
 				forEachTariff(data, function(key, val) {
-					$('#tariffInfoTable').find('tbody').append('<tr><td>'+val.name+'</td><td class="text-right"><span id="price">'+val.price+'</span> <i class="fa fa-rub"></i></td><td class="text-right"><span id="qty">'+val.qty+'</span></td><td class="text-right"><span id="sum">'+val.sum+'</span> <i class="fa fa-rub"></i></td><td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="'+val.id+'" data-tariff-name="'+val.name+'" data-tariff-code="'+val.code+'" data-tariff-desc="'+val.desc+'" data-tariff-price="'+val.price+'" data-tariff-qty="'+val.qty+'" data-tariff-summ="'+val.sum+'"><i class="fa fa-pencil"></i> Редактировать</button></td>');
+					$('#tariffInfoTable').find('tbody').append('<tr><td>'+val.name+'</td><td class="text-right"><span id="price">'+val.price+'</span> <i class="fa fa-rub"></i></td><td class="text-right"><span id="qty">'+val.qty+'</span></td><td class="text-right"><span id="sum">'+val.sum+'</span> <i class="fa fa-rub"></i></td><td><button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addEditTariff" data-tariff-action="edit" data-tariff-id="'+val.id+'" data-tariff-domain="'+val.domain+'" data-tariff-name="'+val.name+'" data-tariff-code="'+val.code+'" data-tariff-desc="'+val.desc+'" data-tariff-price="'+val.price+'" data-tariff-qty="'+val.qty+'" data-tariff-summ="'+val.sum+'"><i class="fa fa-pencil"></i> Редактировать</button></td>');
 				});
 			}, 'json').done(function() {
 				$('span[id="price"]').number(true, 2, '.', ' ');

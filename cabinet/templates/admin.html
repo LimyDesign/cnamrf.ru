@@ -167,7 +167,9 @@
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
 								<td>
-									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
+									{% if city.manual in 't' %}
+										<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
+									{% endif %}
 								</td>
 							</tr>
 						{% endfor %}
@@ -346,7 +348,7 @@
 					<form method="post" id="addManualCityForm">
 						<div class="form-group">
 							<label for="cityName" class="control-label">Название города (text):</label>
-							<input type="text" class="form-control" id="cityName" name="cityName">
+							<input type="text" class="form-control" id="cityName" name="cityName" {% if city.manual in 'f' %}disabled{% endif %}>
 						</div>
 						<div class="form-group">
 							<label for="cityParent" class="control-label">Город родитель:</label>

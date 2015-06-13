@@ -570,7 +570,7 @@
 			modal.find('#infoUserOK').text(ok)
 			modal.find('#infoUserFB').html('<a href="https://www.facebook.com/'+fb+'" target="_blank">'+fb+'</a>')
 			modal.find('#infoUserGP').text(gp)
-			modal.find('#infoUserMR').html(mr_uri ? mr : '<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>')
+			modal.find('#infoUserMR').html(mr_uri ? '<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>' : mr)
 			modal.find('#infoUserYA').text(ya)
 			modal.find('#infoUserCompany').text(company)
 			modal.find('#infoUserTariff').text(tariff)

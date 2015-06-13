@@ -541,7 +541,11 @@
 			var fb = button.data('user-fb')
 			var gp = button.data('user-gp')
 			var mr = button.data('user-mr')
-			var mr_uri = mr.substr(mr.indexOf('@')+1) + '/' + mr.substr(0, mr.indexOf('@')) + '/'
+			var mr_domain = mr.substr(mr.indexOf('@')+1);
+			var mr_domains = ["mail.ru", "inbox.ru", "bk.ru", "list.ru"];
+			var mr_uri
+			if (mr_domains.indexOf(mr_domain) > 0)
+				mr_uri = mr.substr(mr.indexOf('@')+1) + '/' + mr.substr(0, mr.indexOf('@')) + '/'
 			var ya = button.data('user-ya')
 			var company = button.data('user-company')
 			var admin = button.data('user-admin')
@@ -566,7 +570,7 @@
 			modal.find('#infoUserOK').text(ok)
 			modal.find('#infoUserFB').html('<a href="https://www.facebook.com/'+fb+'" target="_blank">'+fb+'</a>')
 			modal.find('#infoUserGP').text(gp)
-			modal.find('#infoUserMR').html('<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>')
+			modal.find('#infoUserMR').html(mr_uri ? mr : '<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>')
 			modal.find('#infoUserYA').text(ya)
 			modal.find('#infoUserCompany').text(company)
 			modal.find('#infoUserTariff').text(tariff)

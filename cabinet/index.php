@@ -146,6 +146,7 @@ if ($_SESSION['auth'] === true)
 				$users_data = getUserList();
 				$invoices_data = getInvoiceList();
 				$city_datas = getCityList();
+				$country_datas = getCountryList();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
@@ -156,6 +157,7 @@ if ($_SESSION['auth'] === true)
 					'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
 					'city_datas' => $city_datas,
+					'country_datas' => $country_datas,
 					'total_import' => $_GET['total'],
 					'total_insert' => $_GET['total_insert']
 					));
@@ -780,6 +782,24 @@ function getCityFrom2GIS() {
 	header("Location: /cabinet/admin/?total={$result->total}&total_insert={$result->total_insert}#2gis-city");
 }
 
+function getCountryList() {
+	global $conf;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select * from country order by sort, name";
+		$result = pg_query($query);
+		$country = array(); $i = 1;
+		while ($row = pg_fetch_assoc($result)) {
+			$country[$i]['id'] = $row['id'];
+			$country[$i]['name'] = $row['name'];
+			$i++;
+		}
+		pg_free_result($result);
+		pg_close($db);
+	}
+	return $country;
+}
+
 function getCityList() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres') {
@@ -794,6 +814,8 @@ function getCityList() {
 			$cities[$i]['manual'] = $row['manual'];
 			$i++;
 		}
+		pg_free_result($result);
+		pg_close($db);
 	}
 	return $cities;
 }

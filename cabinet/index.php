@@ -812,6 +812,8 @@ function getCityList() {
 			$cities[$i]['name'] = $row['name'];
 			$cities[$i]['date'] = $row['modtime'];
 			$cities[$i]['manual'] = $row['manual'];
+			$cities[$i]['country_id'] = $row['country_id'];
+			$cities[$i]['parent_id'] = $row['parent_id'];
 			$i++;
 		}
 		pg_free_result($result);

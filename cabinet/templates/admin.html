@@ -561,7 +561,7 @@
 
 			modal.find('.modal-title').text('Информация о пользователе № ' + id)
 			modal.find('#infoUserEmail').text(email)
-			modal.find('#infoUserVK').text(vk)
+			modal.find('#infoUserVK').html('<a href="https://vk.com/id'+vk+'" target="_blank">'+vk+"</a>")
 			modal.find('#infoUserOK').text(ok)
 			modal.find('#infoUserFB').text(fb)
 			modal.find('#infoUserGP').text(gp)

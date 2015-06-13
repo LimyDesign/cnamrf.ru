@@ -215,6 +215,13 @@
 				<div class="modal-body">
 					<form action="/cabinet/addTariff/" method="post" id="addEditTariffForm">
 						<div class="form-group">
+							<label for="tariffDomain" class="control-label">Домен тарифа:</label>
+							<select name="tariffDomain" id="tariffDomain" class="form-control">
+								<option value="cnamrf.ru">cnamrf.ru</option>
+								<option value="lead4crm.ru">lead4crm.ru</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label for="tariffName" class="control-label">Название тарифа (text):</label>
 							<input type="text" class="form-control" id="tariffName" name="tariffName">
 						</div>

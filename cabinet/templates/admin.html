@@ -167,7 +167,7 @@
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
 								<td>
-									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
+									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}" data-city-manual="{{ city.manual }}"><i class="fa fa-pencil"></i> Редактировать</button>
 								</td>
 							</tr>
 						{% endfor %}
@@ -346,7 +346,7 @@
 					<form method="post" id="addManualCityForm">
 						<div class="form-group">
 							<label for="cityName" class="control-label">Название города (text):</label>
-							<input type="text" class="form-control" id="cityName" name="cityName" {% if city.manual in 'f' %}disabled{% endif %}>
+							<input type="text" class="form-control" id="cityName" name="cityName">
 						</div>
 						<div class="form-group">
 							<label for="cityParent" class="control-label">Город родитель:</label>
@@ -608,8 +608,14 @@
 			{
 				var id = button.data('city-id')
 				var name = button.data('city-name')
+				var manual = button.data('city-manual')
 				modal.find('.modal-title').text('Редактирование города «' + name + '»')
-				modal.find('.modal-body input#cityName').val(name)
+				
+				if (manual == 'f')
+					modal.find('.modal-body input#cityName').val(name).prop('disabled', true)
+				else
+					modal.find('.modal-body input#cityName').val(name).prop('disabled', false)
+
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeCity/' + id + '/')
 				modal.find('#action').text('Сохранить')
 				modal.find('#delete').attr('href', '/cabinet/deleteCity/' + id + '/')
@@ -618,7 +624,7 @@
 			else
 			{
 				modal.find('.modal-title').text('Добавление нового города')
-				modal.find('.modal-body input#cityName').val('')
+				modal.find('.modal-body input#cityName').val('').prop('disabled', false)
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')

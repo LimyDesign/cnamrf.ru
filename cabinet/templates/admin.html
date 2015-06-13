@@ -72,6 +72,7 @@
 				<table class="table table-hover table-responsive">
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>E-mail</th>
 							<th>Баланс</th>
 							<th>Тариф</th>
@@ -83,6 +84,7 @@
 					<tbody>
 						{% for user_data in users_data %}
 							<tr>
+								<td>{{ user_data.id }}</td>
 								<td>{{ user_data.email }}</td>
 								<td class="text-right"><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
 								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>

@@ -678,6 +678,7 @@ function getTariffList($domain = 'cnamrf.ru') {
 			$tariffInfo[$row['code']]['price'] = $row['price'];
 			$tariffInfo[$row['code']]['qty'] = $row['queries'];
 			$tariffInfo[$row['code']]['sum'] = $row['sum'];
+			$tariffInfo[$row['code']]['domain'] = $row['domain'];
 		}
 	}
 	return $tariffInfo;

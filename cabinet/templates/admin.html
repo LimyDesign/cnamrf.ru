@@ -492,6 +492,7 @@
 			if (action == 'edit')
 			{
 				var id = button.data('tariff-id')
+				var domain = button.data('tariff-domain')
 				var name = button.data('tariff-name')
 				var code = button.data('tariff-code')
 				var desc = button.data('tariff-desc')
@@ -500,6 +501,7 @@
 				var sum = button.data('tariff-summ')
 
 				modal.find('.modal-title').text('Редактирование тарифа «' + name + '»')
+				modal.find('.modal-body select#tariffDomain').val(domain)
 				modal.find('.modal-body input#tariffName').val(name)
 				modal.find('.modal-body input#tariffCode').val(code)
 				modal.find('.modal-body textarea#tariffDescription').val(desc)

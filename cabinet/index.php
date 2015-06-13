@@ -846,8 +846,8 @@ function updateCity($id) {
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$name = pg_escape_string($_POST['cityName']);
-			$parent_id = (is_numeric($_POST['cityParent']) ? $_POST['cityParent'] : 0);
-			$country_id = (is_numeric($_POST['cityCountry']) ? $_POST['cityCountry']);
+			$parent_id = $_POST['cityParent'];
+			$country_id = $_POST['cityCountry'];
 			$query = "update cities set name = '{$name}', parent_id = {$parent_id}, country_id = {$country_id} where id = {$id}";
 			pg_query($query);
 			pg_close($db);

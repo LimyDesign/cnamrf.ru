@@ -614,9 +614,9 @@
 				modal.find('.modal-title').text('Редактирование города «' + name + '»')
 				
 				if (manual == 'f')
-					modal.find('.modal-body input#cityName').val(name).prop('disabled', true)
+					modal.find('.modal-body input#cityName').val(name).prop('readOnly', true)
 				else
-					modal.find('.modal-body input#cityName').val(name).prop('disabled', false)
+					modal.find('.modal-body input#cityName').val(name).prop('readOnly', false)
 
 				modal.find('.modal-body select#cityParent').val(parent_id)
 				modal.find('.modal-body select#cityCountry').val(country_id)
@@ -635,7 +635,7 @@
 			else
 			{
 				modal.find('.modal-title').text('Добавление нового города')
-				modal.find('.modal-body input#cityName').val('').prop('disabled', false)
+				modal.find('.modal-body input#cityName').val('').prop('readOnly', false)
 				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/')
 				modal.find('#action').text('Добавить')
 				modal.find('#delete').attr('href', '#.')

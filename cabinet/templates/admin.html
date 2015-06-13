@@ -353,7 +353,7 @@
 							<select name="cityParent" id="cityParent" class="form-control">
 								<option value="0">[ нет родителя ]</option>
 								{% for city in city_datas %}
-									{% if city.parent_id in 0 %}
+									{% if city.parent_id in "0" %}
 										<option value="{{city.id}}">{{city.name}}</option>
 									{% endif %}
 								{% endfor %}

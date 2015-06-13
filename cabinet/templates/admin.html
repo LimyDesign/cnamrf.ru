@@ -167,9 +167,7 @@
 								<td>{{city.name}}</td>
 								<td>{{city.date}}</td>
 								<td>
-									{% if city.manual in 't' %}
-										<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
-									{% endif %}
+									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}"><i class="fa fa-pencil"></i> Редактировать</button>
 								</td>
 							</tr>
 						{% endfor %}

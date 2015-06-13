@@ -829,7 +829,9 @@ function addCity() {
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$name = pg_escape_string($_POST['cityName']);
-			$query = "insert into cities (name, manual) values ('{$name}', true)";
+			$parent_id = (is_numeric($_POST['cityParent']) ? $_POST['cityParent'] : 0);
+			$country_id = (is_numeric($_POST['cityCountry']) ? $_POST['cityCountry']);
+			$query = "insert into cities (name, manual, parent_id, country_id) values ('{$name}', true, {$parent_id}, {$country_id})";
 			pg_query($query);
 			pg_close($db);
 		}
@@ -844,7 +846,9 @@ function updateCity($id) {
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			$name = pg_escape_string($_POST['cityName']);
-			$query = "update cities set name = '{$name}' where id = {$id} and manual = true";
+			$parent_id = (is_numeric($_POST['cityParent']) ? $_POST['cityParent'] : 0);
+			$country_id = (is_numeric($_POST['cityCountry']) ? $_POST['cityCountry']);
+			$query = "update cities set name = '{$name}', parent_id = {$parent_id}, country_id = {$country_id} where id = {$id}";
 			pg_query($query);
 			pg_close($db);
 		}

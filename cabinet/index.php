@@ -804,7 +804,7 @@ function getCityList() {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres') {
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select * from cities order by name asc";
+		$query = "select cities.*, country.name as country from cities left join country on cities.country_id = country.id left join cities as cities2 on cities.parent_id = cities2.id order by name asc";
 		$result = pg_query($query);
 		$cities = array(); $i = 1;
 		while ($row = pg_fetch_assoc($result)) {
@@ -814,6 +814,7 @@ function getCityList() {
 			$cities[$i]['manual'] = $row['manual'];
 			$cities[$i]['country_id'] = $row['country_id'];
 			$cities[$i]['parent_id'] = $row['parent_id'];
+			$cities[$i]['country'] = $row['country'];
 			$i++;
 		}
 		pg_free_result($result);

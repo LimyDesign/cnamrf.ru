@@ -810,7 +810,7 @@ function getCityList() {
 		while ($row = pg_fetch_assoc($result)) {
 			$cities[$i]['id'] = $row['id'];
 			$cities[$i]['name'] = $row['name'];
-			$cities[$i]['date'] = $row['modtime'];
+			$cities[$i]['date'] = date('d.m.Y', strtotime($row['modtime']));
 			$cities[$i]['manual'] = $row['manual'];
 			$cities[$i]['country_id'] = $row['country_id'];
 			$cities[$i]['parent_id'] = $row['parent_id'];

@@ -158,7 +158,7 @@
 							<th>Город</th>
 							<th>Родитель</th>
 							<th>Страна</th>
-							<th>Дата добавления</th>
+							{# <th>Дата добавления</th> #}
 							<th></th>
 						</tr>
 					</thead>
@@ -169,7 +169,7 @@
 								<td>{{city.name}}</td>
 								<td>{{city.parent}}</td>
 								<td>{{city.country}}</td>
-								<td>{{city.date}}</td>
+								{# <td>{{city.date}}</td> #}
 								<td>
 									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}" data-city-manual="{{ city.manual }}" data-city-parent="{{ city.parent_id }}" data-city-country="{{ city.country_id }}"><i class="fa fa-pencil"></i> Редактировать</button>
 								</td>

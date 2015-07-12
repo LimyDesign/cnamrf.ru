@@ -155,7 +155,7 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
-					'total_users' = $total_users,
+					'total_users' => $total_users,
 					'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
 					'city_datas' => $city_datas,

@@ -260,8 +260,10 @@ if ($_SESSION['auth'] === true)
 			case 'log':
 				$userSelectID = filter_var($cmd[1], FILTER_VALIDATE_INT);
 				$userSelectPage = filter_var($cmd[2], FILTER_VALIDATE_INT);
-				$logs = getUserLogs(100, ($userSelectPage ? 100 * ($userSelectPage - 1) : 0), ($userSelectID ? $userSelectID : $_SESSION['userid']));
-				$pages = getLogsPages();
+				$userSelectID = $userSelectID ? $userSelectID : $_SESSION['userid'];
+				$userSelectPage = $userSelectPage ? 100 * ($userSelectPage - 1) : 0
+				$logs = getUserLogs(100, $userSelectPage, $userSelectID);
+				$pages = getLogsPages($userSelectID);
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('log.html', array(
@@ -269,7 +271,7 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'logs_data' => $logs,
-					'pages' => array('totalPages' => $pages, 'currentPage' => $userSelectPage)
+					'pages' => array('totalPages' => $pages, 'currentPage' => $userSelectPage, 'uid' => $userSelectID)
 					));
 				break;
 			case 'support':
@@ -1547,13 +1549,12 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 	}
 }
 
-function getLogsPages() {
+function getLogsPages($uid) {
 	global $conf;
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$userid = $_SESSION['userid'];
-		$query = "select count(uid) where uid = {$userid}";
+		$query = "select count(1) from log where uid = {$uid}";
 		$result = pg_query($query);
 		$countRows = pg_fetch_result($result, 0, 0);
 	}

@@ -261,7 +261,7 @@ if ($_SESSION['auth'] === true)
 				$userSelectID = filter_var($cmd[1], FILTER_VALIDATE_INT);
 				$userSelectPage = filter_var($cmd[2], FILTER_VALIDATE_INT);
 				$userSelectID = $userSelectID ? $userSelectID : $_SESSION['userid'];
-				$userSelectPage = $userSelectPage ? 100 * ($userSelectPage - 1) : 0
+				$userSelectPage = $userSelectPage ? 100 * ($userSelectPage - 1) : 0;
 				$logs = getUserLogs(100, $userSelectPage, $userSelectID);
 				$pages = getLogsPages($userSelectID);
 				$time = microtime(true) - $start;

@@ -1497,7 +1497,7 @@ function getPhoneList($userid = 0, $limit = 100, $offset = 0) {
 	return $phones;
 }
 
-function getUserLogs($limit = 100, $offset = 0, $uid = $_SESSION['userid']) {
+function getUserLogs($limit = 100, $offset = 0, $uid) {
 	global $conf;
 	$phones_masks = json_decode(file_get_contents(__DIR__.'/../js/phones-ru.json'));
 	for ($i = 0; $i < count($phones_masks); $i++) {

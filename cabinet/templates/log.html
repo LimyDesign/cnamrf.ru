@@ -37,7 +37,7 @@
 			</tbody>
 		</table>
 	</div>
-	{% if pages.totalPages > 1 %}
+	{% if pages.totalPages >= 1 %}
 		<nav class="text-center">
 			<ul class="pagination">
 				{% for page in range(1, pages.totalPages) %}

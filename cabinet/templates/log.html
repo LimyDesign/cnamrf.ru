@@ -37,9 +37,8 @@
 			</tbody>
 		</table>
 	</div>
-	<p class="lead">{{pages.totalPages}}</p>
 	{% if pages.totalPages > 1 %}
-		<nav>
+		<nav class="text-center">
 			<ul class="pagination">
 				{% for page in range(1, pages.totalPages) %}
 					<li{{page == pages.currentPage ? ' class="active"'}}>

@@ -440,7 +440,7 @@
 						if (entry.tariff2 != 'Демо' || tariff != 'CNAM-Start') 
 							warning = ' class="success"';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><button class="btn btn-xs btn-dedault" data-toogle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-balans="'+entry.balans'">Подробнее&hellip;</button></td></tr>');
 					});
 				}).done(function() {
 					var idWidth = bWidth = t1Width = t2Width = 0;

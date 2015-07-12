@@ -69,32 +69,39 @@
 			<div class="tab-pane" id="users" role="tabpanel">
 				<h3>Управление рабами</h3>
 				<p>Если рабов много и они активно пользуются дорогими тарифами, то мы, господа, живем хорошо и возможно в Париже. Случайно не дайте права какому-нибудь рабу права господина (администратора).</p>
-				<table class="table table-hover table-responsive">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>E-mail</th>
-							<th>Баланс</th>
-							<th>Тариф</th>
-							<th>Компания</th>
-							<th class="text-center">Админ</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for user_data in users_data %}
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
 							<tr>
-								<td>{{ user_data.id }}</td>
-								<td>{{ user_data.email }}</td>
-								<td class="text-right"><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
-								<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
-								<td>{{ user_data.company }}</td>
-								<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
-								<td class="text-center"><button class="btn btn-xs btn-default" data-toggle="modal" data-target="#infoUser" data-user-id="{{ user_data.id }}" data-user-email="{{ user_data.email }}" data-user-vk="{{ user_data.vk }}" data-user-ok="{{ user_data.ok }}" data-user-fb="{{ user_data.fb }}" data-user-gp="{{ user_data.gp }}" data-user-mr="{{ user_data.mr }}" data-user-ya="{{ user_data.ya }}" data-user-company="{{ user_data.company }}" data-user-admin="{{ user_data.admin }}" data-user-tariff="{{ user_data.tariff }}" data-user-balans="{{ user_data.balans }}">Подробнее&hellip;</button></td>
+								<th>ID</th>
+								<th>E-mail</th>
+								<th>Баланс</th>
+								<th>Тариф</th>
+								<th>Компания</th>
+								<th class="text-center">Админ</th>
+								<th></th>
 							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{% for user_data in users_data %}
+								<tr>
+									<td>{{ user_data.id }}</td>
+									<td>{{ user_data.email }}</td>
+									<td class="text-right"><span id="balans">{{ user_data.balans }}</span> <i class="fa fa-rub"></i></td>
+									<td>{% if user_data.tariff %}{{ user_data.tariff }}{% else %}CNAM-Start{% endif %}</td>
+									<td>{{ user_data.company }}</td>
+									<td class="text-center">{% if user_data.admin in 't' %}<i class="fa fa-check-square"></i>{% else %}<i class="fa fa-minus-square"></i>{% endif %}</td>
+									<td class="text-center"><button class="btn btn-xs btn-default" data-toggle="modal" data-target="#infoUser" data-user-id="{{ user_data.id }}" data-user-email="{{ user_data.email }}" data-user-vk="{{ user_data.vk }}" data-user-ok="{{ user_data.ok }}" data-user-fb="{{ user_data.fb }}" data-user-gp="{{ user_data.gp }}" data-user-mr="{{ user_data.mr }}" data-user-ya="{{ user_data.ya }}" data-user-company="{{ user_data.company }}" data-user-admin="{{ user_data.admin }}" data-user-tariff="{{ user_data.tariff }}" data-user-balans="{{ user_data.balans }}">Подробнее&hellip;</button></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<nav>
+					<ul class="pagination">
+						<li><a href="#">1</a></li>
+					</ul>
+				</nav>
 			</div>
 			<div class="tab-pane" id="invoices" role="tabpanel">
 				<h3>Управление счетами</h3>

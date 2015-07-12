@@ -440,6 +440,7 @@
 						if (entry.tariff2 != 'Демо' || tariff != 'CNAM-Start') 
 							warning = ' class="success"';
 
+						if (!entry.company) entry.company = '';
 						if (!entry.vk) entry.vk = '';
 						if (!entry.ok) entry.ok = '';
 						if (!entry.fb) entry.fb = '';

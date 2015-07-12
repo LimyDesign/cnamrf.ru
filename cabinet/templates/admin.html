@@ -422,9 +422,9 @@
 
 			if ($(e.target).attr('href') == '#users') {
 				$.get('/cabinet/getUsers/'+page+'/', function(data) {
-					$('#tableRubrics tbody').find('tr').remove();
+					$('#usersTable tbody').find('tr').remove();
 					data.users.forEach(function(entry) {
-
+						$('#usersTable').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.email+'</td><td>'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});
 			}

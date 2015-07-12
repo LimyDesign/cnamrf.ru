@@ -111,7 +111,7 @@
 					</thead>
 					<tbody>
 						{% for invoice_data in invoices_data %}
-							<tr>
+							<tr{% if invoice_data.accept %} class="success"{% endif %}>
 								<td>{{ invoice_data.invoice }}</td>
 								<td>{{ invoice_data.company }}</td>
 								<td class="text-right"><span id="invoiceSum">{{ invoice_data.sum }}</span> <i class="fa fa-rub"></i></td>

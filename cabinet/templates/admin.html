@@ -100,7 +100,7 @@
 				{% if total_users > 100 %}
 				<nav class="text-center">
 					<ul class="pagination">
-						{% for page in range(low=1, hight=total_users, step=100) %}
+						{% for page in range(low=1, high=total_users, step=100) %}
 							<li><a href="#">{{page}}</a></li>
 						{% endif %}
 					</ul>

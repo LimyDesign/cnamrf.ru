@@ -70,7 +70,7 @@
 				<h3>Управление рабами</h3>
 				<p>Если рабов много и они активно пользуются дорогими тарифами, то мы, господа, живем хорошо и возможно в Париже. Случайно не дайте права какому-нибудь рабу права господина (администратора).</p>
 				<div class="table-responsive">
-					<table class="table table-hover">
+					<table class="table table-hover" id="usersTable">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -100,7 +100,7 @@
 				{% if total_users > 100 %}
 				<nav class="text-center">
 					<ul class="pagination">
-						{% for page in range(1, total_users/100|round) %}
+						{% for page in range(1, total_pages) %}
 							<li><a href="#">{{page}}</a></li>
 						{% endfor %}
 					</ul>
@@ -417,8 +417,18 @@
 		});
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-			var city_id = $('#selectCityRubrics').val()
-			if ($(e.target).attr('href') == '#2gis-rubrics') {
+			var city_id = $('#selectCityRubrics').val(),
+				page = page?:1;
+
+			if ($(e.target).attr('href') == '#users') {
+				$.get('/cabinet/getUsers/'+page+'/', function(data) {
+					$('#tableRubrics tbody').find('tr').remove();
+					data.users.forEach(function(entry) {
+
+					});
+				});
+			}
+			else if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove()
 					var industry_select = ''

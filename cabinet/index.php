@@ -73,6 +73,9 @@ switch ($cmd[0]) {
 	case 'deleteTariff':
 		deleteTariff($cmd[1]);
 		break;
+	case 'getUsers':
+		getUsersJSON($cmd[1]);
+		break;
 	case 'changeUser':
 		updateUser($cmd[1]);
 		break;
@@ -144,7 +147,7 @@ if ($_SESSION['auth'] === true)
 			case 'admin':
 				$tariff_datas = getTariffList();
 				$total_users = getTotalUsers();
-				$users_data = getUserList();
+				// $users_data = getUserList();
 				$invoices_data = getInvoiceList();
 				$city_datas = getCityList();
 				$country_datas = getCountryList();
@@ -156,7 +159,8 @@ if ($_SESSION['auth'] === true)
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
 					'total_users' => $total_users,
-					'users_data' => $users_data,
+					'total_pages' => round($total_users/100),
+					// 'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
 					'city_datas' => $city_datas,
 					'country_datas' => $country_datas,
@@ -594,6 +598,16 @@ function getUserBalans($return = false) {
 	else
 	{
 		return $balans;
+	}
+}
+
+function getUsersJSON($page) {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		$offset = ($page - 1) * 100;
+		header("Content-Type: text/json");
+		echo json_encode(array('users' => getUserList(100, $offset)));
+		exit();
 	}
 }
 

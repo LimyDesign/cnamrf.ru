@@ -66,14 +66,14 @@
 		$('#logsTable tbody').find('span[id*="modtime"]').each(function() {
 			if ($(this).width() > mtWidth) mtWidth = $(this).width()
 		})
-		mWidth = mWidth + 20;
-		cWidth = cWidth + 20;
-		ipWidth = ipWidth + 20;
-		mtWidth = mtWidth + 20;
-		$('#logsTable thead').find('th').eq(1).attr('style', 'width:'+mWidth+'px;');
-		$('#logsTable thead').find('th').eq(2).attr('style', 'width:'+cWidth+'px;');
-		$('#logsTable thead').find('th').eq(3).attr('style', 'width:'+ipWidth+'px;');
-		$('#logsTable thead').find('th').eq(4).attr('style', 'width:'+mtWidth+'px;');
+		mWidth = mWidth + 20
+		cWidth = cWidth + 20
+		ipWidth = ipWidth + 20
+		mtWidth = mtWidth + 20
+		$('#logsTable thead').find('th').eq(1).attr('style', 'width:'+mWidth+'px;')
+		$('#logsTable thead').find('th').eq(2).attr('style', 'width:'+cWidth+'px;')
+		$('#logsTable thead').find('th').eq(3).attr('style', 'width:'+ipWidth+'px;')
+		$('#logsTable thead').find('th').eq(4).attr('style', 'width:'+mtWidth+'px;')
 	})
 	</script>
 {% endblock %}

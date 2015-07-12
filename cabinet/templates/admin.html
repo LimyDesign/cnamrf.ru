@@ -97,11 +97,15 @@
 						</tbody>
 					</table>
 				</div>
+				{% if total_users > 100 %}
 				<nav class="text-center">
 					<ul class="pagination">
-						<li><a href="#">1</a></li>
+						{% for page in range(low=1, hight=total_users, step=100) %}
+							<li><a href="#">{{page}}</a></li>
+						{% endif %}
 					</ul>
 				</nav>
+				{% endif %}
 			</div>
 			<div class="tab-pane" id="invoices" role="tabpanel">
 				<h3>Управление счетами</h3>

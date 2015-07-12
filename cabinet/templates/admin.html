@@ -112,12 +112,10 @@
 					<tbody>
 						{% for invoice_data in invoices_data %}
 							<tr>
-								<td>
-									{% if invoice_data.system in 'bank' %}{% endif %}{{ invoice_data.invoice }}
-								</td>
+								<td>{{ invoice_data.invoice }}</td>
 								<td>{{ invoice_data.company }}</td>
 								<td class="text-right"><span id="invoiceSum">{{ invoice_data.sum }}</span> <i class="fa fa-rub"></i></td>
-								<td>{{ invoice_data.addtime }}</td>
+								<td>{{ invoice_data.addtime|date('d.m.Y', 'Asia/Irkutsk') }}</td>
 								<td class="text-center">
 									{% if not invoice_data.accept %}
 										<a href="/cabinet/acceptInvoice/{{ invoice_data.id }}/">

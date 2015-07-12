@@ -259,7 +259,7 @@ if ($_SESSION['auth'] === true)
 				break;
 			case 'log':
 				$userSelectPage = filter_var($cmd[2], FILTER_VALIDATE_INT);
-				$logs = getUserLogs(100, ($userSelectPage ? 100 * ($userSelectPage + 1) : 0));
+				$logs = getUserLogs(100, ($userSelectPage ? 100 * ($userSelectPage - 1) : 0));
 				$pages = getLogsPages();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);

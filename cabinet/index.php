@@ -668,7 +668,8 @@ function getUserList($limit = 100, $offset = 0) {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select t1.id, t1.email, t1.vk, t1.ok, t1.fb, t1.gp, t1.mr, t1.ya, t1.company, t1.is_admin, t2.name as tariff, t3.name as tariff2, (select (sum(debet) - sum(credit)) as balans from log where uid = t1.id and modtime >= current_timestamp - interval '62 days') as balans from users as t1 left join tariff as t2 on t1.tariffid = t2.id left join tariff as t3 on t1.tariffid2 = t3.id order by balans desc nulls last, t1.id desc limit {$limit} offset {$offset}";
+			// $query = "select t1.id, t1.email, t1.vk, t1.ok, t1.fb, t1.gp, t1.mr, t1.ya, t1.company, t1.is_admin, t2.name as tariff, t3.name as tariff2, (select (sum(debet) - sum(credit)) as balans from log where uid = t1.id and modtime >= current_timestamp - interval '62 days') as balans from users as t1 left join tariff as t2 on t1.tariffid = t2.id left join tariff as t3 on t1.tariffid2 = t3.id order by balans desc nulls last, t1.id desc limit {$limit} offset {$offset}";
+			$query = "select t1.id, t1.email, t1.vk, t1.ok, t1.fb, t1.gp, t1.mr, t1.ya, t1.company, t1.is_admin, t2.name as tariff, t3.name as tariff2, (select (sum(debet) - sum(credit)) as balans from log where uid = t1.id) as balans from users as t1 left join tariff as t2 on t1.tariffid = t2.id left join tariff as t3 on t1.tariffid2 = t3.id order by balans desc nulls last, t1.id desc limit {$limit} offset {$offset}";
 			$result = pg_query($query);
 			$users_data = array(); $i = 0;
 			while ($row = pg_fetch_assoc($result)) {

@@ -420,7 +420,7 @@
 				page = page ? page : 1;
 
 			if ($(e.target).attr('href') == '#users') {
-				$('#usersTable').find('tbody').append('<tr><td colspan="8" class="text-center"><i class="fa fa-spinner fa-pulse"></i> Загружаю список рабов...</td></tr>');
+				$('#usersTable').find('tbody').append('<tr><td colspan="7" class="text-center"><i class="fa fa-spinner fa-pulse"></i> Загружаю список рабов...</td></tr>');
 				$.get('/cabinet/getUsers/'+page+'/', function(data) {
 					$('#usersTable tbody').find('tr').remove();
 					var warning, tariff;
@@ -431,8 +431,10 @@
 						if (entry.tariff) tariff = entry.tariff;
 						else tariff = 'CNAM-Start';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center">'+tariff+'</td><td class="text-center">'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span>'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center">'+tariff+'</td><td class="text-center">'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td></tr>');
 					});
+				}).done(function() {
+					var idWidth = $('#usersTable tbody').find('td span').width();
 				});
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {

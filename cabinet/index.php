@@ -143,6 +143,7 @@ if ($_SESSION['auth'] === true)
 		switch ($cmd[0]) {
 			case 'admin':
 				$tariff_datas = getTariffList();
+				$total_users = getTotalUsers();
 				$users_data = getUserList();
 				$invoices_data = getInvoiceList();
 				$city_datas = getCityList();
@@ -154,6 +155,7 @@ if ($_SESSION['auth'] === true)
 					'timer' => $timer,
 					'is_admin' => $is_admin,
 					'tariff_datas' => $tariff_datas,
+					'total_users' = $total_users,
 					'users_data' => $users_data,
 					'invoices_data' => $invoices_data,
 					'city_datas' => $city_datas,
@@ -628,6 +630,21 @@ function deleteUser($id) {
 			pg_close($db);
 			header("Location: /cabinet/admin/#users");
 		}
+	}
+}
+
+function getTotalUsers() {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$query = "select count(1) from users";
+			$result = pg_query($query);
+			$total_users = pg_fetch_result($result, 0, 0);
+		}
+		pg_close();
+		return $total_users;
 	}
 }
 

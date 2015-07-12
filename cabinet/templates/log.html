@@ -4,38 +4,40 @@
 {% block content %}
 	<h1 class="page-header">Статистика</h1>
 	<p class="lead">Данные по использования системы — будь то зачисление денежных средств на лицевой счет или использование системы для получения данных по номеру телефона. Время в таблице московское.</p>
-	<table class="table table-hover table-responsive">
-		<thead>
-			<tr>
-				<th>Запрос</th>
-				<th>Дебет / Кредит</th>
-				<th>Клиентская система</th>
-				<th>IP клиента</th>
-				<th>Дата время</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for log_data in logs_data %}
+	<div class="table-responsive">
+		<table class="table table-hover" id="logsTable">
+			<thead>
 				<tr>
-					<td nowrap>{{ log_data.phone }}{{ log_data.query }}</td>
-					<td nowrap class="text-right">
-						{% if log_data.debet in '0.00' %}
-						{% else %}
-							<span class="text-success">+{{ log_data.debet }}</span>
-						{% endif %}
-						{% if log_data.credit in '0.00' %}
-						{% else %}
-							<span class="text-danger">-{{ log_data.credit }}</span>
-						{% endif %}
-					</td>
-					<td>{{ log_data.client }}</td>
-					<td nowrap>{{ log_data.ip }}</td>
-					<td nowrap>{{ log_data.modtime }}</td>
+					<th>Запрос</th>
+					<th>Дебет / Кредит</th>
+					<th>Клиентская система</th>
+					<th>IP клиента</th>
+					<th>Дата время</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{# <p class="lead">{{pages.totalPages}}</p> #}
+			</thead>
+			<tbody>
+				{% for log_data in logs_data %}
+					<tr>
+						<td><span id="query">{{ log_data.phone }}{{ log_data.query }}</span></td>
+						<td class="text-right">
+							{% if log_data.debet in '0.00' %}
+							{% else %}
+								<span class="text-success" id="money">+{{ log_data.debet }} <i class="fa fa-fw fa-rub"></i></span>
+							{% endif %}
+							{% if log_data.credit in '0.00' %}
+							{% else %}
+								<span class="text-danger" id="money">-{{ log_data.credit }} <i class="fa fa-fw fa-rub"></i></span>
+							{% endif %}
+						</td>
+						<td><span id="client">{{ log_data.client }}</span></td>
+						<td><span id="ip">{{ log_data.ip }}</span></td>
+						<td><span id="modtime">{{ log_data.modtime }}</span></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<p class="lead">{{pages.totalPages}}</p>
 	{% if pages.totalPages > 1 %}
 		<nav>
 			<ul class="pagination">
@@ -47,4 +49,16 @@
 			</ul>
 		</nav>
 	{% endif %}
+{% endblock %}
+{% block scripts %}
+	<script>
+	$(function () {
+		var mWidth = cWidth = ipWidth = mtWidth = 0
+		$('#logsTable tbody').find('span[id*="money"]').each(function() {
+			if ($(this).width() > mWidth) mWidth = $(this).width()
+		})
+		mWidth = mWidth + 20;
+		$('#logsTable thead').find('th').eq(1).attr('style', 'width:'+mWidth+'px;');
+	})
+	</script>
 {% endblock %}

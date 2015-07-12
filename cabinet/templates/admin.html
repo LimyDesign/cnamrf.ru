@@ -424,8 +424,10 @@
 				$('#usersTable').find('tbody').append('<tr><td colspan="8" class="text-center"><i class="fa fa-spinner fa-pulse"></i> Загружаю список рабов...</td></tr>');
 				$.get('/cabinet/getUsers/'+page+'/', function(data) {
 					$('#usersTable tbody').find('tr').remove();
+					var warning = '';
 					data.users.forEach(function(entry) {
-						$('#usersTable').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
+						if (entry.balans !== null) warning = ' class="warning"';
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});
 			}

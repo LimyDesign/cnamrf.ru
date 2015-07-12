@@ -432,7 +432,7 @@
 						if (entry.tariff) tariff = entry.tariff;
 						else tariff = 'CNAM-Start';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center">'+tariff+'</td><td class="text-center">'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});
 			}

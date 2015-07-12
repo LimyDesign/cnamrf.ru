@@ -438,7 +438,7 @@
 					$('#usersTable tbody').find('span[id*="id"]').each(function(){
 						if ($(this).width() > idWidth) idWidth = $(this).width();
 					});
-					idWidth = idWidth + 10;
+					idWidth = idWidth + 20;
 					$('#usersTable thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
 				});
 			}

@@ -426,7 +426,7 @@
 					$('#usersTable tbody').find('tr').remove();
 					var warning = '';
 					data.users.forEach(function(entry) {
-						if (entry.balans !== null) warning = ' class="warning"';
+						if (entry.balans != 'null') warning = ' class="warning"';
 						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});

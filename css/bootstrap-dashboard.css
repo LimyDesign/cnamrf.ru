@@ -227,3 +227,15 @@ ol.progtrckr li.progtrckr-todo:before {
 .img-responsive {
   margin: 0 auto;
 }
+
+/**
+ * Делаем обрезку длинных текстов в таблицах, т.к. нам не надо уродовать красивость табличек
+ */
+.table {
+  table-layout: fixed;
+}
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

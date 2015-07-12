@@ -1561,7 +1561,7 @@ function getLogsPages($uid) {
 	}
 	pg_free_result($result);
 	pg_close($db);
-	return round($countRows / 100);
+	return ceil($countRows / 100);
 }
 
 function newAPIKey() {

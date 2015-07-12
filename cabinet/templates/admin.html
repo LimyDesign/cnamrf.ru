@@ -76,7 +76,7 @@
 								<th>ID</th>
 								<th>E-mail</th>
 								<th>Баланс</th>
-								<th>Тариф</th>
+								<th colspan="2">Тариф</th>
 								<th>Компания</th>
 								<th class="text-center">Админ</th>
 								<th></th>
@@ -424,7 +424,7 @@
 				$.get('/cabinet/getUsers/'+page+'/', function(data) {
 					$('#usersTable tbody').find('tr').remove();
 					data.users.forEach(function(entry) {
-						$('#usersTable').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.email+'</td><td>'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});
 			}

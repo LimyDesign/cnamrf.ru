@@ -434,20 +434,22 @@
 						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td></td></tr>');
 					});
 				}).done(function() {
-					var idWidth = tariff1Width = tariff2Width = 0;
+					var idWidth = t1Width = t2Width = 0;
 					$('#usersTable tbody').find('span[id*="id"]').each(function() {
 						if ($(this).width() > idWidth) idWidth = $(this).width();
 					});
 					$('#usersTable tbody').find('span[id*="tariff1"]').each(function() {
-						if ($(this).width() > tariff1Width) tariff1Width = $(this).width();
+						if ($(this).width() > t1Width) t1Width = $(this).width();
 					});
 					$('#usersTable tbody').find('span[id*="tariff2"]').each(function() {
-						if ($(this).width() > tariff2Width) tariff2Width = $(this).width();
+						if ($(this).width() > t2Width) t2Width = $(this).width();
 					});
 					idWidth = idWidth + 20;
-					tWidth = tariff1Width + tariff2Width + 40;
+					t1Width = t1Width + 20;
+					t2Width = t2Width + 20;
 					$('#usersTable thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
-					$('#usersTable thead').find('th').eq(3).attr('style', 'width:'+tWidth+'px;');
+					$('#usersTable body').find('th').eq(3).attr('style', 'width:'+t1Width+'px;');
+					$('#usersTable body').find('th').eq(4).attr('style', 'width:'+t2Width+'px;');
 				});
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {

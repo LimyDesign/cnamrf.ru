@@ -418,7 +418,7 @@
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			var city_id = $('#selectCityRubrics').val(),
-				page = page?:1;
+				page = (page ?: 1);
 
 			if ($(e.target).attr('href') == '#users') {
 				$.get('/cabinet/getUsers/'+page+'/', function(data) {

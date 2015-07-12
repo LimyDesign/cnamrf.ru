@@ -428,7 +428,7 @@
 					data.users.forEach(function(entry) {
 						if (entry.balans) warning = ' class="warning"';
 						else warning = '';
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td>'+entry.tariff ? entry.tariff : 'CNAM-Start'+'</td><td>'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
 					});
 				});
 			}

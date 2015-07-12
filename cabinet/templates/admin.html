@@ -426,8 +426,13 @@
 					$('#usersTable tbody').find('tr').remove();
 					var warning, tariff;
 					data.users.forEach(function(entry) {
-						if (entry.balans) warning = ' class="warning"';
-						else warning = '';
+						if (entry.balans) {
+							warning = ' class="warning"';
+						}
+						else {
+							warning = '';
+							entry.balans = '';
+						}
 						
 						if (entry.tariff) tariff = entry.tariff;
 						else tariff = 'CNAM-Start';

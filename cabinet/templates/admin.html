@@ -440,10 +440,10 @@
 						if (entry.tariff2 != 'Демо' || tariff != 'CNAM-Start') 
 							warning = ' class="success"';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><button class="btn btn-xs btn-default" data-toogle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-balans="'+entry.balans+'">Подробнее&hellip;</button></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><span id="action"><button class="btn btn-xs btn-default" data-toogle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-balans="'+entry.balans+'">Подробнее&hellip;</button></span></td></tr>');
 					});
 				}).done(function() {
-					var idWidth = bWidth = t1Width = t2Width = 0;
+					var idWidth = bWidth = t1Width = t2Width = aWidth = 0;
 					$('#usersTable tbody').find('span[id*="id"]').each(function() {
 						if ($(this).width() > idWidth) idWidth = $(this).width();
 					});
@@ -456,14 +456,19 @@
 					$('#usersTable tbody').find('span[id*="tariff2"]').each(function() {
 						if ($(this).width() > t2Width) t2Width = $(this).width();
 					});
+					$('#usersTable tbody').find('span[id*="action"]').each(function() {
+						if ($(this).width() > aWidth) aWidth = $(this).width();
+					});
 					idWidth = idWidth + 20;
 					bWidth = bWidth + 20;
 					t1Width = t1Width + 20;
 					t2Width = t2Width + 20;
+					aWidth = aWidth + 20;
 					$('#usersTable thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
 					$('#usersTable thead').find('th').eq(2).attr('style', 'width:'+bWidth+'px;');
 					$('#usersTable thead').find('th').eq(3).attr('style', 'width:'+t1Width+'px;');
 					$('#usersTable thead').find('th').eq(4).attr('style', 'width:'+t2Width+'px;');
+					$('#usersTable thead').find('th').eq(6).attr('style', 'width:'+t2Width+'px;');
 				});
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {

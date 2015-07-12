@@ -53,12 +53,22 @@
 {% block scripts %}
 	<script>
 	$(function () {
-		var mWidth = cWidth = ipWidth = mtWidth = 0
+		var ipWidth = cWidth = ipWidth = mtWidth = 0
 		$('#logsTable tbody').find('span[id*="money"]').each(function() {
 			if ($(this).width() > mWidth) mWidth = $(this).width()
 		})
+		$('#logsTable tbody').find('span[id*="ip"]').each(function() {
+			if ($(this).width() > ipWidth) ipWidth = $(this).width()
+		})
+		$('#logsTable tbody').find('span[id*="modtime"]').each(function() {
+			if ($(this).width() > mtWidth) mtWidth = $(this).width()
+		})
 		mWidth = mWidth + 20;
+		ipWidth = ipWidth + 20;
+		mtWidth = mtWidth + 20;
 		$('#logsTable thead').find('th').eq(1).attr('style', 'width:'+mWidth+'px;');
+		$('#logsTable thead').find('th').eq(3).attr('style', 'width:'+ipWidth+'px;');
+		$('#logsTable thead').find('th').eq(4).attr('style', 'width:'+mtWidth+'px;');
 	})
 	</script>
 {% endblock %}

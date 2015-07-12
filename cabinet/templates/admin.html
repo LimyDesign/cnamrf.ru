@@ -733,6 +733,7 @@
 		$('#usersPagination ul').find('li').eq(page-1).addClass('active');
 		$.get('/cabinet/getUsers/'+page+'/', function(data) {
 			var warning, tariff;
+			$('#usersTable tbody').find('tr').remove();
 			data.users.forEach(function(entry) {
 				if (entry.balans) {
 					warning = ' class="warning"';

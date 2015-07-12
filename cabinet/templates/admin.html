@@ -487,6 +487,67 @@
 			}
 		})
 
+		function gotoUsersPage(page) {
+			$('#usersTable').find('tbody').append('<tr><td colspan="7" class="text-center info"><i class="fa fa-spinner fa-pulse"></i> Загружаю список рабов...</td></tr>');
+			$('#usersPagination ul').find('li').eq(page-1).addClass('active');
+			$.get('/cabinet/getUsers/'+page+'/', function(data) {
+				$('#usersTable tbody').find('tr').remove();
+				var warning, tariff;
+				data.users.forEach(function(entry) {
+					if (entry.balans) {
+						warning = ' class="warning"';
+					}
+					else {
+						warning = '';
+						entry.balans = '0.00';
+					}
+					
+					if (entry.tariff) tariff = entry.tariff;
+					else tariff = 'CNAM-Start';
+
+					if (entry.tariff2 != 'Демо' || tariff != 'CNAM-Start') 
+						warning = ' class="success"';
+
+					if (!entry.company) entry.company = '';
+					if (!entry.vk) entry.vk = '';
+					if (!entry.ok) entry.ok = '';
+					if (!entry.fb) entry.fb = '';
+					if (!entry.gp) entry.gp = '';
+					if (!entry.mr) entry.mr = '';
+					if (!entry.ya) entry.ya = '';
+
+					$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><button class="btn btn-xs btn-default" id="action" data-toggle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-tariff2="'+entry.tariff2+'" data-user-balans="'+entry.balans+'">Подробнее&hellip;</button></td></tr>');
+				});
+			}).done(function() {
+				var idWidth = bWidth = t1Width = t2Width = aWidth = 0;
+				$('#usersTable tbody').find('span[id*="id"]').each(function() {
+					if ($(this).width() > idWidth) idWidth = $(this).width();
+				});
+				$('#usersTable tbody').find('span[id*="balans"]').each(function() {
+					if ($(this).width() > bWidth) bWidth = $(this).width();
+				});
+				$('#usersTable tbody').find('span[id*="tariff1"]').each(function() {
+					if ($(this).width() > t1Width) t1Width = $(this).width();
+				});
+				$('#usersTable tbody').find('span[id*="tariff2"]').each(function() {
+					if ($(this).width() > t2Width) t2Width = $(this).width();
+				});
+				$('#usersTable tbody').find('button[id*="action"]').each(function() {
+					if ($(this).width() > aWidth) aWidth = $(this).width();
+				});
+				idWidth = idWidth + 20;
+				bWidth = bWidth + 20;
+				t1Width = t1Width + 20;
+				t2Width = t2Width + 20;
+				aWidth = aWidth + 40;
+				$('#usersTable thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
+				$('#usersTable thead').find('th').eq(2).attr('style', 'width:'+bWidth+'px;');
+				$('#usersTable thead').find('th').eq(3).attr('style', 'width:'+t1Width+'px;');
+				$('#usersTable thead').find('th').eq(4).attr('style', 'width:'+t2Width+'px;');
+				$('#usersTable thead').find('th').eq(6).attr('style', 'width:'+aWidth+'px;');
+			});
+		}
+
 		$('#tableRubrics').on('click', 'li', function() {
 			var $this = $(this)
 			var id = $(this).parent().attr('id')

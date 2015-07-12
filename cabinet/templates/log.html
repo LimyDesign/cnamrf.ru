@@ -42,7 +42,7 @@
 			<ul class="pagination">
 				{% for page in range(1, pages.totalPages) %}
 					<li{% if (page == pages.currentPage) %} class="active"{% endif %}>
-						<a href="/cabinet/log/{{pages.uid}}/{{page}}/">{{page}} : {{pages.currentPage}}</a>
+						<a href="/cabinet/log/{{pages.uid}}/{{page}}/">{{page}} : {{pages.currentPage/100}}</a>
 					</li>
 				{% endfor %}
 			</ul>

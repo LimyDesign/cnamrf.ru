@@ -685,7 +685,7 @@ function getUserList($limit = 100, $offset = 0) {
 				$users_data[$i]['admin'] = $row['is_admin'];
 				$users_data[$i]['tariff'] = $row['tariff'];
 				$users_data[$i]['tariff2'] = $row['tariff2'];
-				$users_data[$i]['balans'] = $row['balans'];
+				$users_data[$i]['balans'] = number_format($row['balans'], 2, '.', ' ');
 				$i++;
 			}
 			pg_free_result($result);

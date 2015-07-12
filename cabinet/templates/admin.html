@@ -440,12 +440,15 @@
 						if (entry.tariff2 != 'Демо' || tariff != 'CNAM-Start') 
 							warning = ' class="success"';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+'</span> <i class="fa fa-rub"></i></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td></td></tr>');
 					});
 				}).done(function() {
-					var idWidth = t1Width = t2Width = 0;
+					var idWidth = bWidth = t1Width = t2Width = 0;
 					$('#usersTable tbody').find('span[id*="id"]').each(function() {
 						if ($(this).width() > idWidth) idWidth = $(this).width();
+					});
+					$('#usersTable tbody').find('span[id*="balans"]').each(function() {
+						if ($(this).width() > bWidth) bWidth = $(this).width();
 					});
 					$('#usersTable tbody').find('span[id*="tariff1"]').each(function() {
 						if ($(this).width() > t1Width) t1Width = $(this).width();
@@ -454,9 +457,11 @@
 						if ($(this).width() > t2Width) t2Width = $(this).width();
 					});
 					idWidth = idWidth + 20;
+					bWidth = bWidth + 20;
 					t1Width = t1Width + 20;
 					t2Width = t2Width + 20;
 					$('#usersTable thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
+					$('#usersTable thead').find('th').eq(2).attr('style', 'width:'+bWidth+'px;');
 					$('#usersTable thead').find('th').eq(3).attr('style', 'width:'+t1Width+'px;');
 					$('#usersTable thead').find('th').eq(4).attr('style', 'width:'+t2Width+'px;');
 				});
@@ -548,7 +553,7 @@
 		$('span[id="price"]').number(true, 2, '.', ' ')
 		$('span[id="qty"]').number(true, 0, '.', ' ')
 		$('span[id="sum"]').number(true, 2, '.', ' ')
-		$('span[id="balans"]').number(true, 2, '.', ' ')
+		// $('span[id="balans"]').number(true, 2, '.', ' ')
 		$('span[id="invoiceSum"]').number(true, 2, '.', ' ')
 		
 		$('#tariffPrice').number(true, 2, '.', ' ')

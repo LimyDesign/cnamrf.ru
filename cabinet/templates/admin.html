@@ -73,12 +73,11 @@
 					<table class="table table-hover" id="usersTable">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th width="1%">ID</th>
 								<th>E-mail</th>
 								<th>Баланс</th>
 								<th colspan="2" class="text-center">Тариф</th>
 								<th>Компания</th>
-								<th class="text-center">Админ</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -432,7 +431,7 @@
 						if (entry.tariff) tariff = entry.tariff;
 						else tariff = 'CNAM-Start';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center">'+tariff+'</td><td class="text-center">'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td><td></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td>'+entry.id+'</td><td>'+entry.email+'</td><td class="text-right">'+entry.balans+'</td><td class="text-center">'+tariff+'</td><td class="text-center">'+entry.tariff2+'</td><td>'+entry.company+'</td><td></td></tr>');
 					});
 				});
 			}

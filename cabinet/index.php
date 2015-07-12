@@ -683,6 +683,7 @@ function getUserList($limit = 100, $offset = 0) {
 				$users_data[$i]['company'] = $row['company'];
 				$users_data[$i]['admin'] = $row['is_admin'];
 				$users_data[$i]['tariff'] = $row['tariff'];
+				$users_data[$i]['tariff2'] = $row['tariff2'];
 				$users_data[$i]['balans'] = $row['balans'];
 				$i++;
 			}

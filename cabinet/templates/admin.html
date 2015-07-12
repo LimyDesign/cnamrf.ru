@@ -271,8 +271,12 @@
 							<div class="col-sm-6" id="infoUserEmail"></div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6 text-right">Тарифный план:</div>
+							<div class="col-sm-6 text-right">Тарифный план CNAM РФ:</div>
 							<div class="col-sm-6" id="infoUserTariff"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-right">Тарифный план Lead4CRM:</div>
+							<div class="col-sm-6" id="infoUserTariff2"></div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6 text-right">Текущий баланс:</div>
@@ -437,7 +441,7 @@
 						if (!entry.mr) entry.mr = '';
 						if (!entry.ya) entry.ya = '';
 
-						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><button class="btn btn-xs btn-default" id="action" data-toggle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-balans="'+entry.balans+'">Подробнее&hellip;</button></td></tr>');
+						$('#usersTable').find('tbody').append('<tr'+warning+'><td><span id="id">'+entry.id+'</span></td><td>'+entry.email+'</td><td class="text-right"><span id="balans">'+entry.balans+' <i class="fa fa-rub"></i></span></td><td class="text-center"><span id="tariff1">'+tariff+'</span></td><td class="text-center"><span id="tariff2">'+entry.tariff2+'</span></td><td>'+entry.company+'</td><td><button class="btn btn-xs btn-default" id="action" data-toggle="modal" data-target="#infoUser" data-user-id="'+entry.id+'" data-user-email="'+entry.email+'" data-user-vk="'+entry.vk+'" data-user-ok="'+entry.ok+'" data-user-fb="'+entry.fb+'" data-user-gp="'+entry.gp+'" data-user-mr="'+entry.mr+'" data-user-ya="'+entry.ya+'" data-user-company="'+entry.company+'" data-user-admin="'+entry.admin+'" data-user-tariff="'+tariff+'" data-user-tariff2="'+entry.tariff2+'" data-user-balans="'+entry.balans+'">Подробнее&hellip;</button></td></tr>');
 					});
 				}).done(function() {
 					var idWidth = bWidth = t1Width = t2Width = aWidth = 0;
@@ -633,7 +637,8 @@
 			var company = button.data('user-company')
 			var admin = button.data('user-admin')
 			var tariff = button.data('user-tariff')
-			var balans = button.data('user-balans').replace(/\s/g, '');
+			var tariff2 = button.data('user-tariff2'
+			var balans = button.data('user-balans').replace(/\s/g, '')
 
 			if (admin == 't') {
 				modal.find('input[id="adminTrue"]').trigger('click')
@@ -657,6 +662,7 @@
 			modal.find('#infoUserYA').text(ya)
 			modal.find('#infoUserCompany').text(company)
 			modal.find('#infoUserTariff').text(tariff)
+			modal.find('#infoUserTariff2').text(tariff2)
 			modal.find('#infoUserBalans').number(balans, 2, '.', ' ')
 			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/')
 			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')

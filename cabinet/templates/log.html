@@ -11,7 +11,7 @@
 					<th>Запрос</th>
 					<th class="moneyColumn">Дебет / Кредит</th>
 					<th>Клиентская система</th>
-					<th>IP клиента</th>
+					<th class="ipColumn">IP клиента</th>
 					<th>Дата время</th>
 				</tr>
 			</thead>
@@ -30,7 +30,7 @@
 							{% endif %}
 						</td>
 						<td><span id="client">{{ log_data.client }}</span></td>
-						<td><span id="ip">{{ log_data.ip }}</span></td>
+						<td class="ipColumn"><span id="ip">{{ log_data.ip }}</span></td>
 						<td><span id="modtime">{{ log_data.modtime }}</span></td>
 					</tr>
 				{% endfor %}

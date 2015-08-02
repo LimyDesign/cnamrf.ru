@@ -393,21 +393,23 @@
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
 		RubricsDropzone.on('complete', function(file) {
-			console.log(file);
-			$('#tableRubrics tbody').find('tr').remove();
-			var rubrics = $.parseJSON(file.xhr.responseText),
-				leve2 = null, level3 = null;
-			rubrics.forEach(function(entry) {
-				if (!entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td></tr>');
-					level2 = entry.id;
-				} else if (level2 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td></tr>');
-					level3 = entry.id;
-				} else if (level3 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td></tr>');
-				}
-			});
+			if (file.status == 'success')
+			{
+				$('#tableRubrics tbody').find('tr').remove();
+				var rubrics = $.parseJSON(file.xhr.responseText),
+					leve2 = null, level3 = null;
+				rubrics.forEach(function(entry) {
+					if (!entry.parent) {
+						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td></tr>');
+						level2 = entry.id;
+					} else if (level2 == entry.parent) {
+						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td></tr>');
+						level3 = entry.id;
+					} else if (level3 == entry.parent) {
+						$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td></tr>');
+					}
+				});
+			}
 		});
 
 		$('#changeDomain').change(function() {

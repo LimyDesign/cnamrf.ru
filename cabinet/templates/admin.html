@@ -394,7 +394,7 @@
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
 		RubricsDropzone.on('complete', function(file) {
-			console.log(file);
+			console.log(file.xhr.response);
 		});
 
 		$('#changeDomain').change(function() {

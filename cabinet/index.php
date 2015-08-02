@@ -946,12 +946,44 @@ function uploadRubricsFile() {
 				}
 				$row++;
 			}
-			// if ($conf['db']['type'] == 'postgres')
-			// {
-			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			// }
-			var_dump($out); die();
-			// $response = $out;
+			if ($conf['db']['type'] == 'postgres')
+			{
+				if (count($out)) {
+					$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+					$query = "TRUNCATE TABLE rubrics RESTART IDENTITY CASCADE";
+					pg_query($query);
+					for ($i = 0; $i < count($out); $i++) {
+						if ($out[$i][1]) {
+							$translit = translit($out[$i][1]);
+							$translit = strtoupper($translit);
+							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+							$translit = trim($translit, '-');
+							$query = "insert into rubrics (name, translit) values ('{$out[$i][1]}', '{$translit}') returning id";
+							$result = pg_query($query);
+							$idLevel1 = pg_fetch_result($result, 0, 'id');
+						} else {
+							if ($out[$i][2]) {
+								$translit = translit($out[$i][2]);
+								$translit = strtoupper($translit);
+								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+								$translit = trim($translit, '-');
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel1}) returning id";
+								$result = pg_query($query);
+								$idLevel2 = pg_fetch_result($result, 0, 'id');
+							} else {
+								$translit = translit($out[$i][3]);
+								$translit = strtoupper($translit);
+								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+								$translit = trim($translit, '-');
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel1})";
+							}
+						}
+					}
+					pg_free_result($result);
+					pg_close($db);
+				}
+			}
+			getRubricList();
 		} else {
 			$response = array('error' => 'FUCK!');
 		}
@@ -997,7 +1029,7 @@ function updateRubric($rubric_id, $industry_id) {
 	exit();
 }
 
-function getRubricList($city_id) {
+function getRubricList() {
 	global $conf;
 	$rubrics = array();
 	$industries = array();
@@ -1738,6 +1770,20 @@ function mb_ucfirst($str, $encoding='UTF-8') {
    $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
           mb_substr($str, 1, mb_strlen($str), $encoding);
    return $str;
+}
+
+function translit($st) {
+  $st = strtr($st, 
+    "абвгдежзийклмнопрстуфыэАБВГДЕЖЗИЙКЛМНОПРСТУФЫЭ",
+    "abvgdegziyklmnoprstufieABVGDEGZIYKLMNOPRSTUFIE"
+  );
+  $st = strtr($st, array(
+    'ё'=>"yo",    'х'=>"h",  'ц'=>"ts",  'ч'=>"ch", 'ш'=>"sh",  
+    'щ'=>"shch",  'ъ'=>'',   'ь'=>'',    'ю'=>"yu", 'я'=>"ya",
+    'Ё'=>"Yo",    'Х'=>"H",  'Ц'=>"Ts",  'Ч'=>"Ch", 'Ш'=>"Sh",
+    'Щ'=>"Shch",  'Ъ'=>'',   'Ь'=>'',    'Ю'=>"Yu", 'Я'=>"Ya",
+  ));
+  return $st;
 }
 
 function check_admin() {

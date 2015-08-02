@@ -918,8 +918,13 @@ function uploadRubricsFile() {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			$xml = simplexml_load_file('zip://'.$_FILES['file']['tmp_name'].'#xl/sharedSettings.xml');
+			$sharedSettingsArr = array();
+			foreach ($xml->children() as $item) {
+				$sharedSettingsArr[] = (string)$item->t;
+			}
 		}
-		echo json_encode(array('file' => $_FILES['file']['tmp_name']));
+		echo json_encode($sharedSettingsArr);
 		exit();
 	}
 }

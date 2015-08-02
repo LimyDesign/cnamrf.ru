@@ -396,10 +396,10 @@
 		RubricsDropzone.on('complete', function(file) {
 			$('#tableRubrics tbody').find('tr').remove();
 			console.log(file);
-			// var rubrics = $.parseJSON(file.xhr.responseText);
-			// file.xhr.response.forEach(function(entry) {
-			// 	$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.traslit+'</td></tr>');
-			// });
+			var rubrics = $.parseJSON(file.xhr.responseText);
+			rubrics.forEach(function(entry) {
+				$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.traslit+'</td></tr>');
+			});
 		});
 
 		$('#changeDomain').change(function() {

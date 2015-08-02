@@ -953,48 +953,48 @@ function uploadRubricsFile() {
 					$query = "TRUNCATE TABLE rubrics RESTART IDENTITY CASCADE";
 					pg_query($query);
 					for ($i = 1; $i < count($out); $i++) {
-						if ($out[$i][1]) {
+						if ($out[$i][0]) {
+							$translit = translit($out[$i][0]);
+							$translit = strtoupper($translit);
+							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+							$translit = trim($translit, '-');
+							$query = "insert into rubrics (name, translit) values ('{$out[$i][0]}', '{$translit}') returning id";
+							$result = pg_query($query);
+							$idLevel1 = pg_fetch_result($result, 0, 'id');
 							$translit = translit($out[$i][1]);
 							$translit = strtoupper($translit);
 							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 							$translit = trim($translit, '-');
-							$query = "insert into rubrics (name, translit) values ('{$out[$i][1]}', '{$translit}') returning id";
+							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][1]}', '{$translit}', {$idLevel1}) returning id";
 							$result = pg_query($query);
-							$idLevel1 = pg_fetch_result($result, 0, 'id');
+							$idLevel2 = pg_fetch_result($result, 0, 'id');
 							$translit = translit($out[$i][2]);
 							$translit = strtoupper($translit);
 							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 							$translit = trim($translit, '-');
-							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel1}) returning id";
-							$result = pg_query($query);
-							$idLevel2 = pg_fetch_result($result, 0, 'id');
-							$translit = translit($out[$i][3]);
-							$translit = strtoupper($translit);
-							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
-							$translit = trim($translit, '-');
-							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel2})";
 							pg_query($query);
 						} else {
-							if ($out[$i][2]) {
+							if ($out[$i][1]) {
+								$translit = translit($out[$i][1]);
+								$translit = strtoupper($translit);
+								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+								$translit = trim($translit, '-');
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][1]}', '{$translit}', {$idLevel1}) returning id";
+								$result = pg_query($query);
+								$idLevel2 = pg_fetch_result($result, 0, 'id');
 								$translit = translit($out[$i][2]);
 								$translit = strtoupper($translit);
 								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 								$translit = trim($translit, '-');
-								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel1}) returning id";
-								$result = pg_query($query);
-								$idLevel2 = pg_fetch_result($result, 0, 'id');
-								$translit = translit($out[$i][3]);
-								$translit = strtoupper($translit);
-								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
-								$translit = trim($translit, '-');
-								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel2})";
 								pg_query($query);
 							} else {
-								$translit = translit($out[$i][3]);
+								$translit = translit($out[$i][2]);
 								$translit = strtoupper($translit);
 								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 								$translit = trim($translit, '-');
-								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel2})";
 								pg_query($query);
 							}
 						}

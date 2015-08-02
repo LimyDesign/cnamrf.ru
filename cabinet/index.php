@@ -952,7 +952,7 @@ function uploadRubricsFile() {
 					$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 					$query = "TRUNCATE TABLE rubrics RESTART IDENTITY CASCADE";
 					pg_query($query);
-					for ($i = 0; $i < count($out); $i++) {
+					for ($i = 1; $i < count($out); $i++) {
 						if ($out[$i][1]) {
 							$translit = translit($out[$i][1]);
 							$translit = strtoupper($translit);

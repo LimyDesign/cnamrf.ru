@@ -966,7 +966,6 @@ function uploadRubricsFile() {
 							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 							$translit = trim($translit, '-');
 							$query = "insert into rubrics (name, translit, parent) values ('{$out[$i][1]}', '{$translit}', {$idLevel1}) returning id";
-							die($query);
 							$result = pg_query($query);
 							$idLevel2 = pg_fetch_result($result, 0, 'id');
 							$translit = translit($out[$i][2]);

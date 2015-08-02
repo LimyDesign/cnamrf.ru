@@ -435,40 +435,21 @@
 				gotoUsersPage(1);
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {
-				// $.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
-				// 	$('#tableRubrics tbody').find('tr').remove();
-				// 	var industry_select = '';
-				// 	data.industries.forEach(function(entry) {
-				// 		industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>';
-				// 	});
-				// 	data.rubrics.forEach(function(entry, index) {
-				// 		index++;
-				// 		$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>');
-				// 	});
-				// });
+				$.get('/cabinet/getRubricList/', function(data) {
+					var leve2 = null, level3 = null;
+					data.forEach(function(entry) {
+						if (!entry.parent) {
+							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+							level2 = entry.id;
+						} else if (level2 == entry.parent) {
+							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+							level3 = entry.id;
+						} else if (level3 == entry.parent) {
+							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+						}
+					});
+				});
 			}
-		});
-
-		$('#updateRubricsForm').submit(function(e) {
-			e.preventDefault();
-			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled');
-			$(this).find('select').attr('disabled', 'disabled');
-			var city_id = $(this).find('#selectCityRubrics').val();
-			var action = $(this).attr('action');
-			$.get(action+city_id+'/', function(data) {
-				$('#tableRubrics tbody').find('tr').remove();
-				var industry_select = '';
-				data.industries.forEach(function(entry) {
-					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>';
-				});
-				data.rubrics.forEach(function(entry, index) {
-					index++;
-					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>');
-				});
-			}).always(function() {
-				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled');
-				$('#updateRubricsForm').find('select').removeAttr('disabled');
-			});
 		});
 
 		$('#addEditTariff').modal({

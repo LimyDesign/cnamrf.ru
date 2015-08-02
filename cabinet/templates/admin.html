@@ -395,7 +395,7 @@
 		});
 		RubricsDropzone.on('complete', function(file) {
 			$('#tableRubrics tbody').find('tr').remove();
-			console.log(file.xhr.response.rubrics);
+			console.log(file.xhr.response);
 			// file.xhr.response.rubrics.forEach(function(entry) {
 			// 	$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.traslit+'</td></tr>');
 			// });

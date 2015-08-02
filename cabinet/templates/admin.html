@@ -1,5 +1,7 @@
 {% extends 'layout/base.html' %}
-
+{% block styles %}
+	<link rel="stylesheet" href="/css/dropzone.css">
+{% endblock %}
 {% block title %}Административный раздел системы CNAM РФ{% endblock %}
 {% block content %}
 	<h1 class="page-header">Управляй и влавствуй!</h1>
@@ -139,7 +141,6 @@
 						<a href="/cabinet/updateCityBase/" class="btn btn-lg btn-primary"><i class="fa fa-cloud-download fa-fw"></i> Актуализировать справочник</a>
 						<a href="#addManualCity" data-toggle="modal" class="btn btn-lg btn-primary"><i class="fa fa-fw fa-plus"></i> Добавить город в ручную</a>
 					</div>
-					{# <br><br>В базе городов 2ГИС: <span class="badge">{{city_datas|length}}</span> #}
 				</div>
 				{% if total_import %}
 					<div class="alert alert-warning alert-dismissible" role="alert">
@@ -155,7 +156,6 @@
 							<th>Город</th>
 							<th>Родитель</th>
 							<th>Страна</th>
-							{# <th>Дата добавления</th> #}
 							<th></th>
 						</tr>
 					</thead>
@@ -166,7 +166,6 @@
 								<td>{{city.name}}</td>
 								<td>{{city.parent}}</td>
 								<td>{{city.country}}</td>
-								{# <td>{{city.date}}</td> #}
 								<td>
 									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#addManualCity" data-city-action="edit" data-city-id="{{ city.id }}" data-city-name="{{ city.name }}" data-city-manual="{{ city.manual }}" data-city-parent="{{ city.parent_id }}" data-city-country="{{ city.country_id }}"><i class="fa fa-pencil"></i> Редактировать</button>
 								</td>
@@ -387,7 +386,6 @@
 	$(function () {
 		var hash = window.location.hash
 		$('#adminTab a[href="'+hash+'"]').tab('show')
-		$('#rubricsUploader').dropzone({ url: '/cabinet/uploadRubricsFile/' });
 
 		$('#changeDomain').change(function() {
 			$('#changeDomain').attr('disabled', 'disabled');

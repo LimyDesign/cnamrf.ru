@@ -100,6 +100,8 @@ switch ($cmd[0]) {
 	case 'deleteCity':
 		deleteCity($cmd[1]);
 		break;
+	case 'uploadRubricsFile':
+		break;
 	case 'updateRubricsList':
 		updateRubricsList($cmd[1]);
 		break;

@@ -177,7 +177,7 @@
 			<div class="tab-pane" id="2gis-rubrics" role="tabpanel">
 				<h3>Рубрики 2ГИС</h3>
 				<p>В связи с тем, что, оказалось, невозможным пользователям не с административными правами добавлять в локальные справочники ключевые рубрики, которые указываются в основном виде деятельности в карточке компании, поэтому имеется данный рубрикатор, который импортируется в справочник Битрикс24 при установке нашего модуля.</p>
-				<form action="/cabinet/uploadRubricsFile/" class="dropzone dz-clickable">
+				<form class="dropzone dz-clickable" id="uploadCSV">
 					<div class="dz-message">
 						Перетащите сюда файл или кликните чтобы выбрать.
 					</div>
@@ -186,8 +186,8 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Родительская рубрика 2ГИС</th>
-							<th>Сфера деятельности в CRM Битрикс24</th>
+							<th>Рубрика 2ГИС</th>
+							<th>Транслит</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -412,6 +412,10 @@
 				gotoUsersPage(1);
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {
+				$('#uploadCSV').dropzone({
+					url: '/cabinet/uploadRubricsFile/',
+					acceptedFiles: 'text/csv'
+				});
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove();
 					var industry_select = '';

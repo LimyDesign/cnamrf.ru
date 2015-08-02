@@ -930,14 +930,14 @@ function uploadRubricsFile() {
 			// $zip->extractTo($extractDir);
 			$strings = simplexml_load_file('zip://'.$targetFile.'#xl/sharedStrings.xml');
 			$sharedSettingsArr = array();
-			// foreach ($xml->children() as $item) {
-			// 	$sharedSettingsArr[] = (string)$item->t;
-			// }
+			foreach ($xml->children() as $item) {
+				$sharedSettingsArr[] = (string)$item->t;
+			}
 			// if ($conf['db']['type'] == 'postgres')
 			// {
 			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			// }
-			$response = $xml;
+			$response = $sharedSettingsArr;
 		} else {
 			$response = array('error' => 'FUCK!');
 		}

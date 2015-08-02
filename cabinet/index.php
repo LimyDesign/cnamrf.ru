@@ -950,7 +950,8 @@ function uploadRubricsFile() {
 			// {
 			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			// }
-			$response = $out;
+			var_dump($out); die();
+			// $response = $out;
 		} else {
 			$response = array('error' => 'FUCK!');
 		}

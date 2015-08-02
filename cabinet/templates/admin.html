@@ -393,8 +393,11 @@
 			acceptedFiles: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
-		RubricsDropzone.on('complete', function(file) {
-			console.log(file.xhr.response);
+		RubricsDropzone.on('success', function(file) {
+			$('#tableRubrics tbody').find('tr').remove();
+			file.xhr.response.rubrics.forEach(function(entry) {
+				$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.traslit+'</td></tr>');
+			});
 		});
 
 		$('#changeDomain').change(function() {

@@ -1727,11 +1727,11 @@ function mb_ucfirst($str, $encoding='UTF-8') {
 }
 
 function translit($st) {
-  $st = strtr($st, 
+  $st = mb_strstr($st, 
     "абвгдежзийклмнопрстуфыэАБВГДЕЖЗИЙКЛМНОПРСТУФЫЭ",
     "abvgdegziyklmnoprstufieABVGDEGZIYKLMNOPRSTUFIE"
   );
-  $st = strtr($st, array(
+  $st = mb_strstr($st, array(
     'ё'=>"yo",    'х'=>"h",  'ц'=>"ts",  'ч'=>"ch", 'ш'=>"sh",  
     'щ'=>"shch",  'ъ'=>'',   'ь'=>'',    'ю'=>"yu", 'я'=>"ya",
     'Ё'=>"Yo",    'Х'=>"H",  'Ц'=>"Ts",  'Ч'=>"Ch", 'Ш'=>"Sh",

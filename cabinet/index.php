@@ -929,15 +929,28 @@ function uploadRubricsFile() {
 			$zip->open($targetFile);
 			$zip->extractTo($extractDir);
 			$strings = simplexml_load_file($extractDir.'xl/sharedStrings.xml');
+			$sheet = simplexml_load_file($extractDir.'xl/worksheets/sheet1.xml');
 			$sharedSettingsArr = array();
 			foreach ($strings->children() as $item) {
 				$sharedSettingsArr[] = (string)$item->t;
+			}
+			$row = 0;
+			foreach($sheet->sheetData->row as $item) {
+				$out[$row] = array();
+				$cell = 0;
+				foreach($item as $child) {
+					$attr = $child->attributes();
+					$value = isset($child->v) ? (string)$child->v : false;
+					$out[$row][$cell] = isset($attr['t']) ? $sharedSettingsArr[$value] : $value;
+					$cell++;
+				}
+				$row++;
 			}
 			// if ($conf['db']['type'] == 'postgres')
 			// {
 			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
 			// }
-			$response = $sharedSettingsArr;
+			$response = $out;
 		} else {
 			$response = array('error' => 'FUCK!');
 		}

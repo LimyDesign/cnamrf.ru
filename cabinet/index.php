@@ -914,20 +914,28 @@ function deleteCity($id) {
 
 function uploadRubricsFile() {
 	global $conf;
-	if ($_SESSION['is_admin'] == 't') {
-		if ($conf['db']['type'] == 'postgres')
+	$ds = DIRECTORY_SEPARATOR;
+	$storeFolder = 'uploads';
+	if ($_SESSION['is_admin'] == 't') 
+	{
+		if (!empty($_FILES)) 
 		{
-			if (!empty($_FILES)) {
-				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-				$xml = simplexml_load_file('zip://'.$_FILES['file']['tmp_name'].'#xl/sharedSettings.xml');
-				$sharedSettingsArr = array();
-				foreach ($xml->children() as $item) {
-					$sharedSettingsArr[] = (string)$item->t;
-				}
-				$response = $sharedSettingsArr;
-			} else {
-				$response = 'FUCK!';
+			$tmpFile = $_FILES['file']['tmp_name'];
+			$targetPath = dirname(__FILE__).$ds.'..'.$ds.$storeFolder.$ds;
+			$targetFile = $targetPath.$_FILES['file']['name'];
+			move_uploaded_file($tmpFile, $targetFile);
+			$xml = simplexml_load_file('zip://'.$targetFile.'#xl/sharedSettings.xml');
+			$sharedSettingsArr = array();
+			foreach ($xml->children() as $item) {
+				$sharedSettingsArr[] = (string)$item->t;
 			}
+			// if ($conf['db']['type'] == 'postgres')
+			// {
+			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			// }
+			$response = $sharedSettingsArr;
+		} else {
+			$response = array('error' => 'FUCK!');
 		}
 		echo json_encode($response);
 		exit();

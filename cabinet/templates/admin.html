@@ -187,7 +187,6 @@
 						<tr>
 							<th>№</th>
 							<th>Рубрика 2ГИС</th>
-							<th>Транслит</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -399,13 +398,13 @@
 				leve2 = null, level3 = null;
 			rubrics.forEach(function(entry) {
 				if (!entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td></tr>');
 					level2 = entry.id;
 				} else if (level2 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td></tr>');
 					level3 = entry.id;
 				} else if (level3 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td></tr>');
 				}
 			});
 		});
@@ -439,15 +438,22 @@
 					var leve2 = null, level3 = null;
 					data.forEach(function(entry) {
 						if (!entry.parent) {
-							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+							$('#tableRubrics').find('tbody').append('<tr><td><span id="id">'+entry.id+'</span></td><td>'+entry.name+'</td></tr>');
 							level2 = entry.id;
 						} else if (level2 == entry.parent) {
-							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+							$('#tableRubrics').find('tbody').append('<tr><td><span id="id">'+entry.id+'</span></td><td>&mdash;&nbsp;'+entry.name+'</td></tr>');
 							level3 = entry.id;
 						} else if (level3 == entry.parent) {
-							$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+							$('#tableRubrics').find('tbody').append('<tr><td><span id="id">'+entry.id+'</span></td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td></tr>');
 						}
 					});
+				}).done(function() {
+					var idWidth = nWidth = tWidth = 0;
+					$('#tableRubrics tbody').find('span[id*="id"]').each(function() {
+						if ($(this).width() > idWidth) idWidth = $(this).width();
+					});
+					idWidth = idWidth + 20;
+					$('#tableRubrics thead').find('th:first').attr('style', 'width:'+idWidth+'px;');
 				});
 			}
 		});

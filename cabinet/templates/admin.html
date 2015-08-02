@@ -390,8 +390,8 @@
 		Dropzone.autoDiscover = false;
 		var RubricsDropzone = new Dropzone('#uploadCSV', {
 			url: '/cabinet/uploadRubricsFile/',
-			acceptedFiles: 'text/csv',
-			dictInvalidFileType: 'Данный тип файла загрузить невозможно, выберите CSV файл.'
+			acceptedFiles: 'tapplication/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
 		RubricsDropzone.on('complete', function(res) {
 			console.log(res);

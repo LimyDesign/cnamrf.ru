@@ -992,43 +992,6 @@ function uploadRubricsFile() {
 	}
 }
 
-function updateRubricsList($city_id) {
-	global $conf;
-	if ($conf['db']['type'] == 'postgres') {
-		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select apikey from users where id = {$_SESSION['userid']}";
-		$result = pg_query($query);
-		$apikey = pg_fetch_result($result, 0, 0);
-		pg_free_result($result);
-		pg_close($db);
-		$url = 'http://api.cnamrf.ru/get2GisRubrics/?';
-		$uri = http_build_query(array(
-			'apikey' => $apikey,
-			'city' => $city_id));
-		$result = json_decode(file_get_contents($url.$uri));
-		if (!$result->error) {
-			exec("psql {$conf['db']['database']} < /tmp/{$result->sql_dump_created}", $result_import, $result_exec);
-			if (!$result_exec) {
-				getRubricList($city_id);
-			}
-		}
-	}
-}
-
-function updateRubric($rubric_id, $industry_id) {
-	global $conf;
-	if ($_SESSION['is_admin'] == 't' && is_numeric($rubric_id) && is_numeric($industry_id)) {
-		if ($conf['db']['type'] == 'postgres') {
-			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "update rubrics set industry_id = {$industry_id} where alias = (select alias from rubrics where id = {$rubric_id})";
-			pg_query($query);
-			pg_close($db);
-			echo $query;
-		}
-	}
-	exit();
-}
-
 function getRubricList() {
 	global $conf;
 	$rubrics = array();

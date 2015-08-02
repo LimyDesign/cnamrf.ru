@@ -922,7 +922,7 @@ function uploadRubricsFile() {
 		{
 			$tmpFile = $_FILES['file']['tmp_name'];
 			$targetPath = dirname(__FILE__).$ds.'..'.$ds.$storeFolder.$ds;
-			// $extractDir = dirname(__FILE__).$ds.'..'.$ds.md5(rand()).$ds;
+			$extractDir = dirname(__FILE__).$ds.'..'.$ds.md5(rand()).$ds;
 			$targetFile = $targetPath.$_FILES['file']['name'];
 			move_uploaded_file($tmpFile, $targetFile);
 			// $zip = new ZipArchive();
@@ -930,7 +930,7 @@ function uploadRubricsFile() {
 			// $zip->extractTo($extractDir);
 			$strings = simplexml_load_file('zip://'.$targetFile.'#xl/sharedStrings.xml');
 			$sharedSettingsArr = array();
-			foreach ($xml->children() as $item) {
+			foreach ($strings->children() as $item) {
 				$sharedSettingsArr[] = (string)$item->t;
 			}
 			// if ($conf['db']['type'] == 'postgres')

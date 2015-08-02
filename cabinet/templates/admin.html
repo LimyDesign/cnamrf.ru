@@ -176,19 +176,20 @@
 				</table>
 			</div>
 			<div class="tab-pane" id="2gis-rubrics" role="tabpanel">
-				<h3>Асоциативный массив рубрик</h3>
-				<p>Так как в CMR Битрикс24 довольно ограниченный список сфер деятельности компаний, а в 2ГИС довольно широкий список рубрик, то для заполнения карточки компании требуется некоторая человеческая составляющая. Для того, чтобы система автоматически выбирала нужную сферу деятельности компации, необходимо проставить наиболее подходящие сферы деятельности для ключевых рубрик 2ГИС. Обычно их не много для каждого города. Выбирайте город и выбирайте нужную сферу деятельности. Если по текущему городу не представлен список рубрик, то смело получайте список на выбранный город.</p>
+				<h3>Рубрики</h3>
+				<p>В связи с тем, что, оказалось, невозможным пользователям не с административными правами добавлять в локальные справочники ключевые рубрики, которые указываются в основном виде деятельности в карточке компании, поэтому имеется данный рубрикатор, который импортируется в справочник Битрикс24 при установке нашего модуля.</p>
 				<div class="well text-center">
 					<form action="/cabinet/updateRubricsList/" class="form-inline" method="post" id="updateRubricsForm">
 						<div class="form-group">
-							<label for="selectCityRubrics" class="sr-only">Город</label>
-							<select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
+							<label for="selectRubricsFile">Файл</label>
+							<input type="file" id="selectRubriscsFile" name="rubricsFile">
+							{# <select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
 								{% for city in city_datas %}
 									<option value="{{city.id}}">{{city.name}}</option>
 								{% endfor %}
-							</select>
+							</select> #}
 						</div>
-						<button class="btn btn-primary">Импортировать из 2ГИС</button>
+						<button class="btn btn-primary">Загрузить файл</button>
 					</form>
 				</div>
 				<table class="table table-responsive table-hover" id="tableRubrics">

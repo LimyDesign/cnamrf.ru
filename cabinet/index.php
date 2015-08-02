@@ -917,14 +917,19 @@ function uploadRubricsFile() {
 	if ($_SESSION['is_admin'] == 't') {
 		if ($conf['db']['type'] == 'postgres')
 		{
-			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$xml = simplexml_load_file('zip://'.$_FILES['file']['tmp_name'].'#xl/sharedSettings.xml');
-			$sharedSettingsArr = array();
-			foreach ($xml->children() as $item) {
-				$sharedSettingsArr[] = (string)$item->t;
+			if (!empty($_FILES)) {
+				$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+				$xml = simplexml_load_file('zip://'.$_FILES['file']['tmp_name'].'#xl/sharedSettings.xml');
+				$sharedSettingsArr = array();
+				foreach ($xml->children() as $item) {
+					$sharedSettingsArr[] = (string)$item->t;
+				}
+				$response = $sharedSettingsArr;
+			} else {
+				$response = 'FUCK!';
 			}
 		}
-		echo json_encode($sharedSettingsArr);
+		echo json_encode($response);
 		exit();
 	}
 }

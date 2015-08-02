@@ -941,7 +941,7 @@ function uploadRubricsFile() {
 		} else {
 			$response = array('error' => 'FUCK!');
 		}
-		echo json_encode($response);
+		echo json_encode($response, JSON_UNESCAPED_UNICODE);
 		exit();
 	}
 }

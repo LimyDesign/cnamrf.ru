@@ -176,22 +176,9 @@
 				</table>
 			</div>
 			<div class="tab-pane" id="2gis-rubrics" role="tabpanel">
-				<h3>Рубрики</h3>
+				<h3>Рубрики 2ГИС</h3>
 				<p>В связи с тем, что, оказалось, невозможным пользователям не с административными правами добавлять в локальные справочники ключевые рубрики, которые указываются в основном виде деятельности в карточке компании, поэтому имеется данный рубрикатор, который импортируется в справочник Битрикс24 при установке нашего модуля.</p>
-				<div class="well text-center">
-					<form action="/cabinet/updateRubricsList/" class="form-inline" method="post" id="updateRubricsForm">
-						<div class="form-group">
-							<label for="selectRubricsFile" class="sr-only">Файл</label>
-							<input type="file" id="selectRubriscsFile" name="rubricsFile">
-							{# <select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
-								{% for city in city_datas %}
-									<option value="{{city.id}}">{{city.name}}</option>
-								{% endfor %}
-							</select> #}
-						</div>
-						<button class="btn btn-primary">Загрузить рубрикатор</button>
-					</form>
-				</div>
+				<div class="well text-center" id="rubricsUploader"></div>
 				<table class="table table-responsive table-hover" id="tableRubrics">
 					<thead>
 						<tr>
@@ -391,10 +378,12 @@
 	</div>
 {% endblock %}
 {% block scripts %}
+	<script src="/js/dropzone.js"></script>
 	<script>
 	$(function () {
 		var hash = window.location.hash
 		$('#adminTab a[href="'+hash+'"]').tab('show')
+		$('#rubricsUploader').dropzone({ url: '/cabinet/uploadRubricsFile/' });
 
 		$('#changeDomain').change(function() {
 			$('#changeDomain').attr('disabled', 'disabled');
@@ -435,20 +424,6 @@
 			}
 		})
 
-		$('#tableRubrics').on('click', 'li', function() {
-			var $this = $(this)
-			var id = $(this).parent().attr('id')
-			var code = $(this).children().attr('id')
-			var text = $(this).children().text()
-			var formData = {
-				rubric_id: id,
-				industry_id: code
-			}
-			$.post('/cabinet/updateRubric/', formData).done(function() {
-				$this.parent().parent().find('#btn-name').text(text)
-			})
-		})
-
 		$('#updateRubricsForm').submit(function(e) {
 			e.preventDefault();
 			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled')
@@ -468,21 +443,6 @@
 			}).always(function() {
 				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
 				$('#updateRubricsForm').find('select').removeAttr('disabled')
-			})
-		})
-
-		$('#selectCityRubrics').change(function() {
-			var city_id = $(this).val()
-			$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
-				$('#tableRubrics tbody').find('tr').remove()
-				var industry_select = ''
-				data.industries.forEach(function(entry) {
-					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>'
-				})
-				data.rubrics.forEach(function(entry, index) {
-					index++;
-					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
-				})
 			})
 		})
 
@@ -507,7 +467,6 @@
 		$('span[id="price"]').number(true, 2, '.', ' ')
 		$('span[id="qty"]').number(true, 0, '.', ' ')
 		$('span[id="sum"]').number(true, 2, '.', ' ')
-		// $('span[id="balans"]').number(true, 2, '.', ' ')
 		$('span[id="invoiceSum"]').number(true, 2, '.', ' ')
 		
 		$('#tariffPrice').number(true, 2, '.', ' ')

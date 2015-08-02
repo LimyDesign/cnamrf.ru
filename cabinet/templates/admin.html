@@ -405,6 +405,7 @@
 		});
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			window.location.hash = $(e.target).attr('href');
 			var city_id = $('#selectCityRubrics').val(),
 				page = page ? page : 1;
 

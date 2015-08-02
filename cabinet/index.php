@@ -1015,26 +1015,21 @@ function uploadRubricsFile() {
 function getRubricList() {
 	global $conf;
 	$rubrics = array();
-	$industries = array();
-	if (is_numeric($city_id)) {
-		if ($conf['db']['type'] == 'postgres') {
-			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			$query = "select id, name, translit, parent from rubrics";
-			$result = pg_query($query);
-			$i = 0;
-			while ($row = pg_fetch_assoc($result)) {
-				$rubrics[$i]['id'] = $row['id'];
-				$rubrics[$i]['name'] = $row['name'];
-				$rubrics[$i]['translit'] = $row['translit'];
-				$rubrics[$i]['parent'] = $row['parent'];
-				$i++;
-			}
-			pg_free_result($result);
-			pg_close($db);
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select id, name, translit, parent from rubrics";
+		$result = pg_query($query);
+		$i = 0;
+		while ($row = pg_fetch_assoc($result)) {
+			$rubrics[$i]['id'] = $row['id'];
+			$rubrics[$i]['name'] = $row['name'];
+			$rubrics[$i]['translit'] = $row['translit'];
+			$rubrics[$i]['parent'] = $row['parent'];
+			$i++;
 		}
+		pg_free_result($result);
+		pg_close($db);
 	}
-	print_r($rubrics);
-	die();
 	header("Content-Type: text/json");
 	echo json_encode(array('rubrics' => $rubrics), JSON_UNESCAPED_UNICODE);
 	exit();

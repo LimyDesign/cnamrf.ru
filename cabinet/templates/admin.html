@@ -402,10 +402,10 @@
 					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
 					level2 = entry.id;
 				} else if (level2 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>&mdash;&nbsp;'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
 					level3 = entry.id;
 				} else if (level3 == entry.parent) {
-					$('#tableRubrics').find('tbody').append('<tr><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.id+'</td><td>'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
+					$('#tableRubrics').find('tbody').append('<tr><td>'+entry.id+'</td><td>&mdash;&nbsp;&mdash;&nbsp;'+entry.name+'</td><td>'+entry.translit+'</td></tr>');
 				}
 			});
 		});

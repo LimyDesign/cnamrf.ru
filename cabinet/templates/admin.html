@@ -387,6 +387,7 @@
 		var hash = window.location.hash;
 		$('#adminTab a[href="'+hash+'"]').tab('show');
 
+		Dropzone.autoDiscover = false;
 		$('#uploadCSV').dropzone({
 			url: '/cabinet/uploadRubricsFile/',
 			acceptedFiles: 'text/csv'

@@ -961,6 +961,19 @@ function uploadRubricsFile() {
 							$query = "insert into rubrics (name, translit) values ('{$out[$i][1]}', '{$translit}') returning id";
 							$result = pg_query($query);
 							$idLevel1 = pg_fetch_result($result, 0, 'id');
+							$translit = translit($out[$i][2]);
+							$translit = strtoupper($translit);
+							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+							$translit = trim($translit, '-');
+							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel1}) returning id";
+							$result = pg_query($query);
+							$idLevel2 = pg_fetch_result($result, 0, 'id');
+							$translit = translit($out[$i][3]);
+							$translit = strtoupper($translit);
+							$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+							$translit = trim($translit, '-');
+							$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+							pg_query($query);
 						} else {
 							if ($out[$i][2]) {
 								$translit = translit($out[$i][2]);
@@ -970,12 +983,19 @@ function uploadRubricsFile() {
 								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][2]}', '{$translit}', {$idLevel1}) returning id";
 								$result = pg_query($query);
 								$idLevel2 = pg_fetch_result($result, 0, 'id');
+								$translit = translit($out[$i][3]);
+								$translit = strtoupper($translit);
+								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
+								$translit = trim($translit, '-');
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+								pg_query($query);
 							} else {
 								$translit = translit($out[$i][3]);
 								$translit = strtoupper($translit);
 								$translit = preg_replace('~[^-A-Z0-9_]+~u', '-', $translit);
 								$translit = trim($translit, '-');
-								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel1})";
+								$query = "insert into rubrics (name, translit, parentId) values ('{$out[$i][3]}', '{$translit}', {$idLevel2})";
+								pg_query($query);
 							}
 						}
 					}
@@ -1727,7 +1747,7 @@ function mb_ucfirst($str, $encoding='UTF-8') {
 }
 
 function translit($st) {
-  $cyr  = array('а','б','в','г','д','e','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ь', 'ю','я','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ь', 'Ю','Я');
+  $cyr  = array('а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ь', 'ю','я','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ь', 'Ю','Я');
   $lat = array( 'a','b','v','g','d','e','zh','z','i','y','k','l','m','n','o','p','r','s','t','u','f' ,'h' ,'ts' ,'ch','sh' ,'sht' ,'a' ,'y' ,'yu' ,'ya','A','B','V','G','D','E','Zh','Z','I','Y','K','L','M','N','O','P','R','S','T','U','F' ,'H' ,'Ts' ,'Ch','Sh' ,'Sht' ,'A' ,'Y' ,'Yu' ,'Ya');
   return str_replace($cyr, $lat, $st);
 }

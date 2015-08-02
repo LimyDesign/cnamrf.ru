@@ -384,8 +384,8 @@
 	<script src="/js/dropzone.js"></script>
 	<script>
 	$(function () {
-		var hash = window.location.hash
-		$('#adminTab a[href="'+hash+'"]').tab('show')
+		var hash = window.location.hash;
+		$('#adminTab a[href="'+hash+'"]').tab('show');
 
 		$('#changeDomain').change(function() {
 			$('#changeDomain').attr('disabled', 'disabled');
@@ -406,228 +406,225 @@
 
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 			window.location.hash = $(e.target).attr('href');
-			var city_id = $('#selectCityRubrics').val(),
-				page = page ? page : 1;
+			var page = page ? page : 1;
 
 			if ($(e.target).attr('href') == '#users') {
 				gotoUsersPage(1);
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$.get('/cabinet/getRubricList/'+city_id+'/', function(data) {
-					$('#tableRubrics tbody').find('tr').remove()
-					var industry_select = ''
+					$('#tableRubrics tbody').find('tr').remove();
+					var industry_select = '';
 					data.industries.forEach(function(entry) {
-						industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>'
-					})
+						industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>';
+					});
 					data.rubrics.forEach(function(entry, index) {
 						index++;
-						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
-					})
-				})
+						$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>');
+					});
+				});
 			}
-		})
+		});
 
 		$('#updateRubricsForm').submit(function(e) {
 			e.preventDefault();
-			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled')
-			$(this).find('select').attr('disabled', 'disabled')
-			var city_id = $(this).find('#selectCityRubrics').val()
-			var action = $(this).attr('action')
+			$(this).find('button').html('<i class="fa fa-fw fa-spinner fa-pulse"></i> Работаю, хуле...').attr('disabled', 'disabled');
+			$(this).find('select').attr('disabled', 'disabled');
+			var city_id = $(this).find('#selectCityRubrics').val();
+			var action = $(this).attr('action');
 			$.get(action+city_id+'/', function(data) {
 				$('#tableRubrics tbody').find('tr').remove();
-				var industry_select = ''
+				var industry_select = '';
 				data.industries.forEach(function(entry) {
-					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>'
-				})
+					industry_select = industry_select + '<li><a href="#." id="'+entry.id+'">'+entry.name+'</a></li>';
+				});
 				data.rubrics.forEach(function(entry, index) {
 					index++;
-					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>')
-				})
+					$('#tableRubrics').find('tbody').append('<tr><td>'+index+'</td><td>'+entry.name+'</td><td><div class="btn-group"><button type="button" class="btn btn-xs btn-primary" id="btn-name">'+entry.industry+'</button><button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu" role="menu" id="'+entry.id+'">'+industry_select+'</ul></div></td>');
+				});
 			}).always(function() {
-				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled')
-				$('#updateRubricsForm').find('select').removeAttr('disabled')
-			})
-		})
+				$('#updateRubricsForm').find('button').html('Импортировать из 2ГИС').removeAttr('disabled');
+				$('#updateRubricsForm').find('select').removeAttr('disabled');
+			});
+		});
 
 		$('#addEditTariff').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
-		})
+		});
 
 		$('#infoUser').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
-		})
+		});
 
 		$('#addManualCity').modal({
 			keyboard: false,
 			backdrop: false,
 			show: false
-		})
+		});
 		
-		$('span[id="price"]').number(true, 2, '.', ' ')
-		$('span[id="qty"]').number(true, 0, '.', ' ')
-		$('span[id="sum"]').number(true, 2, '.', ' ')
-		$('span[id="invoiceSum"]').number(true, 2, '.', ' ')
+		$('span[id="price"]').number(true, 2, '.', ' ');
+		$('span[id="qty"]').number(true, 0, '.', ' ');
+		$('span[id="sum"]').number(true, 2, '.', ' ');
+		$('span[id="invoiceSum"]').number(true, 2, '.', ' ');
 		
-		$('#tariffPrice').number(true, 2, '.', ' ')
-		$('#tariffQty').number(true, 0, '.', ' ')
-		$('#tariffSum').number(true, 2, '.', ' ')
+		$('#tariffPrice').number(true, 2, '.', ' ');
+		$('#tariffQty').number(true, 0, '.', ' ');
+		$('#tariffSum').number(true, 2, '.', ' ');
 
 		$('#addEditTariffForm').submit(function(e){
-			$('#tariffPrice').number(true, 2, '.', '')
-			$('#tariffQty').number(true, 0, '.', '')
-			$('#tariffSum').number(true, 2, '.', '')
-			return true
-		})
+			$('#tariffPrice').number(true, 2, '.', '');
+			$('#tariffQty').number(true, 0, '.', '');
+			$('#tariffSum').number(true, 2, '.', '');
+			return true;
+		});
 
 		$('#addEditTariff').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget)
-			var action = button.data('tariff-action')
-			var modal = $(this)
+			var button = $(event.relatedTarget);
+			var action = button.data('tariff-action');
+			var modal = $(this);
 			if (action == 'edit')
 			{
-				var id = button.data('tariff-id')
-				var domain = button.data('tariff-domain')
-				console.log(domain)
-				var name = button.data('tariff-name')
-				var code = button.data('tariff-code')
-				var desc = button.data('tariff-desc')
-				var price = button.data('tariff-price')
-				var qty = button.data('tariff-qty')
-				var sum = button.data('tariff-summ')
+				var id = button.data('tariff-id');
+				var domain = button.data('tariff-domain');
+				var name = button.data('tariff-name');
+				var code = button.data('tariff-code');
+				var desc = button.data('tariff-desc');
+				var price = button.data('tariff-price');
+				var qty = button.data('tariff-qty');
+				var sum = button.data('tariff-summ');
 
-				modal.find('.modal-title').text('Редактирование тарифа «' + name + '»')
-				modal.find('.modal-body select#tariffDomain').val(domain)
-				modal.find('.modal-body input#tariffName').val(name)
-				modal.find('.modal-body input#tariffCode').val(code)
-				modal.find('.modal-body textarea#tariffDescription').val(desc)
-				modal.find('.modal-body input#tariffPrice').val(price)
-				modal.find('.modal-body input#tariffQty').val(qty)
-				modal.find('.modal-body input#tariffSum').val(sum)
-				modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/' + id + '/')
-				modal.find('#action').text('Сохранить')
-				modal.find('#delete').attr('href', '/cabinet/deleteTariff/' + id + '/')
+				modal.find('.modal-title').text('Редактирование тарифа «' + name + '»');
+				modal.find('.modal-body select#tariffDomain').val(domain);
+				modal.find('.modal-body input#tariffName').val(name);
+				modal.find('.modal-body input#tariffCode').val(code);
+				modal.find('.modal-body textarea#tariffDescription').val(desc);
+				modal.find('.modal-body input#tariffPrice').val(price);
+				modal.find('.modal-body input#tariffQty').val(qty);
+				modal.find('.modal-body input#tariffSum').val(sum);
+				modal.find('form#addEditTariffForm').attr('action', '/cabinet/changeTariff/' + id + '/');
+				modal.find('#action').text('Сохранить');
+				modal.find('#delete').attr('href', '/cabinet/deleteTariff/' + id + '/');
 				modal.find('#delete').show();
 			} else {
-				modal.find('.modal-title').text('Добавление нового тарифного плана')
-				modal.find('.modal-body input#tariffName').val('')
-				modal.find('.modal-body input#tariffCode').val('')
-				modal.find('.modal-body textarea#tariffDescription').val('')
-				modal.find('.modal-body input#tariffPrice').val('')
-				modal.find('.modal-body input#tariffQty').val('')
-				modal.find('.modal-body input#tariffSum').val('')
-				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/')
-				modal.find('#action').text('Добавить')
-				modal.find('#delete').attr('href', '#.')
-				modal.find('#delete').hide()
+				modal.find('.modal-title').text('Добавление нового тарифного плана');
+				modal.find('.modal-body input#tariffName').val('');
+				modal.find('.modal-body input#tariffCode').val('');
+				modal.find('.modal-body textarea#tariffDescription').val('');
+				modal.find('.modal-body input#tariffPrice').val('');
+				modal.find('.modal-body input#tariffQty').val('');
+				modal.find('.modal-body input#tariffSum').val('');
+				modal.find('form#addEditTariffForm').attr('action', '/cabinet/addTariff/');
+				modal.find('#action').text('Добавить');
+				modal.find('#delete').attr('href', '#.');
+				modal.find('#delete').hide();
 			}
-			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() })
-		})
+			modal.find('#action').click(function() { $('form#addEditTariffForm').submit() });
+		});
 
 		$('#infoUser').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget)
-			var modal = $(this)
-			var id = button.data('user-id')
-			var email = button.data('user-email')
-			var vk = button.data('user-vk')
-			var ok = button.data('user-ok')
-			var fb = button.data('user-fb')
-			var gp = button.data('user-gp')
-			var mr = button.data('user-mr')
+			var button = $(event.relatedTarget);
+			var modal = $(this);
+			var id = button.data('user-id');
+			var email = button.data('user-email');
+			var vk = button.data('user-vk');
+			var ok = button.data('user-ok');
+			var fb = button.data('user-fb');
+			var gp = button.data('user-gp');
+			var mr = button.data('user-mr');
 			var mr_domain = email.substr(email.indexOf('@')+1);
 			var mr_domains = ["mail.ru", "inbox.ru", "bk.ru", "list.ru"];
 			var mr_uri = '';
 			if (mr_domains.indexOf(mr_domain) > -1)
-				mr_uri = mr_domain + '/' + email.substr(0, email.indexOf('@')) + '/'
-			console.log(mr_domains.indexOf(mr_domain))
-			var ya = button.data('user-ya')
-			var company = button.data('user-company')
-			var admin = button.data('user-admin')
-			var tariff = button.data('user-tariff')
-			var tariff2 = button.data('user-tariff2')
-			var balans = button.data('user-balans').replace(/\s/g, '')
+				mr_uri = mr_domain + '/' + email.substr(0, email.indexOf('@')) + '/';
+			var ya = button.data('user-ya');
+			var company = button.data('user-company');
+			var admin = button.data('user-admin');
+			var tariff = button.data('user-tariff');
+			var tariff2 = button.data('user-tariff2');
+			var balans = button.data('user-balans').replace(/\s/g, '');
 
 			if (admin == 't') {
-				modal.find('input[id="adminTrue"]').trigger('click')
+				modal.find('input[id="adminTrue"]').trigger('click');
 			} else {
-				modal.find('input[id="adminFalse"]').trigger('click')
+				modal.find('input[id="adminFalse"]').trigger('click');
 			}
 
 			if (balans > 0) {
-				modal.find('#delete').addClass('disabled')
+				modal.find('#delete').addClass('disabled');
 			} else {
-				modal.find('#delete').removeClass('disabled')
+				modal.find('#delete').removeClass('disabled');
 			}
 
-			modal.find('.modal-title').text('Информация о пользователе № ' + id)
-			modal.find('#infoUserEmail').text(email)
-			modal.find('#infoUserVK').html('<a href="https://vk.com/id'+vk+'" target="_blank">'+vk+"</a>")
-			modal.find('#infoUserOK').html('<a href="http://ok.ru/profile/'+ok+'" target="_blank">'+ok+'</a>')
-			modal.find('#infoUserFB').html('<a href="https://www.facebook.com/'+fb+'" target="_blank">'+fb+'</a>')
-			modal.find('#infoUserGP').html('<a href="https://plus.google.com/'+gp+'" target="_blank">'+gp+'</a>')
-			modal.find('#infoUserMR').html(mr_uri ? '<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>' : mr)
-			modal.find('#infoUserYA').text(ya)
-			modal.find('#infoUserCompany').text(company)
-			modal.find('#infoUserLogs').html('<a class="btn btn-xs btn-info" href="/cabinet/log/'+id+'/">Открыть&hellip;</a>')
-			modal.find('#infoUserTariff').text(tariff)
-			modal.find('#infoUserTariff2').text(tariff2)
-			modal.find('#infoUserBalans').number(balans, 2, '.', ' ')
-			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/')
-			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/')
-			modal.find('#action').click(function() { $('form#infoUserForm').submit() })
-		})
+			modal.find('.modal-title').text('Информация о пользователе № ' + id);
+			modal.find('#infoUserEmail').text(email);
+			modal.find('#infoUserVK').html('<a href="https://vk.com/id'+vk+'" target="_blank">'+vk+"</a>");
+			modal.find('#infoUserOK').html('<a href="http://ok.ru/profile/'+ok+'" target="_blank">'+ok+'</a>');
+			modal.find('#infoUserFB').html('<a href="https://www.facebook.com/'+fb+'" target="_blank">'+fb+'</a>');
+			modal.find('#infoUserGP').html('<a href="https://plus.google.com/'+gp+'" target="_blank">'+gp+'</a>');
+			modal.find('#infoUserMR').html(mr_uri ? '<a href="http://my.mail.ru/'+mr_uri+'" target="_blank">'+mr+'</a>' : mr);
+			modal.find('#infoUserYA').text(ya);
+			modal.find('#infoUserCompany').text(company);
+			modal.find('#infoUserLogs').html('<a class="btn btn-xs btn-info" href="/cabinet/log/'+id+'/">Открыть&hellip;</a>');
+			modal.find('#infoUserTariff').text(tariff);
+			modal.find('#infoUserTariff2').text(tariff2);
+			modal.find('#infoUserBalans').number(balans, 2, '.', ' ');
+			modal.find('form#infoUserForm').attr('action', '/cabinet/changeUser/' + id + '/');
+			modal.find('#delete').attr('href', '/cabinet/deleteUser/' + id + '/');
+			modal.find('#action').click(function() { $('form#infoUserForm').submit(); });
+		});
 
 		$('#addManualCity').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget)
-			var action = button.data('city-action')
-			var modal = $(this)
+			var button = $(event.relatedTarget);
+			var action = button.data('city-action');
+			var modal = $(this);
 			if (action == 'edit')
 			{
-				var id = button.data('city-id')
-				var name = button.data('city-name')
-				var manual = button.data('city-manual')
-				var parent_id = button.data('city-parent')
-				var country_id = button.data('city-country')
-				modal.find('.modal-title').text('Редактирование города «' + name + '»')
+				var id = button.data('city-id');
+				var name = button.data('city-name');
+				var manual = button.data('city-manual');
+				var parent_id = button.data('city-parent');
+				var country_id = button.data('city-country');
+				modal.find('.modal-title').text('Редактирование города «' + name + '»');
 				
 				if (manual == 'f')
-					modal.find('.modal-body input#cityName').val(name).prop('readOnly', true)
+					modal.find('.modal-body input#cityName').val(name).prop('readOnly', true);
 				else
-					modal.find('.modal-body input#cityName').val(name).prop('readOnly', false)
+					modal.find('.modal-body input#cityName').val(name).prop('readOnly', false);
 
-				modal.find('.modal-body select#cityParent').val(parent_id)
-				modal.find('.modal-body select#cityCountry').val(country_id)
-				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeCity/' + id + '/')
-				modal.find('#action').text('Сохранить')
+				modal.find('.modal-body select#cityParent').val(parent_id);
+				modal.find('.modal-body select#cityCountry').val(country_id);
+				modal.find('form#addManualCityForm').attr('action', '/cabinet/changeCity/' + id + '/');
+				modal.find('#action').text('Сохранить');
 				if (manual == 'f') 
 				{
-					modal.find('#delete').hide().attr('href', '#.')
+					modal.find('#delete').hide().attr('href', '#.');
 				}
 				else 
 				{
-					modal.find('#delete').attr('href', '/cabinet/deleteCity/' + id + '/')
+					modal.find('#delete').attr('href', '/cabinet/deleteCity/' + id + '/');
 					modal.find('#delete').show();
 				}
 			}
 			else
 			{
-				modal.find('.modal-title').text('Добавление нового города')
-				modal.find('.modal-body input#cityName').val('').prop('readOnly', false)
-				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/')
-				modal.find('#action').text('Добавить')
-				modal.find('#delete').attr('href', '#.')
-				modal.find('#delete').hide()
+				modal.find('.modal-title').text('Добавление нового города');
+				modal.find('.modal-body input#cityName').val('').prop('readOnly', false);
+				modal.find('form#addManualCityForm').attr('action', '/cabinet/addCity/');
+				modal.find('#action').text('Добавить');
+				modal.find('#delete').attr('href', '#.');
+				modal.find('#delete').hide();
 			}
-			modal.find('#action').click(function() { $('form#addManualCityForm').submit() })
-		})
-	})
+			modal.find('#action').click(function() { $('form#addManualCityForm').submit(); });
+		});
+	});
 
 	$('#addManualCity').on('shown.bs.modal', function() {
-		$(this).find('.modal-body input#cityName').focus()
-	})
+		$(this).find('.modal-body input#cityName').focus();
+	});
 
 	function forEachTariff(data, callback) {
 		for (var key in data) {

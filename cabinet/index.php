@@ -925,10 +925,10 @@ function uploadRubricsFile() {
 			$extractDir = dirname(__FILE__).$ds.'..'.$ds.md5(rand()).$ds;
 			$targetFile = $targetPath.$_FILES['file']['name'];
 			move_uploaded_file($tmpFile, $targetFile);
-			// $zip = new ZipArchive();
-			// $zip->open($targetFile);
-			// $zip->extractTo($extractDir);
-			$strings = simplexml_load_file('zip://'.$targetFile.'#xl/sharedStrings.xml');
+			$zip = new ZipArchive();
+			$zip->open($targetFile);
+			$zip->extractTo($extractDir);
+			$strings = simplexml_load_file($extractDir.'xl/sharedStrings.xml');
 			$sharedSettingsArr = array();
 			foreach ($strings->children() as $item) {
 				$sharedSettingsArr[] = (string)$item->t;

@@ -239,3 +239,22 @@ ol.progtrckr li.progtrckr-todo:before {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/**
+ * Dropzone
+ */
+.dropzone.dz-clickable {
+  cursor: pointer;
+}
+
+.dropzone {
+  border: 2px dashed #0087f7;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  min-height: 150px;
+  padding: 54px 54px;
+}
+
+.dropzone, .dropzone * {
+  box-sizing: border-box;
+}

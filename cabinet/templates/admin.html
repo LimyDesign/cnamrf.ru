@@ -393,6 +393,7 @@
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
 		RubricsDropzone.on('complete', function(file) {
+			console.log(file);
 			$('#tableRubrics tbody').find('tr').remove();
 			var rubrics = $.parseJSON(file.xhr.responseText),
 				leve2 = null, level3 = null;

@@ -181,7 +181,7 @@
 				<div class="well text-center">
 					<form action="/cabinet/updateRubricsList/" class="form-inline" method="post" id="updateRubricsForm">
 						<div class="form-group">
-							<label for="selectRubricsFile">Файл</label>
+							<label for="selectRubricsFile" class="sr-only">Файл</label>
 							<input type="file" id="selectRubriscsFile" name="rubricsFile">
 							{# <select name="selectCityRubrics" id="selectCityRubrics" class="form-control">
 								{% for city in city_datas %}
@@ -189,7 +189,7 @@
 								{% endfor %}
 							</select> #}
 						</div>
-						<button class="btn btn-primary">Загрузить файл</button>
+						<button class="btn btn-primary">Загрузить рубрикатор</button>
 					</form>
 				</div>
 				<table class="table table-responsive table-hover" id="tableRubrics">

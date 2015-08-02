@@ -101,6 +101,7 @@ switch ($cmd[0]) {
 		deleteCity($cmd[1]);
 		break;
 	case 'uploadRubricsFile':
+		uploadRubricsFile();
 		break;
 	case 'updateRubricsList':
 		updateRubricsList($cmd[1]);
@@ -907,6 +908,17 @@ function deleteCity($id) {
 			pg_query($query);
 			pg_close($db);
 			header("Location: /cabinet/admin/#2gis-city");
+		}
+	}
+}
+
+function uploadRubricsFile() {
+	global $conf;
+	if ($_SESSION['is_admin'] == 't') {
+		if ($conf['db']['type'] == 'postgres')
+		{
+			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+			echo json_encode('file' => $_FILES['file']['tmp_name']);
 		}
 	}
 }

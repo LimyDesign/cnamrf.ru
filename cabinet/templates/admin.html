@@ -388,10 +388,13 @@
 		$('#adminTab a[href="'+hash+'"]').tab('show');
 
 		Dropzone.autoDiscover = false;
-		$('#uploadCSV').dropzone({
+		var RubricsDropzone = new Dropzone('#uploadCSV', {
 			url: '/cabinet/uploadRubricsFile/',
 			acceptedFiles: 'text/csv',
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно, выберите CSV файл.'
+		});
+		RubricsDropzone.on('complete', function(res) {
+			console.log(res);
 		});
 
 		$('#changeDomain').change(function() {

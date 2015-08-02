@@ -435,7 +435,7 @@
 			}
 			else if ($(e.target).attr('href') == '#2gis-rubrics') {
 				$('#tableRubrics tbody').find('tr').remove();
-				$('#tableRubrics').find('tbody').append('<tr><td colspan="2" class="text-center info"><i class="fa fa-spinner fa-pulse"></i> Загружаю рубрикатор...</td></tr>')
+				$('#tableRubrics').find('tbody').append('<tr><td colspan="2" class="text-center info"><i class="fa fa-spinner fa-pulse"></i> Загружаю рубрикатор...</td></tr>');
 				$.get('/cabinet/getRubricList/', function(data) {
 					$('#tableRubrics tbody').find('tr').remove();
 					var leve2 = null, level3 = null;

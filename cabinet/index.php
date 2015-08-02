@@ -926,9 +926,9 @@ function uploadRubricsFile() {
 			move_uploaded_file($tmpFile, $targetFile);
 			$xml = simplexml_load_file('zip://'.$targetFile.'#xl/sharedSettings.xml');
 			$sharedSettingsArr = array();
-			foreach ($xml->children() as $item) {
-				$sharedSettingsArr[] = (string)$item->t;
-			}
+			// foreach ($xml->children() as $item) {
+			// 	$sharedSettingsArr[] = (string)$item->t;
+			// }
 			// if ($conf['db']['type'] == 'postgres')
 			// {
 			// 	$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());

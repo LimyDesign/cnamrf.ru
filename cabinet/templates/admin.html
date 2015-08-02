@@ -390,7 +390,8 @@
 		Dropzone.autoDiscover = false;
 		$('#uploadCSV').dropzone({
 			url: '/cabinet/uploadRubricsFile/',
-			acceptedFiles: 'text/csv'
+			acceptedFiles: 'text/csv',
+			dictInvalidFileType: 'Данный тип файла загрузить невозможно, выберите CSV файл.'
 		});
 
 		$('#changeDomain').change(function() {

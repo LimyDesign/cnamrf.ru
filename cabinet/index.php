@@ -918,7 +918,7 @@ function uploadRubricsFile() {
 		if ($conf['db']['type'] == 'postgres')
 		{
 			$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-			echo json_encode('file' => $_FILES['file']['tmp_name']);
+			echo json_encode(array('file' => $_FILES['file']['tmp_name']));
 		}
 	}
 }

@@ -393,8 +393,9 @@
 			acceptedFiles: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 			dictInvalidFileType: 'Данный тип файла загрузить невозможно.'
 		});
-		RubricsDropzone.on('complete', function(res) {
-			console.log(res);
+		RubricsDropzone.on('complete', function(file) {
+			console.log(file);
+			RubricsDropzone.removeFile(file);
 		});
 
 		$('#changeDomain').change(function() {

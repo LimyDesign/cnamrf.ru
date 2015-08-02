@@ -154,6 +154,7 @@ if ($_SESSION['auth'] === true)
 				$invoices_data = getInvoiceList();
 				$city_datas = getCityList();
 				$country_datas = getCountryList();
+				$total_rubrics = getTotalRubrics();
 				$time = microtime(true) - $start;
 				$timer = sprintf('%.4F', $time);
 				echo $twig->render('admin.html', array(
@@ -168,7 +169,8 @@ if ($_SESSION['auth'] === true)
 					'city_datas' => $city_datas,
 					'country_datas' => $country_datas,
 					'total_import' => $_GET['total'],
-					'total_insert' => $_GET['total_insert']
+					'total_insert' => $_GET['total_insert'],
+					'total_rubrics' => $total_rubrics
 					));
 				break;
 			case 'tariff':
@@ -1033,6 +1035,18 @@ function getRubricList() {
 	header("Content-Type: text/json");
 	echo json_encode($rubrics, JSON_UNESCAPED_UNICODE);
 	exit();
+}
+
+function getTotalRubrics() {
+	global $conf;
+	$total = 0;
+	if ($conf['db']['type'] == 'postgres') {
+		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
+		$query = "select count(id) from rubrics";
+		$result = pg_query($query);
+		$total = pg_fetch_result($result, 0, 0);
+	}
+	return $total;
 }
 
 function acceptInvoice($num) {

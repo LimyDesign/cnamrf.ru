@@ -1033,6 +1033,8 @@ function getRubricList() {
 			pg_close($db);
 		}
 	}
+	print_r($rubrics);
+	die();
 	header("Content-Type: text/json");
 	echo json_encode(array('rubrics' => $rubrics), JSON_UNESCAPED_UNICODE);
 	exit();

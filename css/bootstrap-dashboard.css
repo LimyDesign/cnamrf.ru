@@ -247,6 +247,11 @@ ol.progtrckr li.progtrckr-todo:before {
   cursor: pointer;
 }
 
+.dropzone.dz-clickable .dz-message,
+.dropzone.dz-clickable .dz-message * {
+  cursor: pointer;
+}
+
 .dropzone {
   border: 2px dashed #0087f7;
   border-radius: 5px;
@@ -257,4 +262,10 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .dropzone, .dropzone * {
   box-sizing: border-box;
+}
+
+.dropzone .dz-message {
+  font-weight: 400;
+  text-align: center;
+  margin: 2em 0;
 }

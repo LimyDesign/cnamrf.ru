@@ -18,7 +18,7 @@
 			<tbody>
 				{% for log_data in logs_data %}
 					<tr>
-						<td><span id="query">{{ log_data.phone }}{{ log_data.query }}</span></td>
+						<td><span id="query">{{ log_data.phone }}{{ log_data.query }}{{ log_data.json }}</span></td>
 						<td class="text-right moneyColumn">
 							{% if log_data.debet in '0.00' %}
 							{% else %}

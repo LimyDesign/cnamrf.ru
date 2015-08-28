@@ -18,7 +18,15 @@
 			<tbody>
 				{% for log_data in logs_data %}
 					<tr>
-						<td><span id="query">{{ log_data.phone }}{{ log_data.query }}</span>{{ log_data.cp }}</td>
+						<td>
+							<span id="query">
+								{{ log_data.phone }}
+								{{ log_data.query }}
+								{% if log_data.cp %}
+									<button type='button' class='btn btn-link btn-xs' data-toggle='modal' data-target='json_{{ log_data.id }}'>json</button><div class='modal' id='json_{$row['id']}' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Закрыть'><span aria-hidden='true'>&times;</span><button><h4 class='modal-title'>{{ log_data.cp }}</h4></div><div class='modal-body'><pre>{{ log_data.query }}</pre></div><div class='moda-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Закрыть</button></div></div></div></div>
+								{% endif}
+							</span>
+						</td>
 						<td class="text-right moneyColumn">
 							{% if log_data.debet in '0.00' %}
 							{% else %}

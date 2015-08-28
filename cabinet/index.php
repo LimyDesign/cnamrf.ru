@@ -1606,7 +1606,7 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['query'] = $row['text'];
 			$json_modal = "<button type='button' class='btn btn-link btn-xs' data-toggle='modal' data-target='json_{$row['id']}'>json</button><div class='modal' id='json_{$row['id']}' tabindex='-1' role='dialog'><div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Закрыть'><span aria-hidden='true'>&times;</span><button><h4 class='modal-title'>{$row['text']}</h4></div><div class='modal-body'><pre>{$row['companyprofile']}</pre></div><div class='moda-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Закрыть</button></div></div></div></div>";
-			$logs_data[$i]['json'] = $row['companyprofile'] ? $json_modal : '';
+			$logs_data[$i]['cp'] = $row['companyprofile'] ? $json_modal : '';
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));

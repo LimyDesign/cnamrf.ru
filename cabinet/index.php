@@ -1606,7 +1606,7 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 			$logs_data[$i]['id'] = $row['id'];
 			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['query'] = $row['text'];
-			$logs_data[$i]['cp'] = $row['companyprofile'];
+			$logs_data[$i]['cp'] = print_r(json_decode($row['companyprofile']), true);
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));

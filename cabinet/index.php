@@ -1582,7 +1582,7 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 	if ($conf['db']['type'] == 'postgres')
 	{
 		$db = pg_connect('dbname='.$conf['db']['database']) or die('Невозможно подключиться к БД: '.pg_last_error());
-		$query = "select log.id, log.phone, log.text, log.debet, log.credit, log.modtime, coalesce(log.client || invoices.invoice, log.client) as new_client, log.ip, cnam_cache.companyprofile from log left join invoices on log.invoice = invoices.id left join cnam_cache on log.id = cnam_cache.logid where log.uid = {$uid} order by log.modtime desc limit {$limit} offset {$offset}";
+		$query = "select log.id, log.phone, log.text, log.debet, log.credit, log.modtime, coalesce(log.client || invoices.invoice, log.client) as new_client, log.ip, cnam_cache.cp_id, cnam_cache.cp_hash, cnam_cache.lon, cnam_cache.lat from log left join invoices on log.invoice = invoices.id left join cnam_cache on log.id = cnam_cache.logid where log.uid = {$uid} order by log.modtime desc limit {$limit} offset {$offset}";
 		$result = pg_query($query);
 		$logs_data = array(); $i = 0;
 		while ($row = pg_fetch_assoc($result))
@@ -1603,10 +1603,17 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 					}
 				}
 			} else $phone = '';
+			if ($row['cp_id'] && $row['cp_hash'])
+			{
+				$query = "select json from cnam_cp where id = {$row['cp_id']} and hash = '".$row['cp_hash']."'";
+				$result = pg_query($query);
+				$cp_json = pg_fetch_result($result, 0, 'json');
+				$logs_data[$i]['cp'] = print_r(json_decode($cp_json), true);
+			}
+			$query = "select json from "
 			$logs_data[$i]['id'] = $row['id'];
 			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['query'] = $row['text'];
-			$logs_data[$i]['cp'] = print_r(json_decode($row['companyprofile']), true);
 			$logs_data[$i]['debet'] = number_format($row['debet'], 2, '.', ' ');
 			$logs_data[$i]['credit'] = number_format($row['credit'], 2, '.', ' ');
 			$logs_data[$i]['modtime'] = date('d.m.Y H:i:s', strtotime($row['modtime']));

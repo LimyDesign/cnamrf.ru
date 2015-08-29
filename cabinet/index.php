@@ -1605,9 +1605,9 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 			} else $phone = '';
 			if ($row['cp_id'] && $row['cp_hash'])
 			{
-				$query = "select json from cnam_cp where id = {$row['cp_id']} and hash = '".$row['cp_hash']."'";
-				$result = pg_query($query);
-				$cp_json = pg_fetch_result($result, 0, 'json');
+				$query_cp = "select json from cnam_cp where id = {$row['cp_id']} and hash = '".$row['cp_hash']."'";
+				$result_cp = pg_query($query_cp);
+				$cp_json = pg_fetch_result($result_cp, 0, 'json');
 				$logs_data[$i]['cp'] = print_r(json_decode($cp_json), true);
 			}
 			$logs_data[$i]['id'] = $row['id'];

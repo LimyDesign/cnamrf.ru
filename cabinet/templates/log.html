@@ -23,7 +23,10 @@
 								{{ log_data.phone }}
 								{{ log_data.query }}
 								{% if log_data.cp %}
-									<button type='button' class='btn btn-link btn-xs' data-toggle='modal' data-target='#json_{{ log_data.id }}'>profile.json</button><div class='modal' id='json_{{log_data.id}}' tabindex='-1' role='dialog'><div class='modal-dialog modal-lg' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Закрыть'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title'>{{ log_data.query }}</h4></div><div class='modal-body'><pre>{{ log_data.cp }}</pre></div><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Закрыть</button></div></div></div></div>
+									<button type='button' class='btn btn-link btn-xs' data-toggle='modal' data-target='#json_cp_{{ log_data.id }}'>profile.json</button><div class='modal' id='json_cp_{{log_data.id}}' tabindex='-1' role='dialog'><div class='modal-dialog modal-lg' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Закрыть'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title'>{{ log_data.query }}</h4></div><div class='modal-body'><pre>{{ log_data.cp }}</pre></div><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Закрыть</button></div></div></div></div>
+								{% endif %}
+								{% if log_data.geo %}
+									<button type='button' class='btn btn-link btn-xs' data-toggle='modal' data-target='#json_geo_{{ log_data.id }}'>profile.json</button><div class='modal' id='json_geo_{{log_data.id}}' tabindex='-1' role='dialog'><div class='modal-dialog modal-lg' role='document'><div class='modal-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-label='Закрыть'><span aria-hidden='true'>&times;</span></button><h4 class='modal-title'>{{ log_data.query }}</h4></div><div class='modal-body'><pre>{{ log_data.geo }}</pre></div><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>Закрыть</button></div></div></div></div>
 								{% endif %}
 							</span>
 						</td>

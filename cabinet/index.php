@@ -1610,6 +1610,13 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 				$cp_json = pg_fetch_result($result_cp, 0, 'json');
 				$logs_data[$i]['cp'] = print_r(json_decode($cp_json), true);
 			}
+			if ($row['lon'] && $row['lat'])
+			{
+				$query_geo = "select json from geodata where lon = '".$row['lon']."' and lat = '".$row['lat']."'";
+				$result_geo = pg_query($query_geo);
+				$gd_json = pg_fetch_result($result, 0, 'json');
+				$logs_data[$i]['geo'] = print_r(json_decode($gd_json), true);
+			}
 			$logs_data[$i]['id'] = $row['id'];
 			$logs_data[$i]['phone'] = $phone;
 			$logs_data[$i]['query'] = $row['text'];

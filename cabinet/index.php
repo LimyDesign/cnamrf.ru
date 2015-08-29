@@ -1614,7 +1614,7 @@ function getUserLogs($limit = 100, $offset = 0, $uid) {
 			{
 				$query_geo = "select json from geodata where lon = '".$row['lon']."' and lat = '".$row['lat']."'";
 				$result_geo = pg_query($query_geo);
-				$gd_json = pg_fetch_result($result, 0, 'json');
+				$gd_json = pg_fetch_result($result_geo, 0, 'json');
 				$logs_data[$i]['geo'] = print_r(json_decode($gd_json), true);
 			}
 			$logs_data[$i]['id'] = $row['id'];
